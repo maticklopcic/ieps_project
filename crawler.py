@@ -12,16 +12,23 @@ import logging
 import requests
 from urllib import robotparser
 from urllib.parse import urlparse, urlunparse
+import ssl
 
+ssl._create_default_https_context = ssl._create_unverified_context
 #logging.basicConfig(level=logging.INFO)
 WEB_DRIVER_LOCATION = "/home/matic/Documents/faks/mag_1.letnik/2_semester/ieps/geckodriver"
 TIMEOUT = 5
 
+#############################
+html_hash = open("html_hashes.txt", "a")
+urls_file = open("urls.txt", "a")
+##########
+
 frontier = queue.Queue()
-added_urls_set = {"https://www.gov.si/", "https://www.evem.gov.si/", "https://www.e-uprava.gov.si/", "https://www.e-prostor.gov.si/"}
-frontier.put("https://www.gov.si/")
+added_urls_set = {"https://www.gov.si/", "https://www.evem.gov.si/", "https://e-uprava.gov.si/", "https://www.e-prostor.gov.si/"}
 frontier.put("https://www.evem.gov.si/")
-frontier.put("https://www.e-uprava.gov.si/")
+frontier.put("https://www.gov.si/")
+frontier.put("https://e-uprava.gov.si/")
 frontier.put("https://www.e-prostor.gov.si/")
 
 firefox_options = FirefoxOptions()
@@ -57,6 +64,7 @@ def url_exists(url_link):
 
 def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
+        i = 0
         while not frontier.empty():
             web_address = frontier.get()
             print(f"Retrieving web page URL '{web_address}'")
@@ -73,13 +81,14 @@ def get_html_and_links(frontier):
 
                 for link in links:
                     href = link.get_attribute("href")
-                    href = remove_query_and_fragment(href)
-                    robots_url = get_robots_url(href)
+                    
                     start_time = time.time()
                     
                     #print(f"{robots_url}  {time.time() - start_time} seconds ---, ------>>>>> , ??? {exi}")
 
                     if href is not None and href[0:4] == "http":
+                        href = remove_query_and_fragment(href)
+                        robots_url = get_robots_url(href)
                         if href in added_urls_set:                  #checks if url was/is in frontier
                             continue
                         if url_exists(get_domain(robots_url)):
@@ -89,8 +98,13 @@ def get_html_and_links(frontier):
                         if allowance:
                             frontier.put(href)
                             added_urls_set.add(href)
+            
+            html_hash.write(str(hash(html)))
+            if i == 10:
+                urls_file.write(added_urls_set)
+                break
 
-            return html, links
+            i += 1
 
 def get_robots_url(url):
     return url + "robots.txt" 
@@ -115,9 +129,10 @@ def remove_query_and_fragment(url):
     return new_url
 
 
-html, links = get_html_and_links(frontier)
+get_html_and_links(frontier)
 print_frontier(frontier)
-
+html_hash.close()
+urls_file.close()
 
 
 
