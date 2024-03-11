@@ -28,7 +28,7 @@ CREATE TABLE crawldb.page (
     accessed_time        timestamp,
     hash_value           varchar(64),
     CONSTRAINT pk_page_id PRIMARY KEY (id),
-    CONSTRAINT unq_url_idx UNIQUE (url),
+    CONSTRAINT unq_url_idx UNIQUE (url)
 );
 
 CREATE INDEX "idx_page_site_id" ON crawldb.page ( site_id );
