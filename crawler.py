@@ -8,6 +8,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 import queue
 import logging
+import psycopg2
 
 import requests
 from urllib import robotparser
@@ -60,8 +61,41 @@ def url_exists(url_link):
         else:
             return False
     except requests.exceptions.RequestException:
-        return False
+        return False    
 
+def connect_to_db():
+    try:
+        # TUKAJ JE POTREBNO SPREMENITI PODATKE ZA DOSTOP DO BAZE
+        conn = psycopg2.connect(
+            dbname="crawlerdb",
+            user="postgres",
+            password="geslo",
+            host="localhost"
+        )
+        print(f"Connected to the database.")
+        return conn
+    except Exception as e:
+        print(f"Error connecting to the database: {e}")
+        return None
+    
+def save_page(site_id, url, html_content, page_hash, http_status_code, accessed_time, page_type_code='FRONTIER'):
+    conn = connect_to_db()
+    if conn is not None:
+        try:
+            with conn.cursor() as cur:
+                cur.execute("""
+                    INSERT INTO crawldb.page (site_id, url, html_content, hash_value, http_status_code, accessed_time, page_type_code)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (url) DO NOTHING;
+                """, (site_id, url, html_content, page_hash, http_status_code, accessed_time, page_type_code))
+                conn.commit()
+                print(f"Saved URL: {url} with title (as HTML content): {html_content} to the database")
+        except Exception as e:
+            print(f"Error saving page {url}: {e}")
+        finally:
+            conn.close()
+
+    
 def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
         i = 0
