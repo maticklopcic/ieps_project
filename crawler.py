@@ -20,8 +20,8 @@ WEB_DRIVER_LOCATION = "/home/matic/Documents/faks/mag_1.letnik/2_semester/ieps/g
 TIMEOUT = 5
 
 #############################
-html_hash = open("html_hashes.txt", "a")
-urls_file = open("urls.txt", "a")
+html_hash = open("html_hashes.txt", "w")
+urls_file = open("urls.txt", "w")
 ##########
 
 frontier = queue.Queue()
@@ -33,7 +33,6 @@ frontier.put("https://www.e-prostor.gov.si/")
 
 firefox_options = FirefoxOptions()
 firefox_options.add_argument("--headless")
-
 firefox_options.add_argument("user-agent=fri-ieps-42")
 
 def is_allowed(url, user_agent, robots_txt_url):
@@ -73,8 +72,10 @@ def get_html_and_links(frontier):
             if is_allowed(web_address, "*", robots_url):
                 crawl_delay = get_crawl_delay(robots_url)
                 wait = WebDriverWait(driver, crawl_delay)
-
-                driver.get(web_address)
+                try:
+                    driver.get(web_address)
+                except Exception as e:
+                    print(f"An exception occurred: {e}") 
 
                 html = driver.page_source
                 links = driver.find_elements(By.TAG_NAME, "a")
@@ -99,11 +100,12 @@ def get_html_and_links(frontier):
                             frontier.put(href)
                             added_urls_set.add(href)
             
-            html_hash.write(str(hash(html)))
+            html_hash.write(str(hash(html)) + '\n')
             if i == 10:
-                urls_file.write(added_urls_set)
+                for item in added_urls_set:
+                    urls_file.write(str(item) + "\n")
                 break
-
+                
             i += 1
 
 def get_robots_url(url):
