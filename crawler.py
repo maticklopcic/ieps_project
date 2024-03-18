@@ -15,6 +15,8 @@ from urllib import robotparser
 from urllib.parse import urlparse, urlunparse
 import ssl
 
+from datetime import datetime
+
 from DbLogic import DbLogic
 
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -68,6 +70,14 @@ def url_exists(url_link):
     except requests.exceptions.RequestException:
         return False    
 
+def get_response_code(url):
+    try:
+        response = requests.head(url)       #TODO: head ali get?
+        return response.status_code
+    except requests.exceptions.RequestException:
+        return False    
+
+
 def is_html(url):
     try:
         response = requests.head(url)
@@ -105,6 +115,7 @@ def get_url_extension(url):
 def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
         i = 0
+        old_robots_url = ""
         while not frontier.empty():
             web_address = frontier.get()
             print(f"{i}Retrieving web page URL '{web_address}'")
@@ -123,7 +134,6 @@ def get_html_and_links(frontier):
 
             for link in links:
                 href = link.get_attribute("href")
-                
                 start_time = time.time()
                 
                 #print(f"{robots_url}  {time.time() - start_time} seconds ---, ------>>>>> , ??? {exi}")
@@ -136,18 +146,28 @@ def get_html_and_links(frontier):
                             #dont read it, just save it as binary with extension
                             continue
                     href = remove_query_and_fragment(href)
-                    robots_url = get_robots_url(href)
+
                     if href in added_urls_set:                  #checks if url was/is in frontier
                         continue
-                    if url_exists(get_domain(robots_url)):
-                        allowance = is_allowed(href, "*", robots_url)
-                    else:
-                        allowance = True
+                    
+                    robots_url = "https://" + get_domain(href) + "/robots.txt"
+                    if robots_url != old_robots_url:
+                        old_robots_url = robots_url
+                        if url_exists(robots_url):
+                            allowance = is_allowed(href, "*", robots_url)
+                        else:
+                            allowance = True
                     if allowance:
                         frontier.put(href)
+                        html_hash = hash(html)
+                        response_status_code = get_response_code(href)
+                        timestamp = datetime.now()
+                        #Tukaj zdaj lhko polnis bazo s podatki: url = href, html_content = html, hash_value = html_hash, 
+                        #    http_status_code = response_status_code, accessed_time = timestamp
+                        #
                         added_urls_set.add(href)
             
-            html_hash.write(str(hash(html)) + '\n')
+            html_hash.write(str(html_hash) + '\n')
             if i == 100:
                 for item in added_urls_set:
                     urls_file.write(str(item) + "\n")
@@ -155,8 +175,6 @@ def get_html_and_links(frontier):
                 
             i += 1
 
-def get_robots_url(url):
-    return url + "robots.txt" 
 
 def print_frontier(frontier):
     for l in frontier.queue:
