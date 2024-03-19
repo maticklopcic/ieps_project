@@ -30,11 +30,8 @@ urls_file = open("urls.txt", "w")
 ##########
 
 frontier = queue.Queue()
-added_urls_set = {"https://www.gov.si/", "https://www.evem.gov.si/", "https://e-uprava.gov.si/", "https://www.e-prostor.gov.si/"}
-frontier.put("https://www.evem.gov.si/")
-frontier.put("https://www.gov.si/")
-frontier.put("https://e-uprava.gov.si/")
-frontier.put("https://www.e-prostor.gov.si/")
+#added_urls_set = {"https://www.gov.si/", "https://www.evem.gov.si/", "https://e-uprava.gov.si/", "https://www.e-prostor.gov.si/"}
+
 
 firefox_options = FirefoxOptions()
 firefox_options.add_argument("--headless")
@@ -120,19 +117,53 @@ def get_html_and_links(frontier):
         while not frontier.empty():
             web_address = frontier.get()
             print(f"{i}Retrieving web page URL '{web_address}'")
-
-            robots_url = web_address + "robots.txt"
-            #if is_allowed(web_address, "*", robots_url):
+            #KDAJ JE TREBA OCISTITI URL?
+            web_address = remove_query_and_fragment(web_address)
+            #TODO check da page se ni v bazi (za prve 4)
+            robots_url = "https://" + get_domain(web_address) + "/robots.txt"
+            if url_exists(robots_url):
+                allowance = is_allowed(web_address, "*", robots_url)
+            else:
+                allowance = True
+            if not allowance:
+                print(f"URL: {web_address} not allowed by robots.txt")
+                continue
+            print(f"URL: {web_address} allowed by robots.txt")
             crawl_delay = get_crawl_delay(robots_url)
             wait = WebDriverWait(driver, crawl_delay)
+            if db_logic.check_page_exists(web_address) is None:
+                print(f"URL: {web_address} not in database")
+                response_status_code = get_response_code(web_address)
+                if(200 <= response_status_code < 300):
+                    #frontier.put(web_address)
+                    db_logic.save_page_frontier(web_address, response_status_code, datetime.now())
             try:
                 driver.get(web_address)
             except Exception as e:
-                print(f"An exception occurred: {e}") 
-
+                print(f"Error retrieving web page URL '{web_address}'")
+                print(f"An exception occurred: {e}")
+                continue
+            response_status_code = get_response_code(web_address)
+            if not (200 <= response_status_code < 300):
+                print(f"URL: {web_address} returned status code: {response_status_code}")
+                continue
+            if web_address is not None and web_address[0:4] == "http":
+                if is_binary(web_address):
+                    extension = get_url_extension(web_address)
+                    if extension in ['.pdf', '.doc', '.docx', '.ppt', '.pptx']:
+                        print("Binary file: ", extension, "web: ", web_address)
+                        db_logic.save_page_binary(web_address)
+                        continue
+                #web_address = remove_query_and_fragment(web_address)
             html = driver.page_source
+            html_hash_value = hash(html)
+            #timestamp = datetime.now()
+            site_id = db_logic.check_site_exists(get_domain(web_address))
+            if site_id is None:
+                db_logic.save_site(get_domain(web_address), "")
+                site_id = db_logic.check_site_exists(get_domain(web_address))
+            db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML") #TODO PREVERI ZA DUPLIKATE!!!!
             links = driver.find_elements(By.TAG_NAME, "a")
-
             for link in links:
                 href = link.get_attribute("href")
                 start_time = time.time()
@@ -145,11 +176,13 @@ def get_html_and_links(frontier):
                         if extension in ['.pdf', '.doc', '.docx', '.ppt', '.pptx']:
                             print("Binary file: ", extension, "web: ", web_address)
                             #dont read it, just save it as binary with extension
+                            #if(response_status_code == 200):
+                            #db_logic.save_page_frontier(site_id, href, 200, timestamp, "BINARY")
                             continue
                     href = remove_query_and_fragment(href)
 
-                    if href in added_urls_set:                  #checks if url was/is in frontier
-                        continue
+                    #if href in added_urls_set:                  #checks if url was/is in frontier
+                    #    continue
                     
                     robots_url = "https://" + get_domain(href) + "/robots.txt"
                     if robots_url != old_robots_url:
@@ -159,21 +192,19 @@ def get_html_and_links(frontier):
                         else:
                             allowance = True
                     if allowance:
-                        frontier.put(href)
-                        html_hash_value = hash(html)
+
+                        #print(f"URL: {href} added to frontier.")
                         response_status_code = get_response_code(href)
-                        timestamp = datetime.now()
-                        #Tukaj zdaj lhko polnis bazo s podatki: url = href, html_content = html, hash_value = html_hash1, 
-                        #    http_status_code = response_status_code, accessed_time = timestamp
-                        #
-                        db_logic.save_page(1, href, html, html_hash_value, response_status_code, timestamp)
-                        added_urls_set.add(href)
+                        if(200 <= response_status_code < 300):
+                            frontier.put(href)
+                            db_logic.save_page_frontier(href, response_status_code, datetime.now())
+                        #added_urls_set.add(href)
             
             html_hash.write(str(html_hash_value) + '\n')
-            if i == 100:
-                for item in added_urls_set:
-                    urls_file.write(str(item) + "\n")
-                break
+            #if i == 100:
+            #    for item in added_urls_set:
+            #        urls_file.write(str(item) + "\n")
+            #    break
                 
             i += 1
 
@@ -197,9 +228,20 @@ def remove_query_and_fragment(url):
     new_url = urlunparse((scheme, netloc, path, params, '', ''))
     return new_url
 
-db_logic.save_site("gov.si", "")
+#db_logic.save_site("gov.si", "")
+frontier_raw = db_logic.get_frontier()
+
+if frontier_raw == []:
+    print("The list is empty.")
+    frontier.put("https://www.evem.gov.si/")
+    frontier.put("https://www.gov.si/")
+    frontier.put("https://e-uprava.gov.si/")
+    frontier.put("https://www.e-prostor.gov.si/")
+else:
+    for url in frontier_raw:
+        frontier.put(url[0])
+print("VSI URLJI V FRONTIERJU: ", frontier.queue)
 get_html_and_links(frontier)
-#print_frontier(frontier)
 html_hash.close()
 urls_file.close()
 
