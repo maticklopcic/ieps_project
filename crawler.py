@@ -21,11 +21,12 @@ from DbLogic import DbLogic
 
 ssl._create_default_https_context = ssl._create_unverified_context
 #logging.basicConfig(level=logging.INFO)
-WEB_DRIVER_LOCATION = "/home/matic/Documents/faks/mag_1.letnik/2_semester/ieps/geckodriver"
+#WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
+WEB_DRIVER_LOCATION = "ieps_project/geckodriver"
 TIMEOUT = 5
 
 #############################
-html_hashes_file = open("html_hashes.txt", "w")
+html_hashes_file = open("html_hashes.txt", "w", encoding="utf-8")
 urls_file = open("urls.txt", "w")
 ##########
 
@@ -119,6 +120,7 @@ def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
         i = 0
         old_robots_url = ""
+        html_hash_value = None
         while not frontier.empty():
             web_address = frontier.get()
             print(f"{i}Retrieving web page URL '{web_address}'")
@@ -166,9 +168,10 @@ def get_html_and_links(frontier):
                         frontier.put(href)
                         response_status_code = get_response_code(href)
                         timestamp = datetime.now()
-                        #Tukaj zdaj lhko polnis bazo s podatki: url = href, html_content = html, hash_value = html_hash, 
+                        #Tukaj zdaj lhko polnis bazo s podatki: url = href, html_content = html, hash_value = html_hash1, 
                         #    http_status_code = response_status_code, accessed_time = timestamp
                         #
+                        db_logic.save_page(1, href, html, html_hash_value, response_status_code, timestamp)
                         added_urls_set.add(href)
             
             html_hashes_file.write(str(html_hash) + '\n')
@@ -199,7 +202,7 @@ def remove_query_and_fragment(url):
     new_url = urlunparse((scheme, netloc, path, params, '', ''))
     return new_url
 
-
+db_logic.save_site("gov.si", "")
 get_html_and_links(frontier)
 #print_frontier(frontier)
 html_hashes_file.close()

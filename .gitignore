@@ -1,3 +1,5 @@
 geckodriver
 urls.txt
 html_hashes.txt
+*.exe
+*.pyc
