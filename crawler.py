@@ -25,16 +25,19 @@ WEB_DRIVER_LOCATION = "/home/matic/Documents/faks/mag_1.letnik/2_semester/ieps/g
 TIMEOUT = 5
 
 #############################
-html_hash = open("html_hashes.txt", "w")
+html_hashes_file = open("html_hashes.txt", "w")
 urls_file = open("urls.txt", "w")
 ##########
 
 frontier = queue.Queue()
 added_urls_set = {"https://www.gov.si/", "https://www.evem.gov.si/", "https://e-uprava.gov.si/", "https://www.e-prostor.gov.si/"}
-frontier.put("https://www.evem.gov.si/")
-frontier.put("https://www.gov.si/")
-frontier.put("https://e-uprava.gov.si/")
-frontier.put("https://www.e-prostor.gov.si/")
+#frontier.put("https://www.evem.gov.si/")
+#frontier.put("https://www.gov.si/")
+#frontier.put("https://e-uprava.gov.si/")
+#frontier.put("https://www.e-prostor.gov.si/")
+
+frontier.put("https://www.gov.si/sr/")
+frontier.put("https://www.gov.si/hr/")
 
 firefox_options = FirefoxOptions()
 firefox_options.add_argument("--headless")
@@ -130,6 +133,8 @@ def get_html_and_links(frontier):
                 print(f"An exception occurred: {e}") 
 
             html = driver.page_source
+            html_hash = hash(html)
+            print("web page: ", web_address, "html hash: ", html_hash)
             links = driver.find_elements(By.TAG_NAME, "a")
 
             for link in links:
@@ -159,7 +164,6 @@ def get_html_and_links(frontier):
                             allowance = True
                     if allowance:
                         frontier.put(href)
-                        html_hash = hash(html)
                         response_status_code = get_response_code(href)
                         timestamp = datetime.now()
                         #Tukaj zdaj lhko polnis bazo s podatki: url = href, html_content = html, hash_value = html_hash, 
@@ -167,8 +171,8 @@ def get_html_and_links(frontier):
                         #
                         added_urls_set.add(href)
             
-            html_hash.write(str(html_hash) + '\n')
-            if i == 100:
+            html_hashes_file.write(str(html_hash) + '\n')
+            if i == 1:
                 for item in added_urls_set:
                     urls_file.write(str(item) + "\n")
                 break
@@ -198,7 +202,7 @@ def remove_query_and_fragment(url):
 
 get_html_and_links(frontier)
 #print_frontier(frontier)
-html_hash.close()
+html_hashes_file.close()
 urls_file.close()
 
 
