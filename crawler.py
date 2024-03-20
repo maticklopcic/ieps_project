@@ -41,6 +41,15 @@ firefox_options.add_argument("user-agent=fri-ieps-42")
 db_logic = DbLogic()
 
 
+# TODO
+# dodaj robots.txt content v bazo
+# če se ne procesira pri continoue odstrani iz FRONTIRJA v bazi
+# poglej za duplikate v bazi
+# implementiraj paralelno obdelavo
+# poglej za ostale file (zip, rar, ...) -> binary
+# poglej elemente ki niso a in imajo href (onclick, ...)
+# from in to linki za page
+
 def is_allowed(url, user_agent, robots_txt_url):
     rp = robotparser.RobotFileParser()
     rp.set_url(robots_txt_url)
