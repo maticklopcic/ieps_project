@@ -10,10 +10,11 @@ class DbLogic:
         try:
             # Change the access details to your database here
             conn = psycopg2.connect(
-                dbname="crawldb",
+                dbname="crawlerdb",
                 user="postgres",
-                password="pw",  # Replace 'geslo' with your actual password
-                host="localhost"
+                #password="pw",  # Replace 'geslo' with your actual password
+                password="iepsDB",  
+                host="localhost",
             )
             print("Connected to the database.")
             return conn

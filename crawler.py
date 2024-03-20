@@ -9,6 +9,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 import queue
 import logging
 import psycopg2
+import sys
 
 import requests
 from urllib import robotparser
@@ -124,6 +125,7 @@ def get_html_and_links(frontier):
         while not frontier.empty():
             web_address = frontier.get()
             print(f"{i}Retrieving web page URL '{web_address}'")
+            sys.stdout.flush()
 
             robots_url = web_address + "robots.txt"
             #if is_allowed(web_address, "*", robots_url):
@@ -171,7 +173,7 @@ def get_html_and_links(frontier):
                         #Tukaj zdaj lhko polnis bazo s podatki: url = href, html_content = html, hash_value = html_hash1, 
                         #    http_status_code = response_status_code, accessed_time = timestamp
                         #
-                        db_logic.save_page(1, href, html, html_hash_value, response_status_code, timestamp)
+                        #db_logic.save_page(1, href, html, html_hash_value, response_status_code, timestamp)
                         added_urls_set.add(href)
             
             html_hashes_file.write(str(html_hash) + '\n')
@@ -202,7 +204,7 @@ def remove_query_and_fragment(url):
     new_url = urlunparse((scheme, netloc, path, params, '', ''))
     return new_url
 
-db_logic.save_site("gov.si", "")
+#db_logic.save_site("gov.si", "")
 get_html_and_links(frontier)
 #print_frontier(frontier)
 html_hashes_file.close()
