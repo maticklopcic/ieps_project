@@ -128,6 +128,7 @@ def get_html_and_links(frontier):
             if not allowance:
                 print(f"URL: {web_address} not allowed by robots.txt")
                 continue
+            # TODO vzemi iz frontirja (baza)
             print(f"URL: {web_address} allowed by robots.txt")
             crawl_delay = get_crawl_delay(robots_url)
             wait = WebDriverWait(driver, crawl_delay)
@@ -150,7 +151,7 @@ def get_html_and_links(frontier):
             if web_address is not None and web_address[0:4] == "http":
                 if is_binary(web_address):
                     extension = get_url_extension(web_address)
-                    if extension in ['.pdf', '.doc', '.docx', '.ppt', '.pptx']:
+                    if extension in ['.pdf', '.doc', '.docx', '.ppt', '.pptx']: # dodaj .zip in poglej za ostale file
                         print("Binary file: ", extension, "web: ", web_address)
                         db_logic.save_page_binary(web_address)
                         continue
@@ -164,6 +165,7 @@ def get_html_and_links(frontier):
                 site_id = db_logic.check_site_exists(get_domain(web_address))
             db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML") #TODO PREVERI ZA DUPLIKATE!!!!
             links = driver.find_elements(By.TAG_NAME, "a")
+            #TODO poglej elemente ki niso a in omajo href
             for link in links:
                 href = link.get_attribute("href")
                 start_time = time.time()

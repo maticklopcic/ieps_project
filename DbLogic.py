@@ -12,7 +12,7 @@ class DbLogic:
             conn = psycopg2.connect(
                 dbname="crawldb",
                 user="postgres",
-                password="Jure.2000",  # Replace 'geslo' with your actual password
+                password="pw",  # Replace 'geslo' with your actual password
                 host="localhost"
             )
             print("Connected to the database.")
