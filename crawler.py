@@ -44,11 +44,13 @@ db_logic = DbLogic()
 # TODO
 # dodaj robots.txt content v bazo
 # če se ne procesira pri continoue odstrani iz FRONTIRJA v bazi
-# poglej za duplikate v bazi
+# poglej za duplikate v bazi (ce je isti url ga ne damo v frontier; isti hash damo kot duplikat in damo link -> novo polje v db)
 # implementiraj paralelno obdelavo
+# sitemap
 # poglej za ostale file (zip, rar, ...) -> binary
 # poglej elemente ki niso a in imajo href (onclick, ...)
 # from in to linki za page
+# poglej za slike in dodaj v bazo
 
 def is_allowed(url, user_agent, robots_txt_url):
     rp = robotparser.RobotFileParser()
@@ -245,9 +247,22 @@ frontier_raw = db_logic.get_frontier()
 if frontier_raw == []:
     print("The list is empty.")
     frontier.put("https://www.evem.gov.si/")
+    response_status_code = get_response_code("https://www.evem.gov.si/")
+    if(200 <= response_status_code < 300):
+        db_logic.save_page_frontier("https://www.evem.gov.si/", response_status_code, datetime.now())
     frontier.put("https://www.gov.si/")
+    response_status_code = get_response_code("https://www.gov.si/")
+    if(200 <= response_status_code < 300):
+        db_logic.save_page_frontier("https://www.gov.si/", response_status_code, datetime.now())
     frontier.put("https://e-uprava.gov.si/")
+    response_status_code = get_response_code("https://e-uprava.gov.si/")
+    if(200 <= response_status_code < 300):
+        db_logic.save_page_frontier("https://e-uprava.gov.si/", response_status_code, datetime.now())
     frontier.put("https://www.e-prostor.gov.si/")
+    response_status_code = get_response_code("https://www.e-prostor.gov.si/")
+    if(200 <= response_status_code < 300):
+        db_logic.save_page_frontier("https://www.e-prostor.gov.si/", response_status_code, datetime.now())
+
 else:
     for url in frontier_raw:
         frontier.put(url[0])
