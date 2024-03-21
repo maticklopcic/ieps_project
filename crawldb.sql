@@ -28,8 +28,10 @@ CREATE TABLE crawldb.page (
     http_status_code     integer,
     accessed_time        timestamp,
     hash_value           varchar(64),
+	link_original        integer,
     CONSTRAINT pk_page_id PRIMARY KEY (id),
-    CONSTRAINT unq_url_idx UNIQUE (url)
+    CONSTRAINT unq_url_idx UNIQUE (url),
+	CONSTRAINT fk_page_link_original FOREIGN KEY (link_original) REFERENCES crawldb.page(id)
 );
 
 CREATE INDEX "idx_page_site_id" ON crawldb.page ( site_id );
@@ -96,3 +98,4 @@ INSERT INTO crawldb.page_type VALUES
 	('BINARY'),
 	('DUPLICATE'),
 	('FRONTIER');
+	('INVALID');

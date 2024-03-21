@@ -1,4 +1,5 @@
 geckodriver
+geckodriver.exe
 urls.txt
 html_hashes.txt
 *.exe
