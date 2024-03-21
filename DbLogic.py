@@ -31,7 +31,6 @@ class DbLogic:
                     cur.execute("SELECT url FROM crawldb.page WHERE page_type_code = 'FRONTIER' ORDER BY accessed_time ASC;")
                     for row in cur.fetchall():
                         urls.append(row[0])
-                    print(f"Frontier URLs in DB function: {urls}")
             except Exception as e:
                 print(f"Error getting frontier: {e}")
             finally:
