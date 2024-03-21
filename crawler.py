@@ -167,6 +167,8 @@ def get_html_and_links(frontier):
                     if extension in ['.pdf', '.doc', '.docx', '.ppt', '.pptx']: # dodaj .zip in poglej za ostale file
                         print("Binary file: ", extension, "web: ", web_address)
                         db_logic.save_page_binary(web_address)
+                        page_id = db_logic.check_page_exists(web_address)
+                        db_logic.save_page_data(page_id, extension)
                         
                         continue
                 #web_address = remove_query_and_fragment(web_address)
@@ -175,7 +177,7 @@ def get_html_and_links(frontier):
             #timestamp = datetime.now()
             site_id = db_logic.check_site_exists(get_domain(web_address))
             if site_id is None:
-                db_logic.save_site(get_domain(web_address), "")
+                db_logic.save_site(get_domain(web_address), "", "")
                 site_id = db_logic.check_site_exists(get_domain(web_address))
             link_original = db_logic.check_hash_exists(html_hash_value)
             if link_original is not None:
@@ -276,6 +278,8 @@ else:
         frontier.put(url)
 print("VSI URLJI V FRONTIERJU: ", frontier.queue)
 get_html_and_links(frontier)
+#db_logic.save_page_binary("https://www.gov.si/")
+#db_logic.save_page_data(1, ".pdf")
 html_hash.close()
 urls_file.close()
 

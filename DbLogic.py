@@ -188,6 +188,25 @@ class DbLogic:
             finally:
                 conn.close()
 
+    def save_page_data(self, page_id, data_type_code):
+        data_type_code_upper = data_type_code[1:].upper()
+        print(f"PAGE DATA: ID->{page_id}, Data type->{data_type_code_upper}")
+        conn = self.connect_to_db()
+        if conn is not None:
+            try:
+                with conn.cursor() as cur:
+                    cur.execute("""
+                        INSERT INTO crawldb.page_data (page_id, data_type_code)
+                        VALUES (%s, %s);
+                    """, (page_id, data_type_code_upper))
+                    conn.commit()
+                    print(f"Data type {data_type_code_upper} for page ID {page_id} has been saved to the database.")
+            except Exception as e:
+                print(f"Error saving page data: {e}")
+            finally:
+                conn.close()
+
+
 
     def save_site(self, domain, robots_content, sitemap_content):
         conn = self.connect_to_db()
