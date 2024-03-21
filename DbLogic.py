@@ -12,7 +12,7 @@ class DbLogic:
             conn = psycopg2.connect(
                 dbname="crawldb",
                 user="postgres",
-                password="pw",  # Replace 'geslo' with your actual password
+                password="Jure.2000",  # Replace 'geslo' with your actual password
                 host="localhost"
             )
             print("Connected to the database.")
@@ -36,6 +36,25 @@ class DbLogic:
             finally:
                 conn.close()
         return urls
+    
+    def check_hash_exists(self, page_hash):
+        conn = self.connect_to_db()
+        if conn is not None:
+            try:
+                with conn.cursor() as cur:
+                    # Ensure page_hash is treated as a string
+                    page_hash_str = str(page_hash)
+                    cur.execute("SELECT id FROM crawldb.page WHERE hash_value = %s;", (page_hash_str,))
+                    page_id = cur.fetchone()
+                    if page_id is not None:
+                        return page_id[0]
+                    else:
+                        return None
+            except Exception as e:
+                print(f"Error checking if hash exists: {e}")
+            finally:
+                conn.close()
+
 
     def check_page_exists(self, url):
         conn = self.connect_to_db()
@@ -127,6 +146,25 @@ class DbLogic:
             finally:
                 conn.close()
 
+    def save_page_duplicate(self, url, link_original):
+        conn = self.connect_to_db()
+        if conn is not None:
+            try:
+                with conn.cursor() as cur:
+                    cur.execute("""
+                        INSERT INTO crawldb.page_duplicate (url, link_original)
+                        VALUES (%s, %s)
+                        ON CONFLICT (url, link_original) DO UPDATE
+                                SET page_type_code = EXCLUDED.page_type_code
+                                SET page_type_code = EXCLUDED.page_type_code;;
+                    """, (url, link_original))
+                    conn.commit()
+                    print(f"Duplicate URL: {url} with link {link_original} has been saved to the database.")
+            except Exception as e:
+                print(f"Error saving duplicate page {url}: {e}")
+            finally:
+                conn.close()
+
     def save_page_binary(self, url):
         conn = self.connect_to_db()
         if conn is not None:
@@ -142,6 +180,24 @@ class DbLogic:
                     print(f"Binary URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving binary page {url}: {e}")
+            finally:
+                conn.close()
+
+    def save_page_invalid(self, url):
+        conn = self.connect_to_db()
+        if conn is not None:
+            try:
+                with conn.cursor() as cur:
+                    cur.execute("""
+                        INSERT INTO crawldb.page (url, page_type_code)
+                        VALUES (%s, 'INVALID')
+                        ON CONFLICT (url) DO UPDATE
+                        SET page_type_code = EXCLUDED.page_type_code;
+                    """, (url,))
+                    conn.commit()
+                    print(f"Invalid URL: {url} has been saved to the database.")
+            except Exception as e:
+                print(f"Error saving invalid page {url}: {e}")
             finally:
                 conn.close()
 
