@@ -1,3 +1,4 @@
+-- Active: 1710783358726@@127.0.0.1@5432@crawlerdb
 CREATE SCHEMA IF NOT EXISTS crawldb;
 
 CREATE TABLE crawldb.data_type ( 

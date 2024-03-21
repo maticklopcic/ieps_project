@@ -9,6 +9,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 import queue
 import logging
 import psycopg2
+import sys
 
 import requests
 from urllib import robotparser
@@ -21,7 +22,8 @@ from DbLogic import DbLogic
 
 ssl._create_default_https_context = ssl._create_unverified_context
 #logging.basicConfig(level=logging.INFO)
-WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
+#WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
+WEB_DRIVER_LOCATION = "ieps_project/geckodriver"
 TIMEOUT = 5
 
 #############################
@@ -40,6 +42,18 @@ firefox_options.add_argument("user-agent=fri-ieps-42")
 # database class instance
 db_logic = DbLogic()
 
+def get_html_content(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            print("Content of robots.txt:")
+            print(response.text)
+            return response.text
+        else:
+            print("Failed to fetch robots.txt. Status code:", response.status_code)
+    
+    except Exception as e:
+        print("Error while fetching robots.txt content:", e)
 
 # TODO
 # dodaj robots.txt content v bazo
@@ -52,11 +66,11 @@ db_logic = DbLogic()
 # from in to linki za page
 # poglej za slike in dodaj v bazo
 
-def is_allowed(url, user_agent, robots_txt_url):
+def is_allowed_and_sitemap(url, user_agent, robots_txt_url):
     rp = robotparser.RobotFileParser()
     rp.set_url(robots_txt_url)
     rp.read()
-    return rp.can_fetch(user_agent, url)
+    return rp.can_fetch(user_agent, url), rp.sitemaps
 
 def get_crawl_delay(robots_txt_url):
     rp = robotparser.RobotFileParser()
@@ -126,13 +140,19 @@ def get_html_and_links(frontier):
         old_robots_url = ""
         html_hash_value = None
         while not frontier.empty():
-            web_address = frontier.get()
+            web_address = "https://www.gov.si" #frontier.get()
             print(f"{i}Retrieving web page URL '{web_address}'")
             web_address = remove_query_and_fragment(web_address)
             #TODO check da page se ni v bazi (za prve 4)
             robots_url = "https://" + get_domain(web_address) + "/robots.txt"
+            robots_content = ""
+            sitemap_content = ""
+
             if url_exists(robots_url):
-                allowance = is_allowed(web_address, "*", robots_url)
+                allowance, all_sitemaps = is_allowed_and_sitemap(web_address, "*", robots_url)
+                robots_content = get_html_content(robots_url)
+                for sitemap in all_sitemaps:
+                    sitemap_content += get_html_content(sitemap)
             else:
                 allowance = True
             if not allowance:
@@ -177,7 +197,7 @@ def get_html_and_links(frontier):
             #timestamp = datetime.now()
             site_id = db_logic.check_site_exists(get_domain(web_address))
             if site_id is None:
-                db_logic.save_site(get_domain(web_address), "", "")
+                db_logic.save_site(get_domain(web_address), robots_content, "")
                 site_id = db_logic.check_site_exists(get_domain(web_address))
             link_original = db_logic.check_hash_exists(html_hash_value)
             if link_original is not None:
@@ -210,7 +230,8 @@ def get_html_and_links(frontier):
                     if robots_url != old_robots_url:
                         old_robots_url = robots_url
                         if url_exists(robots_url):
-                            allowance = is_allowed(href, "*", robots_url)
+                            allowance, all_sitemaps = is_allowed_and_sitemap(href, "*", robots_url)
+                            #TODO:all_sitemaps
                         else:
                             allowance = True
                     if allowance:

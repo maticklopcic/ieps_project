@@ -10,10 +10,11 @@ class DbLogic:
         try:
             # Change the access details to your database here
             conn = psycopg2.connect(
-                dbname="crawldb",
+                dbname="crawlerdb",
                 user="postgres",
-                password="Jure.2000",  # Replace 'geslo' with your actual password
-                host="localhost"
+                #password="pw",  # Replace 'geslo' with your actual password
+                password="iepsDB",  
+                host="localhost",
             )
             print("Connected to the database.")
             return conn
@@ -30,7 +31,6 @@ class DbLogic:
                     cur.execute("SELECT url FROM crawldb.page WHERE page_type_code = 'FRONTIER' ORDER BY accessed_time ASC;")
                     for row in cur.fetchall():
                         urls.append(row[0])
-                    print(f"Frontier URLs in DB function: {urls}")
             except Exception as e:
                 print(f"Error getting frontier: {e}")
             finally:
