@@ -330,6 +330,8 @@ else:
     for url in frontier_raw:
         frontier.put(url)
 get_html_and_links(frontier)
+#db_logic.save_page_binary("https://www.gov.si/")
+#db_logic.save_page_data(1, ".pdf")
 html_hash.close()
 urls_file.close()
 
