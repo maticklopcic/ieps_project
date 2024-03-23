@@ -54,8 +54,6 @@ def get_html_content(url):
     try:
         response = requests.get(url)
         if response.status_code == 200:
-            print("Content of robots.txt:")
-            print(response.text)
             return response.text
         else:
             print("Failed to fetch content of a web page. Status code:", response.status_code)
@@ -121,8 +119,8 @@ def binary_type(url):
     try:
         response = requests.head(url)
         content_type = response.headers.get('Content-Type', '')
-        #if "text/html" in content_type or '' in content_type:
-        #    return None
+        if "text/html" in content_type or '' in content_type:
+            return None
         if "application/pdf" in content_type:
             return BinaryType.PDF
         elif "application/msword" in content_type:
@@ -134,7 +132,7 @@ def binary_type(url):
         elif "application/vnd.openxmlformats-officedocument.presentationml.presentation" in content_type:
             return BinaryType.PPTX
         else:
-            return None
+            return BinaryType.OTHER
         
     except Exception as e:
         print("Error:", e)
@@ -182,7 +180,6 @@ def get_html_and_links(frontier):
                 db_logic.save_page_invalid(web_address)
                 continue
             # TODO vzemi iz frontirja (baza)
-            print(f"URL: {web_address} allowed by robots.txt")
             crawl_delay = get_crawl_delay(robots_url)
             wait = WebDriverWait(driver, crawl_delay)
             if db_logic.check_page_exists(web_address) is None:
@@ -205,7 +202,6 @@ def get_html_and_links(frontier):
                 continue
             if web_address is not None and web_address[0:4] == "http":
                 type = binary_type(web_address)
-                print("type of web page: ", web_address, type) 
                 if type is not None:
                     #TODO: jure, save binary file with type
                     db_logic.save_page_binary(web_address)
@@ -226,38 +222,18 @@ def get_html_and_links(frontier):
             db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML") #TODO PREVERI ZA DUPLIKATE!!!!
             links = driver.find_elements(By.TAG_NAME, "a")
 
-            """elements_with_onclick = driver.find_elements_by_xpath("//*[@onclick]")
-
-            # Extract links from onClick attributes
-            links = []
+            elements_with_onclick = driver.find_elements(By.XPATH, '//*[@href]')
+            # Extract links from other href attributes
             for element in elements_with_onclick:
-                onclick_attribute = element.get_attribute("onclick")
-                # Extract the URL from the onclick attribute (you may need to parse it)
-                # Here, we'll just assume the URL is a string within single or double quotes
-                url = onclick_attribute.split("'")[1] if "'" in onclick_attribute else onclick_attribute.split('"')[1]
-                links.append(url)"""
+                if element not in links:
+                    links.append(element)
 
-
-            #TODO poglej elemente ki niso a in omajo href
             for link in links:
                 href = link.get_attribute("href")
                 start_time = time.time()
                 
-                #print(f"{robots_url}  {time.time() - start_time} seconds ---, ------>>>>> , ??? {exi}")
-
                 if href is not None and href[0:4] == "http":
-                    #if is_binary(web_address):
-                    #   extension = get_url_extension(web_address)
-                    #    if extension in ['.pdf', '.doc', '.docx', '.ppt', '.pptx']:
-                            #print("Binary file: ", extension, "web: ", web_address)
-                            #dont read it, just save it as binary with extension
-                            #if(response_status_code == 200):
-                            #db_logic.save_page_frontier(site_id, href, 200, timestamp, "BINARY")
-                    #        continue
                     href = remove_query_and_fragment(href)
-
-                    #if href in added_urls_set:                  #checks if url was/is in frontier
-                    #    continue
                     
                     robots_url = "https://" + get_domain(href) + "/robots.txt"
                     if robots_url != old_robots_url:
@@ -268,7 +244,6 @@ def get_html_and_links(frontier):
                             allowance = True
                     if allowance:
 
-                        #print(f"URL: {href} added to frontier.")
                         response_status_code = get_response_code(href)
                         if(200 <= response_status_code < 300):
                             if db_logic.check_page_exists(href) is None:
