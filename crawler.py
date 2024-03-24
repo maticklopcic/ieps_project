@@ -41,6 +41,9 @@ class BinaryType(Enum):
     DOCX = 2
     PPT = 3
     PPTX = 4
+    JPG = 5
+    PNG = 6
+    SVG = 7
     OTHER = 99
 
 firefox_options = FirefoxOptions()
@@ -119,7 +122,7 @@ def binary_type(url):
     try:
         response = requests.head(url)
         content_type = response.headers.get('Content-Type', '')
-        if "text/html" in content_type or '' in content_type:
+        if "text/html" in content_type:
             return None
         if "application/pdf" in content_type:
             return BinaryType.PDF
@@ -131,6 +134,12 @@ def binary_type(url):
             return BinaryType.PPT
         elif "application/vnd.openxmlformats-officedocument.presentationml.presentation" in content_type:
             return BinaryType.PPTX
+        elif "image/jpeg" in content_type:
+            return BinaryType.JPG
+        elif "image/png" in content_type:
+            return BinaryType.PNG
+        elif "image/svg+xml" in content_type:
+            return BinaryType.SVG
         else:
             return BinaryType.OTHER
         
