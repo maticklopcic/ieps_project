@@ -126,15 +126,15 @@ def binary_type(url):
         if "text/html" in content_type:
             return None
         if "application/pdf" in content_type:
-            return BinaryType.PDF
+            return "PDF"
         elif "application/msword" in content_type:
-            return BinaryType.DOC
+            return "DOC"
         elif "application/vnd.openxmlformats-officedocument.wordprocessingml.document" in content_type:
-            return BinaryType.DOCX
+            return "DOCX"
         elif "application/vnd.ms-powerpoint" in content_type:
-            return BinaryType.PPT
+            return "PPT"
         elif "application/vnd.openxmlformats-officedocument.presentationml.presentation" in content_type:
-            return BinaryType.PPTX
+            return "PPTX"
         elif "image/jpeg" in content_type:
             return BinaryType.JPG
         elif "image/png" in content_type:
@@ -217,11 +217,14 @@ def get_html_and_links(frontier):
                 type = binary_type(web_address)
                 if type is not None:
                     print(f"BINARY TYPE: {type}")
-                    
-                    #TODO: jure, save binary file with type
-                    db_logic.save_page_binary(web_address)
-                    db_logic.save_page_data(pageId, type)
-                    continue
+                    if type == "PDF" or type == "DOC" or type == "DOCX" or type == "PPT" or type == "PPTX":
+                        db_logic.save_page_binary(web_address)
+                        db_logic.save_page_data(pageId, type)
+                        continue
+                    if type == BinaryType.JPG or type == BinaryType.PNG or type == BinaryType.SVG:
+                        db_logic.save_page_binary(web_address)
+                        # TODO save image data
+                        continue
                 
                 #web_address = remove_query_and_fragment(web_address)
             html = driver.page_source
