@@ -10,10 +10,10 @@ class DbLogic:
         try:
             # Change the access details to your database here
             self.conn = psycopg2.connect(
-                dbname="crawlerdb",
+                dbname="crawldb",
                 user="postgres",
                 #password="pw",  # Replace 'geslo' with your actual password
-                password="iepsDB",  
+                password="Jure.2000",  
                 host="localhost",
             )
             print("Connected to the database.")
@@ -25,10 +25,10 @@ class DbLogic:
         try:
             # Change the access details to your database here
             conn = psycopg2.connect(
-                dbname="crawlerdb",
+                dbname="crawldb",
                 user="postgres",
                 #password="pw",  # Replace 'geslo' with your actual password
-                password="iepsDB",  
+                password="Jure.2000",  
                 host="localhost",
             )
             print("Connected to the database.")
@@ -107,24 +107,35 @@ class DbLogic:
             #    conn.close()
 
 
-    def save_page_frontier(self, url, http_status_code, accessed_time):
-        #conn = self.connect_to_db()
+    def save_page_frontier(self, url, http_status_code, accessed_time, link_original=None):
         page_type_code = "FRONTIER"
+
+        # Start with base query parts that do not depend on link_original
+        query_columns = "url, http_status_code, accessed_time, page_type_code"
+        query_values = "%s, %s, %s, %s"
+        query_params = [url, http_status_code, accessed_time, page_type_code]
+
+        # If link_original is provided (and is not None), add it to the query
+        if link_original is not None:
+            query_columns += ", link_original"
+            query_values += ", %s"
+            query_params.append(link_original)
+
+        sql_query = f"""
+            INSERT INTO crawldb.page ({query_columns})
+            VALUES ({query_values})
+            ON CONFLICT (url) DO NOTHING;
+        """
 
         if self.conn is not None:
             try:
                 with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.page (url, http_status_code, accessed_time, page_type_code)
-                        VALUES (%s, %s, %s, %s)
-                        ON CONFLICT (url) DO NOTHING;
-                    """, (url, http_status_code, accessed_time, page_type_code))
+                    cur.execute(sql_query, query_params)
                     self.conn.commit()
                     print(f"Frontier URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving frontier page {url}: {e}")
-            #finally:
-            #    conn.close()
+
 
 
     def save_page_update(self, site_id, url, html_content, page_hash, page_type_code):
@@ -154,11 +165,10 @@ class DbLogic:
             try:
                 with self.conn.cursor() as cur:
                     cur.execute("""
-                        INSERT INTO crawldb.page_duplicate (url, link_original)
+                        INSERT INTO crawldb.page (url, link_original)
                         VALUES (%s, %s)
-                        ON CONFLICT (url, link_original) DO UPDATE
-                                SET page_type_code = EXCLUDED.page_type_code
-                                SET page_type_code = EXCLUDED.page_type_code;;
+                        ON CONFLICT (url) DO UPDATE
+                                SET page_type_code = EXCLUDED.page_type_code;
                     """, (url, link_original))
                     self.conn.commit()
                     print(f"Duplicate URL: {url} with link {link_original} has been saved to the database.")
@@ -166,6 +176,22 @@ class DbLogic:
                 print(f"Error saving duplicate page {url}: {e}")
             #finally:
             #    conn.close()
+                
+    def save_link_to(self, page_id, links):
+        if self.conn is not None:
+            try:
+                with self.conn.cursor() as cur:
+                    # Prepare the SQL query to update the link_to field
+                    cur.execute("""
+                        UPDATE crawldb.page
+                        SET link_to = %s
+                        WHERE id = %s;
+                    """, (links, page_id))
+                    self.conn.commit()
+                    print(f"Links for page ID {page_id} have been updated in the database.")
+            except Exception as e:
+                print(f"Error updating links for page ID {page_id}: {e}")
+
 
     def save_page_binary(self, url):
         #conn = self.connect_to_db()

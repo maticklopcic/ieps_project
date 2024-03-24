@@ -23,8 +23,8 @@ from DbLogic import DbLogic
 
 ssl._create_default_https_context = ssl._create_unverified_context
 #logging.basicConfig(level=logging.INFO)
-#WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
-WEB_DRIVER_LOCATION = "ieps_project/geckodriver"
+WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
+#WEB_DRIVER_LOCATION = "ieps_project/geckodriver"
 TIMEOUT = 5
 
 #############################
@@ -59,10 +59,11 @@ def get_html_content(url):
         if response.status_code == 200:
             return response.text
         else:
-            print("Failed to fetch content of a web page. Status code:", response.status_code)
-    
+            print("Failed to fetch robots.txt. Status code:", response.status_code)
+            return ""    
     except Exception as e:
-        print("Error while fetching content:", e)
+        print("Error while fetching robots.txt content:", e)
+        return ""
 
 # TODO
 # (DONE) dodaj robots.txt content v bazo
@@ -166,6 +167,7 @@ def get_url_extension(url):
 def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
         i = 0
+        links_ids = []
         old_robots_url = ""
         html_hash_value = None
         while not frontier.empty():
@@ -181,7 +183,8 @@ def get_html_and_links(frontier):
                 allowance, all_sitemaps = is_allowed_and_sitemap(web_address, "*", robots_url)
                 robots_content = get_html_content(robots_url)
                 for sitemap in all_sitemaps:
-                    sitemap_content += get_html_content(sitemap)
+                    if sitemap is not None:
+                        sitemap_content += get_html_content(sitemap)
             else:
                 allowance = True
             if not allowance:
@@ -192,11 +195,11 @@ def get_html_and_links(frontier):
             crawl_delay = get_crawl_delay(robots_url)
             wait = WebDriverWait(driver, crawl_delay)
             if db_logic.check_page_exists(web_address) is None:
-                print(f"URL: {web_address} not in database")
+                #print(f"URL: {web_address} not in database")
                 response_status_code = get_response_code(web_address)
                 if(200 <= response_status_code < 300):
                     #frontier.put(web_address)
-                    db_logic.save_page_frontier(web_address, response_status_code, datetime.now())
+                    db_logic.save_page_frontier(web_address, response_status_code, datetime.now(), )
             try:
                 driver.get(web_address)
             except Exception as e:
@@ -209,11 +212,15 @@ def get_html_and_links(frontier):
                 print(f"URL: {web_address} returned status code: {response_status_code}")
                 db_logic.save_page_invalid(web_address)
                 continue
+            pageId = db_logic.check_page_exists(web_address)
             if web_address is not None and web_address[0:4] == "http":
                 type = binary_type(web_address)
                 if type is not None:
+                    print(f"BINARY TYPE: {type}")
+                    
                     #TODO: jure, save binary file with type
                     db_logic.save_page_binary(web_address)
+                    db_logic.save_page_data(pageId, type)
                     continue
                 
                 #web_address = remove_query_and_fragment(web_address)
@@ -257,16 +264,11 @@ def get_html_and_links(frontier):
                         if(200 <= response_status_code < 300):
                             if db_logic.check_page_exists(href) is None:
                                 frontier.put(href)
-                                db_logic.save_page_frontier(href, response_status_code, datetime.now())
+                                db_logic.save_page_frontier(href, response_status_code, datetime.now(), pageId)
+                                pageIDFrontier = db_logic.check_page_exists(href)
+                                links_ids.append(pageIDFrontier)
                         #added_urls_set.add(href)
-            
-            html_hash.write(str(html_hash_value) + '\n')
-            #if i == 100:
-            #    for item in added_urls_set:
-            #        urls_file.write(str(item) + "\n")
-            #    break
-                
-            i += 1
+            db_logic.save_link_to(pageId, links_ids)
 
 
 def print_frontier(frontier):
@@ -293,10 +295,10 @@ frontier_raw = db_logic.get_frontier()
 
 if frontier_raw == []:
     print("The list is empty.")
-    frontier.put("https://www.evem.gov.si/")
-    response_status_code = get_response_code("https://www.evem.gov.si/")
+    frontier.put("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf")
+    response_status_code = get_response_code("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf")
     if(200 <= response_status_code < 300):
-        db_logic.save_page_frontier("https://www.evem.gov.si/", response_status_code, datetime.now())
+        db_logic.save_page_frontier("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf", response_status_code, datetime.now())
     frontier.put("https://www.gov.si/")
     response_status_code = get_response_code("https://www.gov.si/")
     if(200 <= response_status_code < 300):
