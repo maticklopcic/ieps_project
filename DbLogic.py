@@ -230,7 +230,8 @@ class DbLogic:
             #    conn.close()
 
     def save_page_data(self, page_id, data_type_code):
-        data_type_code_upper = data_type_code[1:].upper()
+
+        data_type_code_upper = data_type_code.upper()
         print(f"PAGE DATA: ID->{page_id}, Data type->{data_type_code_upper}")
         #conn = self.connect_to_db()
         if self.conn is not None:
