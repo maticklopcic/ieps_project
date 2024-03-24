@@ -22,8 +22,8 @@ from DbLogic import DbLogic
 
 ssl._create_default_https_context = ssl._create_unverified_context
 #logging.basicConfig(level=logging.INFO)
-#WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
-WEB_DRIVER_LOCATION = "ieps_project/geckodriver"
+WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
+#WEB_DRIVER_LOCATION = "ieps_project/geckodriver"
 TIMEOUT = 5
 
 #############################
@@ -51,9 +51,10 @@ def get_html_content(url):
             return response.text
         else:
             print("Failed to fetch robots.txt. Status code:", response.status_code)
-    
+            return ""    
     except Exception as e:
         print("Error while fetching robots.txt content:", e)
+        return ""
 
 # TODO
 # dodaj robots.txt content v bazo
@@ -140,7 +141,7 @@ def get_html_and_links(frontier):
         old_robots_url = ""
         html_hash_value = None
         while not frontier.empty():
-            web_address = "https://www.gov.si" #frontier.get()
+            web_address = frontier.get()#"https://www.gov.si" #
             print(f"{i}Retrieving web page URL '{web_address}'")
             web_address = remove_query_and_fragment(web_address)
             #TODO check da page se ni v bazi (za prve 4)
@@ -152,7 +153,8 @@ def get_html_and_links(frontier):
                 allowance, all_sitemaps = is_allowed_and_sitemap(web_address, "*", robots_url)
                 robots_content = get_html_content(robots_url)
                 for sitemap in all_sitemaps:
-                    sitemap_content += get_html_content(sitemap)
+                    if sitemap is not None:
+                        sitemap_content += get_html_content(sitemap)
             else:
                 allowance = True
             if not allowance:

@@ -10,10 +10,10 @@ class DbLogic:
         try:
             # Change the access details to your database here
             conn = psycopg2.connect(
-                dbname="crawlerdb",
+                dbname="crawldb",
                 user="postgres",
                 #password="pw",  # Replace 'geslo' with your actual password
-                password="iepsDB",  
+                password="Jure.2000",  
                 host="localhost",
             )
             print("Connected to the database.")
@@ -139,11 +139,10 @@ class DbLogic:
             try:
                 with conn.cursor() as cur:
                     cur.execute("""
-                        INSERT INTO crawldb.page_duplicate (url, link_original)
+                        INSERT INTO crawldb.page (url, link_original)
                         VALUES (%s, %s)
-                        ON CONFLICT (url, link_original) DO UPDATE
-                                SET page_type_code = EXCLUDED.page_type_code
-                                SET page_type_code = EXCLUDED.page_type_code;;
+                        ON CONFLICT (url) DO UPDATE
+                                SET page_type_code = EXCLUDED.page_type_code;
                     """, (url, link_original))
                     conn.commit()
                     print(f"Duplicate URL: {url} with link {link_original} has been saved to the database.")
