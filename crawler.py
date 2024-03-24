@@ -248,7 +248,7 @@ def get_html_and_links(frontier):
                 href = link.get_attribute("href")
                 start_time = time.time()
                 
-                if href is not None and href[0:4] == "http":
+                if href is not None and href[0:4] == "http" and '.gov.si' in href:
                     href = remove_query_and_fragment(href)
                     
                     robots_url = "https://" + get_domain(href) + "/robots.txt"
