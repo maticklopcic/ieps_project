@@ -6,6 +6,21 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 class DbLogic:
+    def __init__(self) -> None:
+        try:
+            # Change the access details to your database here
+            self.conn = psycopg2.connect(
+                dbname="crawlerdb",
+                user="postgres",
+                #password="pw",  # Replace 'geslo' with your actual password
+                password="iepsDB",  
+                host="localhost",
+            )
+            print("Connected to the database.")
+        except Exception as e:
+            print(f"Error connecting to the database: {e}")
+            return None
+        
     def connect_to_db(self):
         try:
             # Change the access details to your database here
@@ -23,25 +38,25 @@ class DbLogic:
             return None
         
     def get_frontier(self):
-        conn = self.connect_to_db()
+        ##conn = self.connect_to_db()
         urls = []
-        if conn is not None:
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("SELECT url FROM crawldb.page WHERE page_type_code = 'FRONTIER' ORDER BY accessed_time ASC;")
                     for row in cur.fetchall():
                         urls.append(row[0])
             except Exception as e:
                 print(f"Error getting frontier: {e}")
-            finally:
-                conn.close()
+            #finally:
+                #self.conn.close()
         return urls
     
     def check_hash_exists(self, page_hash):
-        conn = self.connect_to_db()
-        if conn is not None:
+        ##conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     # Ensure page_hash is treated as a string
                     page_hash_str = str(page_hash)
                     cur.execute("SELECT id FROM crawldb.page WHERE hash_value = %s;", (page_hash_str,))
@@ -52,18 +67,18 @@ class DbLogic:
                         return None
             except Exception as e:
                 print(f"Error checking if hash exists: {e}")
-            finally:
-                conn.close()
+            #finally:
+             #   conn.close()
 
     def insert_image():
         return
 
 
     def check_page_exists(self, url):
-        conn = self.connect_to_db()
-        if conn is not None:
+        #conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("SELECT id FROM crawldb.page WHERE url = %s;", (url,))
                     page_id = cur.fetchone()
                     if page_id is not None:
@@ -72,14 +87,14 @@ class DbLogic:
                         return None
             except Exception as e:
                 print(f"Error checking if page exists: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
         
     def check_site_exists(self, domain):
-        conn = self.connect_to_db()
-        if conn is not None:
+        #conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("SELECT id FROM crawldb.site WHERE domain = %s;", (domain,))
                     site_id = cur.fetchone()
                     if site_id is not None:
@@ -88,35 +103,35 @@ class DbLogic:
                         return None
             except Exception as e:
                 print(f"Error checking if site exists: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
 
 
     def save_page_frontier(self, url, http_status_code, accessed_time):
-        conn = self.connect_to_db()
+        #conn = self.connect_to_db()
         page_type_code = "FRONTIER"
 
-        if conn is not None:
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("""
                         INSERT INTO crawldb.page (url, http_status_code, accessed_time, page_type_code)
                         VALUES (%s, %s, %s, %s)
                         ON CONFLICT (url) DO NOTHING;
                     """, (url, http_status_code, accessed_time, page_type_code))
-                    conn.commit()
+                    self.conn.commit()
                     print(f"Frontier URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving frontier page {url}: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
 
 
     def save_page_update(self, site_id, url, html_content, page_hash, page_type_code):
-        conn = self.connect_to_db()
-        if conn is not None:
+        #conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("""
                         INSERT INTO crawldb.page (site_id, url, html_content, hash_value, page_type_code)
                         VALUES (%s, %s, %s, %s, %s)
@@ -126,102 +141,102 @@ class DbLogic:
                             hash_value = EXCLUDED.hash_value,
                             page_type_code = EXCLUDED.page_type_code;
                     """, (site_id, url, html_content, page_hash, page_type_code))
-                    conn.commit()
+                    self.conn.commit()
                     print(f"PAGE UPDATE: {url} in the database.")
             except Exception as e:
                 print(f"Error saving page {url}: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
 
     def save_page_duplicate(self, url, link_original):
-        conn = self.connect_to_db()
-        if conn is not None:
+        #conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("""
                         INSERT INTO crawldb.page (url, link_original)
                         VALUES (%s, %s)
                         ON CONFLICT (url) DO UPDATE
                                 SET page_type_code = EXCLUDED.page_type_code;
                     """, (url, link_original))
-                    conn.commit()
+                    self.conn.commit()
                     print(f"Duplicate URL: {url} with link {link_original} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving duplicate page {url}: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
 
     def save_page_binary(self, url):
-        conn = self.connect_to_db()
-        if conn is not None:
+        #conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("""
                         INSERT INTO crawldb.page (url, page_type_code)
                         VALUES (%s, 'BINARY')
                         ON CONFLICT (url) DO UPDATE
                         SET page_type_code = EXCLUDED.page_type_code;
                     """, (url,))
-                    conn.commit()
+                    self.conn.commit()
                     print(f"Binary URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving binary page {url}: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
 
     def save_page_invalid(self, url):
-        conn = self.connect_to_db()
-        if conn is not None:
+        #conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("""
                         INSERT INTO crawldb.page (url, page_type_code)
                         VALUES (%s, 'INVALID')
                         ON CONFLICT (url) DO UPDATE
                         SET page_type_code = EXCLUDED.page_type_code;
                     """, (url,))
-                    conn.commit()
+                    self.conn.commit()
                     print(f"Invalid URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving invalid page {url}: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
 
     def save_page_data(self, page_id, data_type_code):
         data_type_code_upper = data_type_code[1:].upper()
         print(f"PAGE DATA: ID->{page_id}, Data type->{data_type_code_upper}")
-        conn = self.connect_to_db()
-        if conn is not None:
+        #conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("""
                         INSERT INTO crawldb.page_data (page_id, data_type_code)
                         VALUES (%s, %s);
                     """, (page_id, data_type_code_upper))
-                    conn.commit()
+                    self.conn.commit()
                     print(f"Data type {data_type_code_upper} for page ID {page_id} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving page data: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
 
 
 
     def save_site(self, domain, robots_content, sitemap_content):
-        conn = self.connect_to_db()
-        if conn is not None:
+        #conn = self.connect_to_db()
+        if self.conn is not None:
             try:
-                with conn.cursor() as cur:
+                with self.conn.cursor() as cur:
                     cur.execute("""
                         INSERT INTO crawldb.site (domain, robots_content, sitemap_content)
                         VALUES (%s, %s, %s)
                         RETURNING id;
                     """, (domain, robots_content, sitemap_content))
                     site_id = cur.fetchone()[0]
-                    conn.commit()
+                    self.conn.commit()
                     print(f"Site with domain {domain} and ID {site_id} has been saved to the database.")
                     return site_id
             except Exception as e:
                 print(f"Error saving site {domain}: {e}")
-            finally:
-                conn.close()
+            #finally:
+            #    conn.close()
