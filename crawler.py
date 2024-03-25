@@ -20,6 +20,10 @@ import ssl
 from datetime import datetime
 
 from DbLogic import DbLogic
+import concurrent.futures
+import threading
+
+lock = threading.Lock()
 
 ssl._create_default_https_context = ssl._create_unverified_context
 #logging.basicConfig(level=logging.INFO)

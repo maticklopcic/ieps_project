@@ -1,6 +1,9 @@
 import psycopg2
 import sys
 import io
+import threading
+
+lock = threading.Lock()
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
@@ -42,10 +45,11 @@ class DbLogic:
         urls = []
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("SELECT url FROM crawldb.page WHERE page_type_code = 'FRONTIER' ORDER BY accessed_time ASC;")
-                    for row in cur.fetchall():
-                        urls.append(row[0])
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("SELECT url FROM crawldb.page WHERE page_type_code = 'FRONTIER' ORDER BY accessed_time ASC;")
+                        for row in cur.fetchall():
+                            urls.append(row[0])
             except Exception as e:
                 print(f"Error getting frontier: {e}")
             #finally:
@@ -56,15 +60,16 @@ class DbLogic:
         ##conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    # Ensure page_hash is treated as a string
-                    page_hash_str = str(page_hash)
-                    cur.execute("SELECT id FROM crawldb.page WHERE hash_value = %s;", (page_hash_str,))
-                    page_id = cur.fetchone()
-                    if page_id is not None:
-                        return page_id[0]
-                    else:
-                        return None
+                with lock:
+                    with self.conn.cursor() as cur:
+                        # Ensure page_hash is treated as a string
+                        page_hash_str = str(page_hash)
+                        cur.execute("SELECT id FROM crawldb.page WHERE hash_value = %s;", (page_hash_str,))
+                        page_id = cur.fetchone()
+                        if page_id is not None:
+                            return page_id[0]
+                        else:
+                            return None
             except Exception as e:
                 print(f"Error checking if hash exists: {e}")
             #finally:
@@ -78,13 +83,14 @@ class DbLogic:
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("SELECT id FROM crawldb.page WHERE url = %s;", (url,))
-                    page_id = cur.fetchone()
-                    if page_id is not None:
-                        return page_id[0]
-                    else:
-                        return None
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("SELECT id FROM crawldb.page WHERE url = %s;", (url,))
+                        page_id = cur.fetchone()
+                        if page_id is not None:
+                            return page_id[0]
+                        else:
+                            return None
             except Exception as e:
                 print(f"Error checking if page exists: {e}")
             #finally:
@@ -94,13 +100,14 @@ class DbLogic:
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("SELECT id FROM crawldb.site WHERE domain = %s;", (domain,))
-                    site_id = cur.fetchone()
-                    if site_id is not None:
-                        return site_id[0]
-                    else:
-                        return None
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("SELECT id FROM crawldb.site WHERE domain = %s;", (domain,))
+                        site_id = cur.fetchone()
+                        if site_id is not None:
+                            return site_id[0]
+                        else:
+                            return None
             except Exception as e:
                 print(f"Error checking if site exists: {e}")
             #finally:
@@ -129,10 +136,11 @@ class DbLogic:
 
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute(sql_query, query_params)
-                    self.conn.commit()
-                    print(f"Frontier URL: {url} has been saved to the database.")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute(sql_query, query_params)
+                        self.conn.commit()
+                        print(f"Frontier URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving frontier page {url}: {e}")
 
@@ -142,18 +150,19 @@ class DbLogic:
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.page (site_id, url, html_content, hash_value, page_type_code)
-                        VALUES (%s, %s, %s, %s, %s)
-                        ON CONFLICT (url) DO UPDATE 
-                        SET site_id = EXCLUDED.site_id,
-                            html_content = EXCLUDED.html_content,
-                            hash_value = EXCLUDED.hash_value,
-                            page_type_code = EXCLUDED.page_type_code;
-                    """, (site_id, url, html_content, page_hash, page_type_code))
-                    self.conn.commit()
-                    print(f"PAGE UPDATE: {url} in the database.")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO crawldb.page (site_id, url, html_content, hash_value, page_type_code)
+                            VALUES (%s, %s, %s, %s, %s)
+                            ON CONFLICT (url) DO UPDATE 
+                            SET site_id = EXCLUDED.site_id,
+                                html_content = EXCLUDED.html_content,
+                                hash_value = EXCLUDED.hash_value,
+                                page_type_code = EXCLUDED.page_type_code;
+                        """, (site_id, url, html_content, page_hash, page_type_code))
+                        self.conn.commit()
+                        print(f"PAGE UPDATE: {url} in the database.")
             except Exception as e:
                 print(f"Error saving page {url}: {e}")
             #finally:
@@ -163,15 +172,16 @@ class DbLogic:
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.page (url, link_original)
-                        VALUES (%s, %s)
-                        ON CONFLICT (url) DO UPDATE
-                                SET page_type_code = EXCLUDED.page_type_code;
-                    """, (url, link_original))
-                    self.conn.commit()
-                    print(f"Duplicate URL: {url} with link {link_original} has been saved to the database.")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO crawldb.page (url, link_original)
+                            VALUES (%s, %s)
+                            ON CONFLICT (url) DO UPDATE
+                                    SET page_type_code = EXCLUDED.page_type_code;
+                        """, (url, link_original))
+                        self.conn.commit()
+                        print(f"Duplicate URL: {url} with link {link_original} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving duplicate page {url}: {e}")
             #finally:
@@ -180,15 +190,16 @@ class DbLogic:
     def save_link_to(self, page_id, links):
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    # Prepare the SQL query to update the link_to field
-                    cur.execute("""
-                        UPDATE crawldb.page
-                        SET link_to = %s
-                        WHERE id = %s;
-                    """, (links, page_id))
-                    self.conn.commit()
-                    print(f"Links for page ID {page_id} have been updated in the database.")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        # Prepare the SQL query to update the link_to field
+                        cur.execute("""
+                            UPDATE crawldb.page
+                            SET link_to = %s
+                            WHERE id = %s;
+                        """, (links, page_id))
+                        self.conn.commit()
+                        print(f"Links for page ID {page_id} have been updated in the database.")
             except Exception as e:
                 print(f"Error updating links for page ID {page_id}: {e}")
 
@@ -197,15 +208,16 @@ class DbLogic:
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.page (url, page_type_code)
-                        VALUES (%s, 'BINARY')
-                        ON CONFLICT (url) DO UPDATE
-                        SET page_type_code = EXCLUDED.page_type_code;
-                    """, (url,))
-                    self.conn.commit()
-                    print(f"Binary URL: {url} has been saved to the database.")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO crawldb.page (url, page_type_code)
+                            VALUES (%s, 'BINARY')
+                            ON CONFLICT (url) DO UPDATE
+                            SET page_type_code = EXCLUDED.page_type_code;
+                        """, (url,))
+                        self.conn.commit()
+                        print(f"Binary URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving binary page {url}: {e}")
             #finally:
@@ -215,15 +227,16 @@ class DbLogic:
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.page (url, page_type_code)
-                        VALUES (%s, 'INVALID')
-                        ON CONFLICT (url) DO UPDATE
-                        SET page_type_code = EXCLUDED.page_type_code;
-                    """, (url,))
-                    self.conn.commit()
-                    print(f"Invalid URL: {url} has been saved to the database.")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO crawldb.page (url, page_type_code)
+                            VALUES (%s, 'INVALID')
+                            ON CONFLICT (url) DO UPDATE
+                            SET page_type_code = EXCLUDED.page_type_code;
+                        """, (url,))
+                        self.conn.commit()
+                        print(f"Invalid URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving invalid page {url}: {e}")
             #finally:
@@ -236,13 +249,14 @@ class DbLogic:
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.page_data (page_id, data_type_code)
-                        VALUES (%s, %s);
-                    """, (page_id, data_type_code_upper))
-                    self.conn.commit()
-                    print(f"Data type {data_type_code_upper} for page ID {page_id} has been saved to the database.")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO crawldb.page_data (page_id, data_type_code)
+                            VALUES (%s, %s);
+                        """, (page_id, data_type_code_upper))
+                        self.conn.commit()
+                        print(f"Data type {data_type_code_upper} for page ID {page_id} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving page data: {e}")
             #finally:
@@ -254,16 +268,17 @@ class DbLogic:
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.site (domain, robots_content, sitemap_content)
-                        VALUES (%s, %s, %s)
-                        RETURNING id;
-                    """, (domain, robots_content, sitemap_content))
-                    site_id = cur.fetchone()[0]
-                    self.conn.commit()
-                    print(f"Site with domain {domain} and ID {site_id} has been saved to the database.")
-                    return site_id
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO crawldb.site (domain, robots_content, sitemap_content)
+                            VALUES (%s, %s, %s)
+                            RETURNING id;
+                        """, (domain, robots_content, sitemap_content))
+                        site_id = cur.fetchone()[0]
+                        self.conn.commit()
+                        print(f"Site with domain {domain} and ID {site_id} has been saved to the database.")
+                        return site_id
             except Exception as e:
                 print(f"Error saving site {domain}: {e}")
             #finally:
