@@ -222,8 +222,21 @@ def get_html_and_links(frontier):
                         db_logic.save_page_data(pageId, type)
                         continue
                     if type == BinaryType.JPG or type == BinaryType.PNG or type == BinaryType.SVG:
+                        print(f"IMAGE: {type}")
                         db_logic.save_page_binary(web_address)
-                        #db_logic.insert_image(site_id, "filename", "content-type", "data", datetime.now())
+                        imageId = db_logic.check_page_exists(web_address)
+                        filename = web_address.split("/")[-1]
+                        type_string = ""
+                        if type == BinaryType.JPG:
+                            type_string = "JPG"
+                        elif type == BinaryType.PNG:
+                            type_string = "PNG"
+                        elif type == BinaryType.SVG:
+                            type_string = "SVG"
+
+                        print(f"IMAGE NAME: {filename}")
+                        print(f"IMAGE TYPE: {type_string}")
+                        db_logic.insert_image(imageId, filename, type_string, datetime.now())
                         continue
                 
                 #web_address = remove_query_and_fragment(web_address)
@@ -300,10 +313,10 @@ frontier_raw = db_logic.get_frontier()
 
 if frontier_raw == []:
     print("The list is empty.")
-    frontier.put("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf")
-    response_status_code = get_response_code("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf")
+    frontier.put("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
+    response_status_code = get_response_code("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
     if(200 <= response_status_code < 300):
-        db_logic.save_page_frontier("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf", response_status_code, datetime.now())
+        db_logic.save_page_frontier("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png", response_status_code, datetime.now())
     frontier.put("https://www.gov.si/")
     response_status_code = get_response_code("https://www.gov.si/")
     if(200 <= response_status_code < 300):
