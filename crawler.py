@@ -270,7 +270,9 @@ def get_html_and_links(frontier):
                                 db_logic.save_page_frontier(href, response_status_code, datetime.now(), pageId)
                                 pageIDFrontier = db_logic.check_page_exists(href)
                                 links_ids.append(pageIDFrontier)
+                                db_logic.insert_link(pageId, pageIDFrontier)
                         #added_urls_set.add(href)
+            #print(f"LINKI ARRAY: {links_ids}")
             db_logic.save_link_to(pageId, links_ids)
 
 

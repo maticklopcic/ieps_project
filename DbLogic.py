@@ -178,6 +178,7 @@ class DbLogic:
             #    conn.close()
                 
     def save_link_to(self, page_id, links):
+        print(f"LINKS: {links}")
         if self.conn is not None:
             try:
                 with self.conn.cursor() as cur:
@@ -228,6 +229,21 @@ class DbLogic:
                 print(f"Error saving invalid page {url}: {e}")
             #finally:
             #    conn.close()
+                
+    def insert_link(self, from_page, to_page):
+        if self.conn is not None:
+            try:
+                with self.conn.cursor() as cur:
+                    cur.execute("""
+                        INSERT INTO crawldb.link (from_page, to_page)
+                        VALUES (%s, %s)
+                    """, (from_page, to_page))
+                    self.conn.commit()
+                    print(f"LINK INSERTED: {from_page} -> {to_page}")
+            except Exception as e:
+                print(f"Error saving link {from_page} -> {to_page}: {e}")
+
+        
 
     def save_page_data(self, page_id, data_type_code):
 
