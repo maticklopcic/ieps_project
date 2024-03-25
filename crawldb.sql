@@ -29,7 +29,7 @@ CREATE TABLE crawldb.page (
     accessed_time        timestamp,
     hash_value           varchar(64),
 	link_original        integer,
-	link_to 			 integer[]
+	link_to 			 integer[],
     CONSTRAINT pk_page_id PRIMARY KEY (id),
     CONSTRAINT unq_url_idx UNIQUE (url),
 	CONSTRAINT fk_page_link_original FOREIGN KEY (link_original) REFERENCES crawldb.page(id)
@@ -92,12 +92,12 @@ INSERT INTO crawldb.data_type VALUES
 	('DOC'),
 	('DOCX'),
 	('PPT'),
-	('PPTX');
+	('PPTX'),
 	('OTHER');
 
 INSERT INTO crawldb.page_type VALUES 
 	('HTML'),
 	('BINARY'),
 	('DUPLICATE'),
-	('FRONTIER');
+	('FRONTIER'),
 	('INVALID');

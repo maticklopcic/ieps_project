@@ -13,10 +13,10 @@ class DbLogic:
         try:
             # Change the access details to your database here
             self.conn = psycopg2.connect(
-                dbname="crawldb",
+                dbname="crawlerdb",
                 user="postgres",
                 #password="pw",  # Replace 'geslo' with your actual password
-                password="Jure.2000",  
+                password="iepsDB",  
                 host="localhost",
             )
             print("Connected to the database.")
@@ -28,10 +28,10 @@ class DbLogic:
         try:
             # Change the access details to your database here
             conn = psycopg2.connect(
-                dbname="crawldb",
+                dbname="crawlerdb",
                 user="postgres",
                 #password="pw",  # Replace 'geslo' with your actual password
-                password="Jure.2000",  
+                password="iepsDB",  
                 host="localhost",
             )
             print("Connected to the database.")
@@ -78,13 +78,14 @@ class DbLogic:
     def insert_image(self, page_id, filename, content_type, accessed_time):
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.image (page_id, filename, content_type, accessed_time)
-                        VALUES (%s, %s, %s, %s);
-                    """, (page_id, filename, content_type, accessed_time))
-                    self.conn.commit()
-                    print(f"Image {filename} for page ID {page_id} has been saved to the database.")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO crawldb.image (page_id, filename, content_type, accessed_time)
+                            VALUES (%s, %s, %s, %s);
+                        """, (page_id, filename, content_type, accessed_time))
+                        self.conn.commit()
+                        #print(f"Image {filename} for page ID {page_id} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving image {filename} for page ID {page_id}: {e}")
             #finally:
@@ -152,7 +153,7 @@ class DbLogic:
                     with self.conn.cursor() as cur:
                         cur.execute(sql_query, query_params)
                         self.conn.commit()
-                        print(f"Frontier URL: {url} has been saved to the database.")
+                        #print(f"Frontier URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving frontier page {url}: {e}")
 
@@ -174,7 +175,7 @@ class DbLogic:
                                 page_type_code = EXCLUDED.page_type_code;
                         """, (site_id, url, html_content, page_hash, page_type_code))
                         self.conn.commit()
-                        print(f"PAGE UPDATE: {url} in the database.")
+                        #print(f"PAGE UPDATE: {url} in the database.")
             except Exception as e:
                 print(f"Error saving page {url}: {e}")
             #finally:
@@ -193,14 +194,14 @@ class DbLogic:
                                     SET page_type_code = EXCLUDED.page_type_code;
                         """, (url, link_original))
                         self.conn.commit()
-                        print(f"Duplicate URL: {url} with link {link_original} has been saved to the database.")
+                        #print(f"Duplicate URL: {url} with link {link_original} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving duplicate page {url}: {e}")
             #finally:
             #    conn.close()
                 
     def save_link_to(self, page_id, links):
-        print(f"LINKS: {links}")
+        #print(f"LINKS: {links}")
         if self.conn is not None:
             try:
                 with lock:
@@ -212,7 +213,7 @@ class DbLogic:
                             WHERE id = %s;
                         """, (links, page_id))
                         self.conn.commit()
-                        print(f"Links for page ID {page_id} have been updated in the database.")
+                        #print(f"Links for page ID {page_id} have been updated in the database.")
             except Exception as e:
                 print(f"Error updating links for page ID {page_id}: {e}")
 
@@ -230,7 +231,7 @@ class DbLogic:
                             SET page_type_code = EXCLUDED.page_type_code;
                         """, (url,))
                         self.conn.commit()
-                        print(f"Binary URL: {url} has been saved to the database.")
+                        #print(f"Binary URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving binary page {url}: {e}")
             #finally:
@@ -249,7 +250,7 @@ class DbLogic:
                             SET page_type_code = EXCLUDED.page_type_code;
                         """, (url,))
                         self.conn.commit()
-                        print(f"Invalid URL: {url} has been saved to the database.")
+                        #print(f"Invalid URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving invalid page {url}: {e}")
             #finally:
@@ -258,13 +259,14 @@ class DbLogic:
     def insert_link(self, from_page, to_page):
         if self.conn is not None:
             try:
-                with self.conn.cursor() as cur:
-                    cur.execute("""
-                        INSERT INTO crawldb.link (from_page, to_page)
-                        VALUES (%s, %s)
-                    """, (from_page, to_page))
-                    self.conn.commit()
-                    print(f"LINK INSERTED: {from_page} -> {to_page}")
+                with lock:
+                    with self.conn.cursor() as cur:
+                        cur.execute("""
+                            INSERT INTO crawldb.link (from_page, to_page)
+                            VALUES (%s, %s)
+                        """, (from_page, to_page))
+                        self.conn.commit()
+                        #print(f"LINK INSERTED: {from_page} -> {to_page}")
             except Exception as e:
                 print(f"Error saving link {from_page} -> {to_page}: {e}")
 
@@ -273,7 +275,7 @@ class DbLogic:
     def save_page_data(self, page_id, data_type_code):
 
         data_type_code_upper = data_type_code.upper()
-        print(f"PAGE DATA: ID->{page_id}, Data type->{data_type_code_upper}")
+        #print(f"PAGE DATA: ID->{page_id}, Data type->{data_type_code_upper}")
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
@@ -284,7 +286,7 @@ class DbLogic:
                             VALUES (%s, %s);
                         """, (page_id, data_type_code_upper))
                         self.conn.commit()
-                        print(f"Data type {data_type_code_upper} for page ID {page_id} has been saved to the database.")
+                        #print(f"Data type {data_type_code_upper} for page ID {page_id} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving page data: {e}")
             #finally:
@@ -305,7 +307,7 @@ class DbLogic:
                         """, (domain, robots_content, sitemap_content))
                         site_id = cur.fetchone()[0]
                         self.conn.commit()
-                        print(f"Site with domain {domain} and ID {site_id} has been saved to the database.")
+                        #print(f"Site with domain {domain} and ID {site_id} has been saved to the database.")
                         return site_id
             except Exception as e:
                 print(f"Error saving site {domain}: {e}")
