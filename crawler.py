@@ -72,8 +72,8 @@ def get_html_content(url):
 # implementiraj paralelno obdelavo
 # (DONE) sitemap
 # poglej za ostale file (zip, rar, ...) -> binary
-# poglej elemente ki niso a in imajo href (onclick, ...)
-# from in to linki za page
+# (DONE) poglej elemente ki niso a in imajo href (onclick, ...)
+# (DONE) from in to linki za page
 # poglej za slike in dodaj v bazo
 
 def is_allowed_and_sitemap(url, user_agent, robots_txt_url):
@@ -223,7 +223,7 @@ def get_html_and_links(frontier):
                         continue
                     if type == BinaryType.JPG or type == BinaryType.PNG or type == BinaryType.SVG:
                         db_logic.save_page_binary(web_address)
-                        # TODO save image data
+                        #db_logic.insert_image(site_id, "filename", "content-type", "data", datetime.now())
                         continue
                 
                 #web_address = remove_query_and_fragment(web_address)
@@ -238,7 +238,7 @@ def get_html_and_links(frontier):
             if link_original is not None:
                 db_logic.save_page_duplicate(web_address, link_original)
                 continue
-            db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML") #TODO PREVERI ZA DUPLIKATE!!!!
+            db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML")
             links = driver.find_elements(By.TAG_NAME, "a")
 
             elements_with_onclick = driver.find_elements(By.XPATH, '//*[@href]')

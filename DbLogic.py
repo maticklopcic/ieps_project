@@ -70,8 +70,20 @@ class DbLogic:
             #finally:
              #   conn.close()
 
-    def insert_image():
-        return
+    def insert_image(self, page_id, filename, content_type, data, accessed_time):
+        if self.conn is not None:
+            try:
+                with self.conn.cursor() as cur:
+                    cur.execute("""
+                        INSERT INTO crawldb.image (page_id, filename, content_type, data, accessed_time)
+                        VALUES (%s, %s, %s, %s, %s);
+                    """, (page_id, filename, content_type, data, accessed_time))
+                    self.conn.commit()
+                    print(f"Image {filename} for page ID {page_id} has been saved to the database.")
+            except Exception as e:
+                print(f"Error saving image {filename} for page ID {page_id}: {e}")
+            #finally:
+                #conn.close()
 
 
     def check_page_exists(self, url):
