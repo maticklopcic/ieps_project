@@ -13,10 +13,10 @@ class DbLogic:
         try:
             # Change the access details to your database here
             self.conn = psycopg2.connect(
-                dbname="crawlerdb",
+                dbname="crawldb",
                 user="postgres",
                 #password="pw",  # Replace 'geslo' with your actual password
-                password="iepsDB",  
+                password="Jure.2000",  
                 host="localhost",
             )
             print("Connected to the database.")
@@ -75,8 +75,20 @@ class DbLogic:
             #finally:
              #   conn.close()
 
-    def insert_image():
-        return
+    def insert_image(self, page_id, filename, content_type, accessed_time):
+        if self.conn is not None:
+            try:
+                with self.conn.cursor() as cur:
+                    cur.execute("""
+                        INSERT INTO crawldb.image (page_id, filename, content_type, accessed_time)
+                        VALUES (%s, %s, %s, %s);
+                    """, (page_id, filename, content_type, accessed_time))
+                    self.conn.commit()
+                    print(f"Image {filename} for page ID {page_id} has been saved to the database.")
+            except Exception as e:
+                print(f"Error saving image {filename} for page ID {page_id}: {e}")
+            #finally:
+                #conn.close()
 
 
     def check_page_exists(self, url):
@@ -188,6 +200,7 @@ class DbLogic:
             #    conn.close()
                 
     def save_link_to(self, page_id, links):
+        print(f"LINKS: {links}")
         if self.conn is not None:
             try:
                 with lock:
@@ -241,6 +254,21 @@ class DbLogic:
                 print(f"Error saving invalid page {url}: {e}")
             #finally:
             #    conn.close()
+                
+    def insert_link(self, from_page, to_page):
+        if self.conn is not None:
+            try:
+                with self.conn.cursor() as cur:
+                    cur.execute("""
+                        INSERT INTO crawldb.link (from_page, to_page)
+                        VALUES (%s, %s)
+                    """, (from_page, to_page))
+                    self.conn.commit()
+                    print(f"LINK INSERTED: {from_page} -> {to_page}")
+            except Exception as e:
+                print(f"Error saving link {from_page} -> {to_page}: {e}")
+
+        
 
     def save_page_data(self, page_id, data_type_code):
 

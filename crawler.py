@@ -76,8 +76,8 @@ def get_html_content(url):
 # implementiraj paralelno obdelavo
 # (DONE) sitemap
 # poglej za ostale file (zip, rar, ...) -> binary
-# poglej elemente ki niso a in imajo href (onclick, ...)
-# from in to linki za page
+# (DONE) poglej elemente ki niso a in imajo href (onclick, ...)
+# (DONE) from in to linki za page
 # poglej za slike in dodaj v bazo
 
 def is_allowed_and_sitemap(url, user_agent, robots_txt_url):
@@ -226,8 +226,21 @@ def get_html_and_links(frontier):
                         db_logic.save_page_data(pageId, type)
                         continue
                     if type == BinaryType.JPG or type == BinaryType.PNG or type == BinaryType.SVG:
+                        print(f"IMAGE: {type}")
                         db_logic.save_page_binary(web_address)
-                        # TODO save image data
+                        imageId = db_logic.check_page_exists(web_address)
+                        filename = web_address.split("/")[-1]
+                        type_string = ""
+                        if type == BinaryType.JPG:
+                            type_string = "JPG"
+                        elif type == BinaryType.PNG:
+                            type_string = "PNG"
+                        elif type == BinaryType.SVG:
+                            type_string = "SVG"
+
+                        print(f"IMAGE NAME: {filename}")
+                        print(f"IMAGE TYPE: {type_string}")
+                        db_logic.insert_image(imageId, filename, type_string, datetime.now())
                         continue
                 
                 #web_address = remove_query_and_fragment(web_address)
@@ -242,7 +255,7 @@ def get_html_and_links(frontier):
             if link_original is not None:
                 db_logic.save_page_duplicate(web_address, link_original)
                 continue
-            db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML") #TODO PREVERI ZA DUPLIKATE!!!!
+            db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML")
             links = driver.find_elements(By.TAG_NAME, "a")
 
             elements_with_onclick = driver.find_elements(By.XPATH, '//*[@href]')
@@ -274,7 +287,9 @@ def get_html_and_links(frontier):
                                 db_logic.save_page_frontier(href, response_status_code, datetime.now(), pageId)
                                 pageIDFrontier = db_logic.check_page_exists(href)
                                 links_ids.append(pageIDFrontier)
+                                db_logic.insert_link(pageId, pageIDFrontier)
                         #added_urls_set.add(href)
+            #print(f"LINKI ARRAY: {links_ids}")
             db_logic.save_link_to(pageId, links_ids)
 
 
@@ -302,10 +317,10 @@ frontier_raw = db_logic.get_frontier()
 
 if frontier_raw == []:
     print("The list is empty.")
-    frontier.put("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf")
-    response_status_code = get_response_code("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf")
+    frontier.put("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
+    response_status_code = get_response_code("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
     if(200 <= response_status_code < 300):
-        db_logic.save_page_frontier("https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf", response_status_code, datetime.now())
+        db_logic.save_page_frontier("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png", response_status_code, datetime.now())
     frontier.put("https://www.gov.si/")
     response_status_code = get_response_code("https://www.gov.si/")
     if(200 <= response_status_code < 300):
