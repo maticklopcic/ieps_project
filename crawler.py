@@ -1,4 +1,6 @@
+import dataclasses
 import time
+from typing import List
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -22,6 +24,7 @@ from datetime import datetime
 from DbLogic import DbLogic
 import concurrent.futures
 import threading
+from dataclasses import dataclass
 
 lock = threading.Lock()
 
@@ -39,15 +42,16 @@ frontier = queue.Queue()
 #added_urls_set = {"https://www.gov.si/", "https://www.evem.gov.si/", "https://e-uprava.gov.si/", "https://www.e-prostor.gov.si/"}
 
 class BinaryType(Enum):
-    PDF = 0
-    DOC = 1
-    DOCX = 2
-    PPT = 3
-    PPTX = 4
-    JPG = 5
-    PNG = 6
-    SVG = 7
-    OTHER = 99
+    PDF = "PDF"
+    DOC = "DOC"
+    DOCX = "DOCX"
+    PPT = "PPT"
+    PPTX = "PPTX"
+    JPG = "JPG"
+    PNG = "PNG"
+    SVG = "SVG"
+    HTML = "HTML"
+    OTHER = "OTHER"
 
 firefox_options = FirefoxOptions()
 firefox_options.add_argument("--headless")
@@ -91,8 +95,26 @@ def get_html_content(url):
 # (DONE) from in to linki za page
 # poglej za slike in dodaj v bazo
 
-#TODO:class RobotTxt:
-def is_allowed_and_sitemap(url, user_agent, robots_txt_url):
+@dataclass
+class RobotsTxt:
+    can_fetch: bool = False
+    site_maps: List[str] = dataclasses.field(default_factory=list)
+    crawl_delay: int = TIMEOUT
+
+
+def parse_robots_txt(url, user_agent, robots_txt_url):
+    rp = robotparser.RobotFileParser()
+    rp.set_url(robots_txt_url)
+    rp.read()
+    crawl_delay = rp.crawl_delay("*")
+
+    if crawl_delay is None:
+        crawl_delay = TIMEOUT
+    return RobotsTxt(can_fetch=rp.can_fetch(user_agent, url), 
+                     site_maps=rp.sitemaps, 
+                     crawl_delay=crawl_delay)
+    
+"""def is_allowed_and_sitemap(url, user_agent, robots_txt_url):
     rp = robotparser.RobotFileParser()
     rp.set_url(robots_txt_url)
     rp.read()
@@ -106,7 +128,7 @@ def get_crawl_delay(robots_txt_url):
 
     if crawl_delay is None:
         crawl_delay = TIMEOUT
-    return crawl_delay
+    return crawl_delay"""
 
 def url_exists(url_link):
     try:
@@ -122,36 +144,35 @@ def url_exists(url_link):
 def get_response_code(url):
     try:
         response = requests.head(url)   
-        return response.status_code
+        return response.status_code, binary_type(response)
     except requests.exceptions.RequestException:
         return False    
 
 
-def is_html(url) -> bool:
-    try:
-        response = requests.head(url)
-        content_type = response.headers.get('Content-Type', '')
-        return 'text/html' in content_type
-    except Exception as e:
-        print("Error:", e)
-        return False
+#def is_html(url) -> bool:
+#    try:
+#        response = requests.head(url)
+#        content_type = response.headers.get('Content-Type', '')
+#        return 'text/html' in content_type
+#    except Exception as e:
+#        print("Error:", e)
+#        return False
 
-def binary_type(url):
+def binary_type(response):
     try:
-        response = requests.head(url)
         content_type = response.headers.get('Content-Type', '')
         if "text/html" in content_type:
-            return None
+            return BinaryType.HTML
         if "application/pdf" in content_type:
-            return "PDF"
+            return BinaryType.PDF
         elif "application/msword" in content_type:
-            return "DOC"
+            return BinaryType.DOC
         elif "application/vnd.openxmlformats-officedocument.wordprocessingml.document" in content_type:
-            return "DOCX"
+            return BinaryType.DOCX
         elif "application/vnd.ms-powerpoint" in content_type:
-            return "PPT"
+            return BinaryType.PPT
         elif "application/vnd.openxmlformats-officedocument.presentationml.presentation" in content_type:
-            return "PPTX"
+            return BinaryType.PPTX
         elif "image/jpeg" in content_type:
             return BinaryType.JPG
         elif "image/png" in content_type:
@@ -184,7 +205,6 @@ def get_url_extension(url):
     
 def crawl_web(i, driver, old_robots_url, html_hash_value):
     while not frontier.empty():
-        links_ids = []
         with lock:
             web_address = frontier.get()
         if (i % 1) == 0: 
@@ -197,59 +217,56 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
         sitemap_content = ""
 
         if url_exists(robots_url):
-            allowance, all_sitemaps = is_allowed_and_sitemap(web_address, "*", robots_url)
+            robots_txt = parse_robots_txt(web_address, "*", robots_url)
+            allowance = robots_txt.can_fetch
             robots_content = get_html_content(robots_url)
-            for sitemap in all_sitemaps:
+            crawl_delay = robots_txt.crawl_delay
+            for sitemap in robots_txt.site_maps:
                 if sitemap is not None:
                     sitemap_content += get_html_content(sitemap)
         else:
             allowance = True
+            crawl_delay = TIMEOUT
         if not allowance:
             db_logic.save_page_invalid(web_address)
             continue
         # TODO vzemi iz frontirja (baza)
-        crawl_delay = get_crawl_delay(robots_url)
         wait = WebDriverWait(driver, crawl_delay)
-        if db_logic.check_page_exists(web_address) is None:
-            response_status_code = get_response_code(web_address)
-            if(200 <= response_status_code < 300):
-                #frontier.put(web_address)
-                db_logic.save_page_frontier(web_address, response_status_code, datetime.now(), )
-        try:
-            driver.get(web_address)
-        except Exception as e:
-            print(f"Error retrieving web page URL '{web_address}'")
-            print(f"An exception occurred: {e}")
-            db_logic.save_page_invalid(web_address)
-            continue
-        response_status_code = get_response_code(web_address)
+        response_status_code, type = get_response_code(web_address)        
+        
         if not (200 <= response_status_code < 300):
             db_logic.save_page_invalid(web_address)
             continue
+
+        if db_logic.check_page_exists(web_address) is None:
+            #frontier.put(web_address)
+            db_logic.save_page_frontier(web_address, response_status_code, datetime.now(), )
+
+        try:
+            driver.get(web_address)
+        except Exception as e:
+            logging.error(f"Error retrieving web page URL '{web_address}'", exc_info=e)
+            db_logic.save_page_invalid(web_address)
+            continue
+
         pageId = db_logic.check_page_exists(web_address)
         if web_address is not None and web_address[0:4] == "http":
-            type = binary_type(web_address)
-            if type is not None:
-                if type == "PDF" or type == "DOC" or type == "DOCX" or type == "PPT" or type == "PPTX":
-                    db_logic.save_page_binary(web_address)
-                    db_logic.save_page_data(pageId, type)
-                    continue
-                if type == BinaryType.JPG or type == BinaryType.PNG or type == BinaryType.SVG:
-                    db_logic.save_page_binary(web_address)
-                    imageId = db_logic.check_page_exists(web_address)
-                    filename = web_address.split("/")[-1]
-                    type_string = ""
-                    if type == BinaryType.JPG:
-                        type_string = "JPG"
-                    elif type == BinaryType.PNG:
-                        type_string = "PNG"
-                    elif type == BinaryType.SVG:
-                        type_string = "SVG"
+            if type in [BinaryType.PDF, BinaryType.DOC, BinaryType.DOCX, BinaryType.PPT, BinaryType.PPTX]:
+                db_logic.save_page_binary(web_address)
+                db_logic.save_page_data(pageId, type)
+                continue
+            elif type == BinaryType.JPG or type == BinaryType.PNG or type == BinaryType.SVG:
+                db_logic.save_page_binary(web_address)
+                imageId = db_logic.check_page_exists(web_address)
+                filename = web_address.split("/")[-1]
+                type_string = type.value
 
-                    db_logic.insert_image(imageId, filename, type_string, datetime.now())
-                    continue
-            
-            #web_address = remove_query_and_fragment(web_address)
+                db_logic.insert_image(imageId, filename, type_string, datetime.now())
+                continue
+        
+        else:
+            logging.error("Unexpected web address type")
+
         html = driver.page_source
         html_hash_value = hash(html)
         #timestamp = datetime.now()
@@ -270,6 +287,8 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
             if element not in links:
                 links.append(element)
 
+        links_ids = []
+
         for link in links:
             href = link.get_attribute("href")
             logging.info(f"  Checking href {href}")
@@ -277,34 +296,37 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
             if href is not None and href[0:4] == "http" and '.gov.si' in href:
                 href = remove_query_and_fragment(href)
                 
-                robots_url = "https://" + get_domain(href) + "/robots.txt"
-                if robots_url != old_robots_url:
-                    old_robots_url = robots_url
-                    if url_exists(robots_url):
-                        allowance, _ = is_allowed_and_sitemap(href, "*", robots_url)
-                    else:
-                        allowance = True
-                if allowance:
-                    logging.info(f"    get_response")
-                    response_status_code = get_response_code(href)
-                    logging.info(f"    href allowed")
+                if db_logic.check_page_exists(href) is None:
+                    robots_url = "https://" + get_domain(href) + "/robots.txt"
+                    if robots_url != old_robots_url:
+                        old_robots_url = robots_url
+                        if url_exists(robots_url):
+                            robots_txt = parse_robots_txt(href, "*", robots_url)
+                            allowance = robots_txt.can_fetch
+                        else:
+                            allowance = True
+                    if allowance:
+                        logging.info(f"    get_response")
+                        response_status_code, _ = get_response_code(href)
+                        logging.info(f"    href allowed")
 
-                    if(200 <= response_status_code < 300):
-                        if db_logic.check_page_exists(href) is None:
-                            logging.info(f"    check_page_exists")
+                        if(200 <= response_status_code < 300):
+                            logging.info(f"    status ok {response_status_code}")
+
                             with lock:
                                 frontier.put(href)
-                            logging.info(f"    put")
+                            #logging.info(f"    put")
                             db_logic.save_page_frontier(href, response_status_code, datetime.now(), pageId)
-                            logging.info(f"    save_page")
+                            #logging.info(f"    save_page")
                             pageIDFrontier = db_logic.check_page_exists(href)
-                            logging.info(f"    check_page")
+                            #logging.info(f"    check_page")
                             links_ids.append(pageIDFrontier)
-                            logging.info(f"    append")
+                            #logging.info(f"    append")
                             db_logic.insert_link(pageId, pageIDFrontier)
-                            logging.info(f"    insert")
+                            #logging.info(f"    insert")
 
                     #added_urls_set.add(href)
+        logging.info(f"frontier size: {frontier.qsize()}")
         db_logic.save_link_to(pageId, links_ids)
         i += 1
 
@@ -342,25 +364,26 @@ def main():
 
     if frontier_raw == []:
         frontier.put("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
-        response_status_code = get_response_code("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
+        response_status_code, _ = get_response_code("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
         if(200 <= response_status_code < 300):
             db_logic.save_page_frontier("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png", response_status_code, datetime.now())
         frontier.put("https://www.gov.si/")
-        response_status_code = get_response_code("https://www.gov.si/")
+        response_status_code, _ = get_response_code("https://www.gov.si/")
         if(200 <= response_status_code < 300):
             db_logic.save_page_frontier("https://www.gov.si/", response_status_code, datetime.now())
         frontier.put("https://e-uprava.gov.si/")
-        response_status_code = get_response_code("https://e-uprava.gov.si/")
+        response_status_code, _ = get_response_code("https://e-uprava.gov.si/")
         if(200 <= response_status_code < 300):
             db_logic.save_page_frontier("https://e-uprava.gov.si/", response_status_code, datetime.now())
         frontier.put("https://www.e-prostor.gov.si/")
-        response_status_code = get_response_code("https://www.e-prostor.gov.si/")
+        response_status_code, _ = get_response_code("https://www.e-prostor.gov.si/")
         if(200 <= response_status_code < 300):
             db_logic.save_page_frontier("https://www.e-prostor.gov.si/", response_status_code, datetime.now())
 
     else:
         for url in frontier_raw:
             frontier.put(url)
+        logging.info(f"initial frontier size: {frontier.qsize()}")
     get_html_and_links(frontier)
 #db_logic.save_page_binary("https://www.gov.si/")
 #db_logic.save_page_data(1, ".pdf")
