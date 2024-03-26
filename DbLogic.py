@@ -10,19 +10,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 class DbLogic:
     def __init__(self) -> None:
-        try:
-            # Change the access details to your database here
-            self.conn = psycopg2.connect(
-                dbname="crawlerdb",
-                user="postgres",
-                #password="pw",  # Replace 'geslo' with your actual password
-                password="iepsDB",  
-                host="localhost",
-            )
-            print("Connected to the database.")
-        except Exception as e:
-            print(f"Error connecting to the database: {e}")
-            return None
+        self.conn = self.connect_to_db()
         
     def connect_to_db(self):
         try:
@@ -54,6 +42,9 @@ class DbLogic:
                 print(f"Error getting frontier: {e}")
             #finally:
                 #self.conn.close()
+        else:
+            raise Exception("Connection is none")
+        
         return urls
     
     def check_hash_exists(self, page_hash):
@@ -74,7 +65,9 @@ class DbLogic:
                 print(f"Error checking if hash exists: {e}")
             #finally:
              #   conn.close()
-
+        else:
+            raise Exception("Connection is none")
+        
     def insert_image(self, page_id, filename, content_type, accessed_time):
         if self.conn is not None:
             try:
@@ -90,7 +83,8 @@ class DbLogic:
                 print(f"Error saving image {filename} for page ID {page_id}: {e}")
             #finally:
                 #conn.close()
-
+        else:
+            raise Exception("Connection is none")
 
     def check_page_exists(self, url):
         #conn = self.connect_to_db()
@@ -108,6 +102,8 @@ class DbLogic:
                 print(f"Error checking if page exists: {e}")
             #finally:
             #    conn.close()
+        else:
+            raise Exception("Connection is none")
         
     def check_site_exists(self, domain):
         #conn = self.connect_to_db()
@@ -125,7 +121,8 @@ class DbLogic:
                 print(f"Error checking if site exists: {e}")
             #finally:
             #    conn.close()
-
+        else:
+            raise Exception("Connection is none")
 
     def save_page_frontier(self, url, http_status_code, accessed_time, link_original=None):
         page_type_code = "FRONTIER"
@@ -156,7 +153,8 @@ class DbLogic:
                         #print(f"Frontier URL: {url} has been saved to the database.")
             except Exception as e:
                 print(f"Error saving frontier page {url}: {e}")
-
+        else:
+            raise Exception("Connection is none")
 
 
     def save_page_update(self, site_id, url, html_content, page_hash, page_type_code):
@@ -180,7 +178,9 @@ class DbLogic:
                 print(f"Error saving page {url}: {e}")
             #finally:
             #    conn.close()
-
+        else:
+            raise Exception("Connection is none")
+        
     def save_page_duplicate(self, url, link_original):
         #conn = self.connect_to_db()
         if self.conn is not None:
@@ -199,6 +199,8 @@ class DbLogic:
                 print(f"Error saving duplicate page {url}: {e}")
             #finally:
             #    conn.close()
+        else:
+            raise Exception("Connection is none")
                 
     def save_link_to(self, page_id, links):
         #print(f"LINKS: {links}")
@@ -216,7 +218,8 @@ class DbLogic:
                         #print(f"Links for page ID {page_id} have been updated in the database.")
             except Exception as e:
                 print(f"Error updating links for page ID {page_id}: {e}")
-
+        else:
+            raise Exception("Connection is none")
 
     def save_page_binary(self, url):
         #conn = self.connect_to_db()
@@ -236,7 +239,9 @@ class DbLogic:
                 print(f"Error saving binary page {url}: {e}")
             #finally:
             #    conn.close()
-
+        else:
+            raise Exception("Connection is none")
+        
     def save_page_invalid(self, url):
         #conn = self.connect_to_db()
         if self.conn is not None:
@@ -255,6 +260,8 @@ class DbLogic:
                 print(f"Error saving invalid page {url}: {e}")
             #finally:
             #    conn.close()
+        else:
+            raise Exception("Connection is none")
                 
     def insert_link(self, from_page, to_page):
         if self.conn is not None:
@@ -269,7 +276,8 @@ class DbLogic:
                         #print(f"LINK INSERTED: {from_page} -> {to_page}")
             except Exception as e:
                 print(f"Error saving link {from_page} -> {to_page}: {e}")
-
+        else:
+            raise Exception("Connection is none")
         
 
     def save_page_data(self, page_id, data_type_code):
@@ -291,7 +299,8 @@ class DbLogic:
                 print(f"Error saving page data: {e}")
             #finally:
             #    conn.close()
-
+        else:
+            raise Exception("Connection is none")
 
 
     def save_site(self, domain, robots_content, sitemap_content):
@@ -313,3 +322,5 @@ class DbLogic:
                 print(f"Error saving site {domain}: {e}")
             #finally:
             #    conn.close()
+        else:
+            raise Exception("Connection is none")

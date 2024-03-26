@@ -26,8 +26,7 @@ import threading
 lock = threading.Lock()
 
 ssl._create_default_https_context = ssl._create_unverified_context
-#logging.basicConfig(level=logging.INFO)
-WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
+#WEB_DRIVER_LOCATION = r"C:\Users\jurea\Desktop\Faks\MAG\12\IEPS\Projekt1\ieps_project\geckodriver" #TODO: change to your location
 #WEB_DRIVER_LOCATION = "ieps_project/geckodriver"
 TIMEOUT = 5
 
@@ -57,13 +56,25 @@ firefox_options.add_argument("user-agent=fri-ieps-42")
 # database class instance
 db_logic = DbLogic()
 
+
+def init_log():
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s [%(threadName)s] [%(lineno)d]")
+    #log = logging.getLogger()
+    #log.setLevel(logging.getLevelName('INFO'))
+    #log_formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s [%(threadName)s] ")
+
+    #console_handler = logging.StreamHandler()
+    #console_handler.setFormatter(log_formatter)
+    #log.addHandler(console_handler)
+
 def get_html_content(url):
     try:
         response = requests.get(url)
         if response.status_code == 200:
             return response.text
         else:
-            print("Failed to fetch robots.txt. Status code:", response.status_code)
+            #print("Failed to fetch robots.txt. Status code:", response.status_code)
+            logging.error(f"Failed to fetch robots.txt. Status code: {response.status_code}")
             return ""    
     except Exception as e:
         print("Error while fetching robots.txt content:", e)
@@ -80,6 +91,7 @@ def get_html_content(url):
 # (DONE) from in to linki za page
 # poglej za slike in dodaj v bazo
 
+#TODO:class RobotTxt:
 def is_allowed_and_sitemap(url, user_agent, robots_txt_url):
     rp = robotparser.RobotFileParser()
     rp.set_url(robots_txt_url)
@@ -103,7 +115,8 @@ def url_exists(url_link):
             return True
         else:
             return False
-    except requests.exceptions.RequestException:
+    except requests.exceptions.RequestException as ex:
+        logging.error("Can not check if url exists.", ex)
         return False    
 
 def get_response_code(url):
@@ -114,7 +127,7 @@ def get_response_code(url):
         return False    
 
 
-def is_html(url):
+def is_html(url) -> bool:
     try:
         response = requests.head(url)
         content_type = response.headers.get('Content-Type', '')
@@ -152,7 +165,7 @@ def binary_type(url):
         print("Error:", e)
         return False
     
-def ends_with_extension(url):
+"""def ends_with_extension(url):
     document_extensions = ['.pdf', '.doc', '.docx', '.ppt', '.pptx']
     for extension in document_extensions:
         if url.endswith(extension):
@@ -167,13 +180,15 @@ def get_url_extension(url):
         return "." + extension_parts[-1]
     else:
         return ""
+"""
     
-def crawl_web(i, driver, links_ids, old_robots_url, html_hash_value):
+def crawl_web(i, driver, old_robots_url, html_hash_value):
     while not frontier.empty():
+        links_ids = []
         with lock:
             web_address = frontier.get()
-        if (i % 10) == 0: 
-            print(f"{i}Retrieving web page URL '{web_address}'")
+        if (i % 1) == 0: 
+            logging.info(f"{i} Retrieving web page URL '{web_address}'")
             sys.stdout.flush()
         web_address = remove_query_and_fragment(web_address)
         #TODO check da page se ni v bazi (za prve 4)
@@ -257,8 +272,8 @@ def crawl_web(i, driver, links_ids, old_robots_url, html_hash_value):
 
         for link in links:
             href = link.get_attribute("href")
-            start_time = time.time()
-            
+            logging.info(f"  Checking href {href}")
+
             if href is not None and href[0:4] == "http" and '.gov.si' in href:
                 href = remove_query_and_fragment(href)
                 
@@ -270,16 +285,25 @@ def crawl_web(i, driver, links_ids, old_robots_url, html_hash_value):
                     else:
                         allowance = True
                 if allowance:
-
+                    logging.info(f"    get_response")
                     response_status_code = get_response_code(href)
+                    logging.info(f"    href allowed")
+
                     if(200 <= response_status_code < 300):
                         if db_logic.check_page_exists(href) is None:
+                            logging.info(f"    check_page_exists")
                             with lock:
                                 frontier.put(href)
+                            logging.info(f"    put")
                             db_logic.save_page_frontier(href, response_status_code, datetime.now(), pageId)
+                            logging.info(f"    save_page")
                             pageIDFrontier = db_logic.check_page_exists(href)
+                            logging.info(f"    check_page")
                             links_ids.append(pageIDFrontier)
+                            logging.info(f"    append")
                             db_logic.insert_link(pageId, pageIDFrontier)
+                            logging.info(f"    insert")
+
                     #added_urls_set.add(href)
         db_logic.save_link_to(pageId, links_ids)
         i += 1
@@ -287,11 +311,10 @@ def crawl_web(i, driver, links_ids, old_robots_url, html_hash_value):
 def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
         i = 0
-        links_ids = []
         old_robots_url = ""
         html_hash_value = None
-        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-            executor.submit(crawl_web, i, driver, links_ids, old_robots_url, html_hash_value)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+            executor.submit(crawl_web, i, driver, old_robots_url, html_hash_value)
 
 
 #def print_frontier(frontier):
@@ -313,37 +336,39 @@ def remove_query_and_fragment(url):
     new_url = urlunparse((scheme, netloc, path, params, '', ''))
     return new_url
 
-#db_logic.save_site("gov.si", "")
-frontier_raw = db_logic.get_frontier()
+def main():
+    init_log()
+    frontier_raw = db_logic.get_frontier()
 
-if frontier_raw == []:
-    frontier.put("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
-    response_status_code = get_response_code("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
-    if(200 <= response_status_code < 300):
-        db_logic.save_page_frontier("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png", response_status_code, datetime.now())
-    frontier.put("https://www.gov.si/")
-    response_status_code = get_response_code("https://www.gov.si/")
-    if(200 <= response_status_code < 300):
-        db_logic.save_page_frontier("https://www.gov.si/", response_status_code, datetime.now())
-    frontier.put("https://e-uprava.gov.si/")
-    response_status_code = get_response_code("https://e-uprava.gov.si/")
-    if(200 <= response_status_code < 300):
-        db_logic.save_page_frontier("https://e-uprava.gov.si/", response_status_code, datetime.now())
-    frontier.put("https://www.e-prostor.gov.si/")
-    response_status_code = get_response_code("https://www.e-prostor.gov.si/")
-    if(200 <= response_status_code < 300):
-        db_logic.save_page_frontier("https://www.e-prostor.gov.si/", response_status_code, datetime.now())
+    if frontier_raw == []:
+        frontier.put("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
+        response_status_code = get_response_code("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
+        if(200 <= response_status_code < 300):
+            db_logic.save_page_frontier("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png", response_status_code, datetime.now())
+        frontier.put("https://www.gov.si/")
+        response_status_code = get_response_code("https://www.gov.si/")
+        if(200 <= response_status_code < 300):
+            db_logic.save_page_frontier("https://www.gov.si/", response_status_code, datetime.now())
+        frontier.put("https://e-uprava.gov.si/")
+        response_status_code = get_response_code("https://e-uprava.gov.si/")
+        if(200 <= response_status_code < 300):
+            db_logic.save_page_frontier("https://e-uprava.gov.si/", response_status_code, datetime.now())
+        frontier.put("https://www.e-prostor.gov.si/")
+        response_status_code = get_response_code("https://www.e-prostor.gov.si/")
+        if(200 <= response_status_code < 300):
+            db_logic.save_page_frontier("https://www.e-prostor.gov.si/", response_status_code, datetime.now())
 
-else:
-    for url in frontier_raw:
-        frontier.put(url)
-get_html_and_links(frontier)
+    else:
+        for url in frontier_raw:
+            frontier.put(url)
+    get_html_and_links(frontier)
 #db_logic.save_page_binary("https://www.gov.si/")
 #db_logic.save_page_data(1, ".pdf")
 #html_hash.close()
 #urls_file.close()
 
-
+if __name__ == "__main__":
+    main()
 
 
 #driver.get(robots_url)
