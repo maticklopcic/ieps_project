@@ -132,7 +132,7 @@ def get_crawl_delay(robots_txt_url):
 
 def url_exists(url_link):
     try:
-        response = requests.head(url_link)  # Use HEAD request to check existence
+        response = requests.get(url_link)  # Use HEAD request to check existence
         if response.status_code >= 200 and response.status_code < 300:
             return True
         else:
@@ -143,7 +143,7 @@ def url_exists(url_link):
 
 def get_response_code(url):
     try:
-        response = requests.head(url)   
+        response = requests.get(url)   
         return response.status_code, binary_type(response)
     except requests.exceptions.RequestException:
         return False    
