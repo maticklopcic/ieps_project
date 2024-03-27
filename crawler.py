@@ -146,8 +146,7 @@ def get_response_code(url):
         response = requests.get(url)   
         return response.status_code, binary_type(response)
     except requests.exceptions.RequestException:
-        return False    
-
+        return -1, None    
 
 #def is_html(url) -> bool:
 #    try:
@@ -204,139 +203,143 @@ def get_url_extension(url):
 """
     
 def crawl_web(i, driver, old_robots_url, html_hash_value):
-    while not frontier.empty():
-        with lock:
-            web_address = frontier.get()
-        if (i % 1) == 0: 
-            logging.info(f"{i} Retrieving web page URL '{web_address}'")
-            sys.stdout.flush()
-        web_address = remove_query_and_fragment(web_address)
-        #TODO check da page se ni v bazi (za prve 4)
-        robots_url = "https://" + get_domain(web_address) + "/robots.txt"
-        robots_content = ""
-        sitemap_content = ""
+    with lock:
+        web_address = frontier.get()
+    if (i % 1) == 0: 
+        logging.info(f"{i} Retrieving web page URL '{web_address}'")
+        sys.stdout.flush()
+    web_address = remove_query_and_fragment(web_address)
+    #TODO check da page se ni v bazi (za prve 4)
+    robots_url = "https://" + get_domain(web_address) + "/robots.txt"
+    robots_content = ""
+    sitemap_content = ""
 
-        if url_exists(robots_url):
-            robots_txt = parse_robots_txt(web_address, "*", robots_url)
-            allowance = robots_txt.can_fetch
-            robots_content = get_html_content(robots_url)
-            crawl_delay = robots_txt.crawl_delay
-            for sitemap in robots_txt.site_maps:
-                if sitemap is not None:
-                    sitemap_content += get_html_content(sitemap)
-        else:
-            allowance = True
-            crawl_delay = TIMEOUT
-        if not allowance:
-            db_logic.save_page_invalid(web_address)
-            continue
-        # TODO vzemi iz frontirja (baza)
-        wait = WebDriverWait(driver, crawl_delay)
-        response_status_code, type = get_response_code(web_address)        
-        
-        if not (200 <= response_status_code < 300):
-            db_logic.save_page_invalid(web_address)
-            continue
+    if url_exists(robots_url):
+        robots_txt = parse_robots_txt(web_address, "*", robots_url)
+        allowance = robots_txt.can_fetch
+        robots_content = get_html_content(robots_url)
+        crawl_delay = robots_txt.crawl_delay
+        for sitemap in robots_txt.site_maps:
+            if sitemap is not None:
+                sitemap_content += get_html_content(sitemap)
+    else:
+        allowance = True
+        crawl_delay = TIMEOUT
+    if not allowance:
+        db_logic.save_page_invalid(web_address)
+        return
+    # TODO vzemi iz frontirja (baza)
+    wait = WebDriverWait(driver, crawl_delay)
+    response_status_code, type = get_response_code(web_address)        
+    
+    if not (200 <= response_status_code < 300):
+        db_logic.save_page_invalid(web_address)
+        return
 
-        if db_logic.check_page_exists(web_address) is None:
-            #frontier.put(web_address)
-            db_logic.save_page_frontier(web_address, response_status_code, datetime.now(), )
+    ##
+    ##if db_logic.check_page_exists(web_address) is None:
+    ##    #frontier.put(web_address)
+    ##    db_logic.save_page_frontier(web_address, response_status_code, datetime.now(), )
 
-        try:
-            driver.get(web_address)
-        except Exception as e:
-            logging.error(f"Error retrieving web page URL '{web_address}'", exc_info=e)
-            db_logic.save_page_invalid(web_address)
-            continue
+   
 
-        pageId = db_logic.check_page_exists(web_address)
-        if web_address is not None and web_address[0:4] == "http":
-            if type in [BinaryType.PDF, BinaryType.DOC, BinaryType.DOCX, BinaryType.PPT, BinaryType.PPTX]:
-                db_logic.save_page_binary(web_address)
-                db_logic.save_page_data(pageId, type)
-                continue
-            elif type == BinaryType.JPG or type == BinaryType.PNG or type == BinaryType.SVG:
-                db_logic.save_page_binary(web_address)
-                imageId = db_logic.check_page_exists(web_address)
-                filename = web_address.split("/")[-1]
-                type_string = type.value
+    pageId = db_logic.check_page_exists(web_address)
+    if web_address is not None and web_address[0:4] == "http":
+        if type in [BinaryType.PDF, BinaryType.DOC, BinaryType.DOCX, BinaryType.PPT, BinaryType.PPTX, BinaryType.OTHER]:
+            db_logic.save_page_binary(web_address)
+            db_logic.save_page_data(pageId, type.value)
+            return
+        elif type == BinaryType.JPG or type == BinaryType.PNG or type == BinaryType.SVG:
+            db_logic.save_page_binary(web_address)
+            imageId = db_logic.check_page_exists(web_address)
+            filename = web_address.split("/")[-1]
+            type_string = type.value
 
-                db_logic.insert_image(imageId, filename, type_string, datetime.now())
-                continue
-        
-        else:
-            logging.error("Unexpected web address type")
+            db_logic.insert_image(imageId, filename, type_string, datetime.now())
+            return
+    
+    else:
+        logging.error("Unexpected web address type")
 
-        html = driver.page_source
-        html_hash_value = hash(html)
-        #timestamp = datetime.now()
+    try:
+        driver.get(web_address)
+    except Exception as e:
+        logging.error(f"Error retrieving web page URL '{web_address}'", exc_info=e)
+        db_logic.save_page_invalid(web_address)
+        return
+
+    html = driver.page_source
+    html_hash_value = hash(html)
+    #timestamp = datetime.now()
+    site_id = db_logic.check_site_exists(get_domain(web_address))
+    if site_id is None:
+        db_logic.save_site(get_domain(web_address), robots_content, sitemap_content)
         site_id = db_logic.check_site_exists(get_domain(web_address))
-        if site_id is None:
-            db_logic.save_site(get_domain(web_address), robots_content, sitemap_content)
-            site_id = db_logic.check_site_exists(get_domain(web_address))
-        link_original = db_logic.check_hash_exists(html_hash_value)
-        if link_original is not None:
-            db_logic.save_page_duplicate(web_address, link_original)
-            continue
-        db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML")
-        links = driver.find_elements(By.TAG_NAME, "a")
+    link_original = db_logic.check_hash_exists(html_hash_value)
+    if link_original is not None:
+        db_logic.save_page_duplicate(web_address, link_original)
+        return
+    db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML")
+    links = driver.find_elements(By.TAG_NAME, "a")
 
-        elements_with_onclick = driver.find_elements(By.XPATH, '//*[@href]')
-        # Extract links from other href attributes
-        for element in elements_with_onclick:
-            if element not in links:
-                links.append(element)
+    elements_with_onclick = driver.find_elements(By.XPATH, '//*[@href]')
+    # Extract links from other href attributes
+    for element in elements_with_onclick:
+        if element not in links:
+            links.append(element)
 
-        links_ids = []
+    links_ids = []
 
-        for link in links:
-            href = link.get_attribute("href")
-            logging.info(f"  Checking href {href}")
+    for link in links:
+        href = link.get_attribute("href")
+        logging.info(f"  Checking href {href}")
 
-            if href is not None and href[0:4] == "http" and '.gov.si' in href:
-                href = remove_query_and_fragment(href)
-                
-                if db_logic.check_page_exists(href) is None:
-                    robots_url = "https://" + get_domain(href) + "/robots.txt"
-                    if robots_url != old_robots_url:
-                        old_robots_url = robots_url
-                        if url_exists(robots_url):
-                            robots_txt = parse_robots_txt(href, "*", robots_url)
-                            allowance = robots_txt.can_fetch
-                        else:
-                            allowance = True
-                    if allowance:
-                        logging.info(f"    get_response")
-                        response_status_code, _ = get_response_code(href)
-                        logging.info(f"    href allowed")
+        if href is not None and href[0:4] == "http" and '.gov.si' in href:
+            href = remove_query_and_fragment(href)
+            
+            if db_logic.check_page_exists(href) is None:
+                robots_url = "https://" + get_domain(href) + "/robots.txt"
+                if robots_url != old_robots_url:
+                    old_robots_url = robots_url
+                    if url_exists(robots_url):
+                        robots_txt = parse_robots_txt(href, "*", robots_url)
+                        allowance = robots_txt.can_fetch
+                    else:
+                        allowance = True
+                if allowance:
+                    logging.info(f"    get_response")
+                    response_status_code, _ = get_response_code(href)
+                    logging.info(f"    href allowed")
 
-                        if(200 <= response_status_code < 300):
-                            logging.info(f"    status ok {response_status_code}")
+                    if(200 <= response_status_code < 300):
+                        logging.info(f"    status ok {response_status_code}")
 
-                            with lock:
-                                frontier.put(href)
-                            #logging.info(f"    put")
-                            db_logic.save_page_frontier(href, response_status_code, datetime.now(), pageId)
-                            #logging.info(f"    save_page")
-                            pageIDFrontier = db_logic.check_page_exists(href)
-                            #logging.info(f"    check_page")
-                            links_ids.append(pageIDFrontier)
-                            #logging.info(f"    append")
-                            db_logic.insert_link(pageId, pageIDFrontier)
-                            #logging.info(f"    insert")
+                        with lock:
+                            frontier.put(href)
+                        #logging.info(f"    put")
+                        db_logic.save_page_frontier(href, response_status_code, datetime.now(), pageId)
+                        #logging.info(f"    save_page")
+                        pageIDFrontier = db_logic.check_page_exists(href)
+                        #logging.info(f"    check_page")
+                        links_ids.append(pageIDFrontier)
+                        #logging.info(f"    append")
+                        db_logic.insert_link(pageId, pageIDFrontier)
+                        #logging.info(f"    insert")
 
-                    #added_urls_set.add(href)
-        logging.info(f"frontier size: {frontier.qsize()}")
-        db_logic.save_link_to(pageId, links_ids)
-        i += 1
+                #added_urls_set.add(href)
+    logging.info(f"frontier size: {frontier.qsize()}")
+    db_logic.save_link_to(pageId, links_ids)
+    i += 1
 
 def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
         i = 0
         old_robots_url = ""
         html_hash_value = None
-        with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
-            executor.submit(crawl_web, i, driver, old_robots_url, html_hash_value)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            while not frontier.empty():
+                future = executor.submit(crawl_web, i, driver, old_robots_url, html_hash_value)
+                result = future.result()
 
 
 #def print_frontier(frontier):
