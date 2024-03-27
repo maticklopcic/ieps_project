@@ -239,8 +239,8 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
             continue
 
         if db_logic.check_page_exists(web_address) is None:
-            #frontier.put(web_address)
-            db_logic.save_page_frontier(web_address, response_status_code, datetime.now(), )
+            frontier.put(web_address)
+            db_logic.save_page_frontier(web_address, datetime.now())
 
         try:
             driver.get(web_address)
@@ -278,7 +278,7 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
         if link_original is not None:
             db_logic.save_page_duplicate(web_address, link_original)
             continue
-        db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML")
+        db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML", response_status_code)
         links = driver.find_elements(By.TAG_NAME, "a")
 
         elements_with_onclick = driver.find_elements(By.XPATH, '//*[@href]')
@@ -306,24 +306,24 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
                         else:
                             allowance = True
                     if allowance:
-                        logging.info(f"    get_response")
-                        response_status_code, _ = get_response_code(href)
+                        #logging.info(f"    get_response")
+                        #response_status_code, _ = get_response_code(href)
                         logging.info(f"    href allowed")
 
-                        if(200 <= response_status_code < 300):
-                            logging.info(f"    status ok {response_status_code}")
+                        #if(200 <= response_status_code < 300):
+                        #logging.info(f"    status code {response_status_code}")
 
-                            with lock:
-                                frontier.put(href)
-                            #logging.info(f"    put")
-                            db_logic.save_page_frontier(href, response_status_code, datetime.now(), pageId)
-                            #logging.info(f"    save_page")
-                            pageIDFrontier = db_logic.check_page_exists(href)
-                            #logging.info(f"    check_page")
-                            links_ids.append(pageIDFrontier)
-                            #logging.info(f"    append")
-                            db_logic.insert_link(pageId, pageIDFrontier)
-                            #logging.info(f"    insert")
+                        with lock:
+                            frontier.put(href)
+                        #logging.info(f"    put")
+                        db_logic.save_page_frontier(href, datetime.now(), pageId)
+                        #logging.info(f"    save_page")
+                        pageIDFrontier = db_logic.check_page_exists(href)
+                        #logging.info(f"    check_page")
+                        links_ids.append(pageIDFrontier)
+                        #logging.info(f"    append")
+                        db_logic.insert_link(pageId, pageIDFrontier)
+                        #logging.info(f"    insert")
 
                     #added_urls_set.add(href)
         logging.info(f"frontier size: {frontier.qsize()}")
@@ -363,22 +363,22 @@ def main():
     frontier_raw = db_logic.get_frontier()
 
     if frontier_raw == []:
-        frontier.put("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
-        response_status_code, _ = get_response_code("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png")
+        frontier.put("https://evem.gov.si/")
+        response_status_code, _ = get_response_code("https://evem.gov.si/")
         if(200 <= response_status_code < 300):
-            db_logic.save_page_frontier("https://www.e-prostor.gov.si/typo3conf/ext/ag_eprostor/Resources/Public/Icons/apple-touch-icon.png", response_status_code, datetime.now())
+            db_logic.save_page_frontier("https://evem.gov.si/", datetime.now())
         frontier.put("https://www.gov.si/")
         response_status_code, _ = get_response_code("https://www.gov.si/")
         if(200 <= response_status_code < 300):
-            db_logic.save_page_frontier("https://www.gov.si/", response_status_code, datetime.now())
+            db_logic.save_page_frontier("https://www.gov.si/", datetime.now())
         frontier.put("https://e-uprava.gov.si/")
         response_status_code, _ = get_response_code("https://e-uprava.gov.si/")
         if(200 <= response_status_code < 300):
-            db_logic.save_page_frontier("https://e-uprava.gov.si/", response_status_code, datetime.now())
+            db_logic.save_page_frontier("https://e-uprava.gov.si/", datetime.now())
         frontier.put("https://www.e-prostor.gov.si/")
         response_status_code, _ = get_response_code("https://www.e-prostor.gov.si/")
         if(200 <= response_status_code < 300):
-            db_logic.save_page_frontier("https://www.e-prostor.gov.si/", response_status_code, datetime.now())
+            db_logic.save_page_frontier("https://www.e-prostor.gov.si/", datetime.now())
 
     else:
         for url in frontier_raw:

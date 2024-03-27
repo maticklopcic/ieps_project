@@ -16,10 +16,10 @@ class DbLogic:
         try:
             # Change the access details to your database here
             conn = psycopg2.connect(
-                dbname="crawlerdb",
+                dbname="crawldb",
                 user="postgres",
                 #password="pw",  # Replace 'geslo' with your actual password
-                password="iepsDB",  
+                password="Jure.2000",  
                 host="localhost",
             )
             print("Connected to the database.")
@@ -124,13 +124,13 @@ class DbLogic:
         else:
             raise Exception("Connection is none")
 
-    def save_page_frontier(self, url, http_status_code, accessed_time, link_original=None):
+    def save_page_frontier(self, url, accessed_time, link_original=None):
         page_type_code = "FRONTIER"
 
         # Start with base query parts that do not depend on link_original
-        query_columns = "url, http_status_code, accessed_time, page_type_code"
-        query_values = "%s, %s, %s, %s"
-        query_params = [url, http_status_code, accessed_time, page_type_code]
+        query_columns = "url, accessed_time, page_type_code"
+        query_values = "%s, %s, %s"
+        query_params = [url, accessed_time, page_type_code]
 
         # If link_original is provided (and is not None), add it to the query
         if link_original is not None:
@@ -157,21 +157,22 @@ class DbLogic:
             raise Exception("Connection is none")
 
 
-    def save_page_update(self, site_id, url, html_content, page_hash, page_type_code):
+    def save_page_update(self, site_id, url, html_content, page_hash, page_type_code, http_status_code):
         #conn = self.connect_to_db()
         if self.conn is not None:
             try:
                 with lock:
                     with self.conn.cursor() as cur:
                         cur.execute("""
-                            INSERT INTO crawldb.page (site_id, url, html_content, hash_value, page_type_code)
-                            VALUES (%s, %s, %s, %s, %s)
+                            INSERT INTO crawldb.page (site_id, url, html_content, hash_value, page_type_code, http_status_code)
+                            VALUES (%s, %s, %s, %s, %s, %s)
                             ON CONFLICT (url) DO UPDATE 
                             SET site_id = EXCLUDED.site_id,
                                 html_content = EXCLUDED.html_content,
                                 hash_value = EXCLUDED.hash_value,
-                                page_type_code = EXCLUDED.page_type_code;
-                        """, (site_id, url, html_content, page_hash, page_type_code))
+                                page_type_code = EXCLUDED.page_type_code,
+                                http_status_code = EXCLUDED.http_status_code;
+                        """, (site_id, url, html_content, page_hash, page_type_code, http_status_code))
                         self.conn.commit()
                         #print(f"PAGE UPDATE: {url} in the database.")
             except Exception as e:
