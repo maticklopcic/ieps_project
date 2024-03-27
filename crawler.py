@@ -25,6 +25,7 @@ from DbLogic import DbLogic
 import concurrent.futures
 import threading
 from dataclasses import dataclass
+from selenium.common.exceptions import StaleElementReferenceException
 
 lock = threading.Lock()
 
@@ -105,14 +106,19 @@ class RobotsTxt:
 def parse_robots_txt(url, user_agent, robots_txt_url):
     rp = robotparser.RobotFileParser()
     rp.set_url(robots_txt_url)
-    rp.read()
-    crawl_delay = rp.crawl_delay("*")
+    try:
+        rp.read()
+        crawl_delay = rp.crawl_delay("*")
 
-    if crawl_delay is None:
-        crawl_delay = TIMEOUT
-    return RobotsTxt(can_fetch=rp.can_fetch(user_agent, url), 
-                     site_maps=rp.sitemaps, 
-                     crawl_delay=crawl_delay)
+        if crawl_delay is None:
+            crawl_delay = TIMEOUT
+        return RobotsTxt(can_fetch=rp.can_fetch(user_agent, url), 
+                        site_maps=rp.sitemaps, 
+                        crawl_delay=crawl_delay)
+    except Exception as e:
+        logging.error(f"Error while parsing robots.txt '{url}'", exc_info=e)
+        return False, [], TIMEOUT
+   
     
 """def is_allowed_and_sitemap(url, user_agent, robots_txt_url):
     rp = robotparser.RobotFileParser()
@@ -286,19 +292,20 @@ def crawl_web(i, driver):
         db_logic.save_page_duplicate(web_address, link_original)
         return
     db_logic.save_page_update(site_id, web_address, html, html_hash_value, "HTML", response_status_code)
-    links = driver.find_elements(By.TAG_NAME, "a")
+    #links = driver.find_elements(By.TAG_NAME, "a")
 
-    elements_with_onclick = driver.find_elements(By.XPATH, '//*[@href]')
-    # Extract links from other href attributes
-    for element in elements_with_onclick:
-        if element not in links:
-            links.append(element)
+    links_hrefs = []
+    try:
+        elements_with_href = driver.find_elements(By.XPATH, '//*[@href]')
+        for link in elements_with_href:
+            links_hrefs.append(link.get_attribute('href'))
+    except StaleElementReferenceException as e:
+        logging.error(f"Stale Element Reference Exception, links.size={len(links_hrefs)}", exc_info=e)
 
     links_ids = []
     old_robots_url = ""
     
-    for link in links:
-        href = link.get_attribute("href")
+    for href in links_hrefs:
         logging.debug(f"  Checking href {href}")
 
         if href is not None and href[0:4] == "http" and '.gov.si' in href:
@@ -341,10 +348,11 @@ def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
         driver.set_page_load_timeout(10)
         i = 0
-        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
             while not frontier.empty():
-                future = executor.submit(crawl_web, i, driver)
-                result = future.result()
+                #future = executor.submit(crawl_web, i, driver)
+                crawl_web(i, driver)
+                #result = future.result()
                 i += 1
 
 #def print_frontier(frontier):
