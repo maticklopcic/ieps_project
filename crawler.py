@@ -202,7 +202,7 @@ def get_url_extension(url):
         return ""
 """
     
-def crawl_web(i, driver, old_robots_url, html_hash_value):
+def crawl_web(i, driver):
     with lock:
         web_address = frontier.get()
     if (i % 1) == 0: 
@@ -225,12 +225,16 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
     else:
         allowance = True
         crawl_delay = TIMEOUT
+
+    logging.info(f"url exists")
+
     if not allowance:
         db_logic.save_page_invalid(web_address)
         return
     # TODO vzemi iz frontirja (baza)
     wait = WebDriverWait(driver, crawl_delay)
     response_status_code, type = get_response_code(web_address)        
+    logging.info(f"after responsr")
     
     if not (200 <= response_status_code < 300):
         db_logic.save_page_invalid(web_address)
@@ -261,12 +265,14 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
     else:
         logging.error("Unexpected web address type")
 
+    logging.info(f"Before load {web_address}")
     try:
         driver.get(web_address)
     except Exception as e:
         logging.error(f"Error retrieving web page URL '{web_address}'", exc_info=e)
         db_logic.save_page_invalid(web_address)
         return
+    logging.info(f"Page loaded {web_address}")
 
     html = driver.page_source
     html_hash_value = hash(html)
@@ -289,10 +295,11 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
             links.append(element)
 
     links_ids = []
-
+    old_robots_url = ""
+    
     for link in links:
         href = link.get_attribute("href")
-        logging.info(f"  Checking href {href}")
+        logging.debug(f"  Checking href {href}")
 
         if href is not None and href[0:4] == "http" and '.gov.si' in href:
             href = remove_query_and_fragment(href)
@@ -309,7 +316,7 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
                 if allowance:
                     #logging.info(f"    get_response")
                     #response_status_code, _ = get_response_code(href)
-                    logging.info(f"    href allowed")
+                    logging.info(f"    href allowed {href}")
 
                     #if(200 <= response_status_code < 300):
                     #logging.info(f"    status code {response_status_code}")
@@ -329,18 +336,16 @@ def crawl_web(i, driver, old_robots_url, html_hash_value):
             #added_urls_set.add(href)
     logging.info(f"frontier size: {frontier.qsize()}")
     db_logic.save_link_to(pageId, links_ids)
-    i += 1
 
 def get_html_and_links(frontier):
     with webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=firefox_options) as driver:
+        driver.set_page_load_timeout(10)
         i = 0
-        old_robots_url = ""
-        html_hash_value = None
-        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
             while not frontier.empty():
-                future = executor.submit(crawl_web, i, driver, old_robots_url, html_hash_value)
+                future = executor.submit(crawl_web, i, driver)
                 result = future.result()
-
+                i += 1
 
 #def print_frontier(frontier):
 #    for l in frontier.queue:
