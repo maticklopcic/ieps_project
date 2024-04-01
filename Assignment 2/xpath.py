@@ -1,3 +1,3 @@
-class xpath:
+class Xpath:
     def __init__(self) -> None:
         pass
