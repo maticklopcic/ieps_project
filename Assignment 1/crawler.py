@@ -88,12 +88,13 @@ def get_html_content(url):
 # (DONE) dodaj robots.txt content v bazo
 # (DONE) če se ne procesira pri continoue odstrani iz FRONTIRJA v bazi 
 # (DONE) poglej za duplikate v bazi (ce je isti url ga ne damo v frontier; isti hash damo kot duplikat in damo link -> novo polje v db)
-# implementiraj paralelno obdelavo
+# (DONE) implementiraj paralelno obdelavo
 # (DONE) sitemap
 # poglej za ostale file (zip, rar, ...) -> binary
 # (DONE) poglej elemente ki niso a in imajo href (onclick, ...)
 # (DONE) from in to linki za page
-# poglej za slike in dodaj v bazo
+# (DONE) poglej za slike in dodaj v bazo
+# timeout za linke 5s
 
 @dataclass
 class RobotsTxt:
