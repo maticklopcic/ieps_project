@@ -16,7 +16,7 @@ paths = [
 ]
 
 options = FirefoxOptions()
-#options.add_argument("--headless")
+options.add_argument("--headless")
 service = Service(GeckoDriverManager().install())
 driver = webdriver.Firefox(service=service, options=options)
 
@@ -31,7 +31,7 @@ driver.quit()
 
 def extract_using_regex():
     regex = Regex()
-    regex.rtv(html_contents[0], html_contents[1])
+    #regex.rtv(html_contents[0], html_contents[1])
     regex.overstock(html_contents[2], html_contents[3])
     print("Extracting using regex...")
     return []
