@@ -127,12 +127,10 @@ class DbLogic:
     def save_page_frontier(self, url, accessed_time, link_original=None):
         page_type_code = "FRONTIER"
 
-        # Start with base query parts that do not depend on link_original
         query_columns = "url, accessed_time, page_type_code"
         query_values = "%s, %s, %s"
         query_params = [url, accessed_time, page_type_code]
 
-        # If link_original is provided (and is not None), add it to the query
         if link_original is not None:
             query_columns += ", link_original"
             query_values += ", %s"
