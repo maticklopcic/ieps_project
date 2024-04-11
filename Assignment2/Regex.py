@@ -7,27 +7,37 @@ class Regex:
         pass
 
     def rtv(self, rtv1_html_content, rtv2_html_content):
-        # Example regex patterns
         title_pattern = r'<h1[^>]*>(.*?)</h1>'
-        item_pattern = r'<li[^>]*>(.*?)</li>'
-        price_pattern = r'\$\d+\.\d+'
-
-        # Extract titles
+        author_date_pattern = r'<strong>([^<]+)</strong>\|\s*([\d]{1,2}\.\s*[a-zA-Z]+\s*[\d]{4}\s*ob\s*[\d]{1,2}:[\d]{2})'
+        subtitle_pattern = r'<div class="subtitle">([^<]+)</div>'
+        lead_pattern = r'<p class="lead">([^<]+)</p>'
+        
         titles1 = re.findall(title_pattern, rtv1_html_content)
         titles2 = re.findall(title_pattern, rtv2_html_content)
 
-        # Extract item lists (assuming they are within <li> tags)
-        items1 = re.findall(item_pattern, rtv1_html_content)
-        items2 = re.findall(item_pattern, rtv2_html_content)
+        authors_dates1 = re.search(author_date_pattern, rtv1_html_content)
+        authors_dates2 = re.search(author_date_pattern, rtv2_html_content)
 
-        # Extract prices
-        prices1 = re.findall(price_pattern, rtv1_html_content)
-        prices2 = re.findall(price_pattern, rtv2_html_content)
+        subtitles1 = re.findall(subtitle_pattern, rtv1_html_content)
+        subtitles2 = re.findall(subtitle_pattern, rtv2_html_content)
+
+        lead1 = re.findall(lead_pattern, rtv1_html_content)
+        lead2 = re.findall(lead_pattern, rtv2_html_content)
+
+        if authors_dates1:
+            author1 = authors_dates1.group(1)
+            publishedTime1 = authors_dates1.group(2)
+
+        if authors_dates2:
+            author2 = authors_dates2.group(1)
+            publishedTime2 = authors_dates2.group(2)
 
         extracted_info = {
-            "titles": {"rtv1": titles1, "rtv2": titles2},
-            "items": {"rtv1": items1, "rtv2": items2},
-            "prices": {"rtv1": prices1, "rtv2": prices2}
+            "TITLES": {"RTV1": titles1, "RTV2": titles2},
+            "AUTHOR": {"RTV1": author1, "RTV2": author2},
+            "PUBLISHED_TIME": {"RTV1": publishedTime1, "RTV2": publishedTime2},
+            "SUBTITLES": {"RTV1": subtitles1, "RTV2": subtitles2},
+            "LEADS": {"RTV1": lead1, "RTV2": lead2}
         }
         print(extracted_info)
         return extracted_info

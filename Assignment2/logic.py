@@ -8,16 +8,16 @@ from webdriver_manager.firefox import GeckoDriverManager
 from Regex import Regex
 from Xpath import Xpath
 from RoadRunner import RoadRunner
-"""
-paths = [
-    Path('strani', 'rtvslo.si', 'Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html'),
-    Path('strani', 'rtvslo.si', 'Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'),
-    Path('strani', 'overstock.com', 'jewelry01.html'),
-    Path('strani', 'overstock.com', 'jewelry02.html')
-]
 
+paths = [
+    #Path('strani', 'rtvslo.si', 'Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html'),
+    Path('strani', 'rtvslo.si', 'Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'),
+    #Path('strani', 'overstock.com', 'jewelry01.html'),
+    #Path('strani', 'overstock.com', 'jewelry02.html')
+]
+"""
 options = FirefoxOptions()
-options.add_argument("--headless")
+#options.add_argument("--headless")
 service = Service(GeckoDriverManager().install())
 driver = webdriver.Firefox(service=service, options=options)
 rendered_file_path = os.path.join('strani', 'rendered.txt')
@@ -29,9 +29,9 @@ with open(rendered_file_path, 'w', encoding='utf-8') as file:
     for path in paths:
         file_uri = path.resolve().as_uri()
         driver.get(file_uri)
-        file.write(driver.page_source + "\n\n--- End of HTML Content ---\n\n")
+        #file.write(driver.page_source + "\n\n--- End of HTML Content ---\n\n")
 
-driver.quit()
+#driver.quit()
 """
 html_contents = []
 file_path = os.path.join('strani', 'rendered.txt')
@@ -48,8 +48,8 @@ else:
 
 def extract_using_regex():
     regex = Regex()
-    #regex.rtv(html_contents[0], html_contents[1])
-    regex.overstock(html_contents[2], html_contents[3])
+    regex.rtv(html_contents[0], html_contents[1])
+    #regex.overstock(html_contents[2], html_contents[3])
     print("Extracting using regex...")
     return []
 
