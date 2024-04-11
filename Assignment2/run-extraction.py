@@ -17,7 +17,7 @@ paths = [
 ]
 
 options = FirefoxOptions()
-#options.add_argument("--headless")
+options.add_argument("--headless")
 service = Service(GeckoDriverManager().install())
 driver = webdriver.Firefox(service=service, options=options)
 rendered_file_path = os.path.join('strani', 'rendered.txt')
@@ -25,13 +25,17 @@ os.makedirs(os.path.dirname(rendered_file_path), exist_ok=True)
 
 html_contents = []
 
+for path in paths:
+    file_uri = path.resolve().as_uri()
+    driver.get(file_uri)
+
 with open(rendered_file_path, 'w', encoding='utf-8') as file:
     for path in paths:
         file_uri = path.resolve().as_uri()
         driver.get(file_uri)
         #file.write(driver.page_source + "\n\n--- End of HTML Content ---\n\n")
 
-#driver.quit()
+driver.quit()
 """
 html_contents = []
 file_path = os.path.join('strani', 'rendered.txt')
@@ -49,8 +53,9 @@ else:
 def extract_using_regex():
     regex = Regex()
     regex.rtv(html_contents[0], html_contents[1])
-    #regex.overstock(html_contents[2], html_contents[3])
-    print("Extracting using regex...")
+    regex.overstock(html_contents[2], html_contents[3])
+    #regex.custom(html_contents[4], html_contents[5])
+    #print("Extracting using regex...")
     return []
 
 def extract_using_xpath():
@@ -73,7 +78,7 @@ def main():
     method = sys.argv[1]
 
     if method == 'A':
-        result = extract_using_regex()
+        extract_using_regex()
     elif method == 'B':
         result = extract_using_xpath()
     elif method == 'C':
@@ -82,7 +87,7 @@ def main():
         print("Invalid method. Use 'A', 'B', or 'C'.")
         sys.exit(1)
 
-    print(result)
+    #print(result)
 
 if __name__ == "__main__":
     main()
