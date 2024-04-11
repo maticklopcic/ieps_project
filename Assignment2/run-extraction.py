@@ -8,14 +8,14 @@ from webdriver_manager.firefox import GeckoDriverManager
 from Regex import Regex
 from Xpath import Xpath
 from RoadRunner import RoadRunner
-
-paths = [
-    #Path('strani', 'rtvslo.si', 'Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html'),
-    Path('strani', 'rtvslo.si', 'Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'),
-    #Path('strani', 'overstock.com', 'jewelry01.html'),
-    #Path('strani', 'overstock.com', 'jewelry02.html')
-]
 """
+paths = [
+    Path('strani', 'rtvslo.si', 'Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html'),
+    Path('strani', 'rtvslo.si', 'Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'),
+    Path('strani', 'overstock.com', 'jewelry01.html'),
+    Path('strani', 'overstock.com', 'jewelry02.html')
+]
+
 options = FirefoxOptions()
 #options.add_argument("--headless")
 service = Service(GeckoDriverManager().install())
