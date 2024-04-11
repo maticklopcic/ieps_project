@@ -36,20 +36,38 @@ class Regex:
         title_pattern = r'<a href="http://www.overstock.com/cgi-bin/d2.cgi\?PAGE=PROFRAME&amp;PROD_ID=\d+"><b>([^<]+)</b></a><br>'
         list_prices_pattern = r'<s>([^<]+)</s>'
         price_pattern = r'<td align="right" nowrap="nowrap"><b>Price:</b></td><td align="left" nowrap="nowrap"><span class="bigred"><b>([^<]+)</b></span></td>'
-
+        saved_pattern = r'<td align="right" nowrap="nowrap"><b>You Save:</b></td><td align="left" nowrap="nowrap"><span class="littleorange">([^<]+)</span></td>'
+        content_pattern = r'<td valign="top"><span class="normal">([^<]+)<br><a href'
+        
         titles1 = re.findall(title_pattern, ovs1_html_content)
         titles2 = re.findall(title_pattern, ovs2_html_content)
         
         list_prices1 = re.findall(list_prices_pattern, ovs1_html_content)
         list_prices2 = re.findall(list_prices_pattern, ovs2_html_content)
-
+        
         prices1 = re.findall(price_pattern, ovs1_html_content)
         prices2 = re.findall(price_pattern, ovs2_html_content)
 
+        saved1 = re.findall(saved_pattern, ovs1_html_content)
+        saved2 = re.findall(saved_pattern, ovs2_html_content)
+        
+        content1 = re.findall(content_pattern, ovs1_html_content)
+        print("CONTENT IN OVS1:")
+        for i in range(len(content1)):
+            content1[i] = content1[i].replace("\n", " ")
+            #print(content1[i] + "\n\n")
+        content2 = re.findall(content_pattern, ovs2_html_content)
+        print("CONTENT IN OVS2:")
+        for i in range(len(content2)):
+            content2[i] = content2[i].replace("\n", " ")
+            #print(content2[i] + "\n\n")
+
         extracted_info = {
-            "titles": {"OVS1": titles1, "OVS2": titles2},
-            "list_prices": {"OVS1": list_prices1, "OVS2": list_prices2},
-            "prices": {"OVS1": prices1, "OVS2": prices2}
+            "TITLES": {"OVS1": titles1, "OVS2": titles2},
+            "LIST_PRICES": {"OVS1": list_prices1, "OVS2": list_prices2},
+            "PRICES": {"OVS1": prices1, "OVS2": prices2},
+            "SAVED": {"OVS1": saved1, "OVS2": saved2},
+            "CONTENT": {"OVS1": content1, "OVS2": content2}
         }
         print(extracted_info)
         return extracted_info
