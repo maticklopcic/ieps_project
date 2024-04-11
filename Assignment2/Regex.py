@@ -35,7 +35,7 @@ class Regex:
     def overstock(self, ovs1_html_content, ovs2_html_content):
         title_pattern = r'<a href="http://www.overstock.com/cgi-bin/d2.cgi\?PAGE=PROFRAME&amp;PROD_ID=\d+"><b>([^<]+)</b></a><br>'
         list_prices_pattern = r'<s>([^<]+)</s>'
-        price_pattern = r'<tr><td align="right" nowrap="nowrap"><b>Price:</b></td><td align="left" nowrap="nowrap"><span class="bigred"><b>'
+        price_pattern = r'<td align="right" nowrap="nowrap"><b>Price:</b></td><td align="left" nowrap="nowrap"><span class="bigred"><b>([^<]+)</b></span></td>'
 
         titles1 = re.findall(title_pattern, ovs1_html_content)
         titles2 = re.findall(title_pattern, ovs2_html_content)
