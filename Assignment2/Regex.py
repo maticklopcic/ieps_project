@@ -12,9 +12,7 @@ class Regex:
         author_date_pattern = r'<strong>([^<]+)</strong>\|\s*([\d]{1,2}\.\s*[a-zA-Z]+\s*[\d]{4}\s*ob\s*[\d]{1,2}:[\d]{2})'
         subtitle_pattern = r'<div class="subtitle">([^<]+)</div>'
         lead_pattern = r'<p class="lead">([^<]+)</p>'
-        content_text_pattern1 = r'<p(?: class="Body")?>(.*?)</p>'
-        #content_text_pattern1 = r'<p class="Body">([^<]+)</p>'
-        
+        content_text_pattern1 = r'^(?:.*)<div class="article-body">|<div class="gallery">(?:.*)$|<script[^>]*>.*?</script>|<[^>]+>'
 
         titles1 = re.findall(title_pattern, rtv1_html_content)
         titles2 = re.findall(title_pattern, rtv2_html_content)
@@ -39,13 +37,23 @@ class Regex:
             author2 = authors_dates2.group(1)
             publishedTime2 = authors_dates2.group(2)
 
-        content1 = re.findall(content_text_pattern1, rtv1_html_content)
+        
+        content1 = re.sub(content_text_pattern1, '', rtv1_html_content, flags=re.S)
+        cleaned_lines1 = [line.strip() for line in content1.split('\n') if line.strip()]
+        content1 = '\n'.join(cleaned_lines1)
+        #print("CONTENT:", content1)
+        content2 = re.sub(content_text_pattern1, '', rtv2_html_content, flags=re.S)
+        cleaned_lines2 = [line.strip() for line in content2.split('\n') if line.strip()]
+        content2 = '\n'.join(cleaned_lines2)
+        #print("CONTENT:", content2)
+
+        """content1 = re.findall(content_text_pattern1, rtv1_html_content)
         content2 = re.findall(content_text_pattern1, rtv2_html_content)
         for i in range(len(content1)):
             content1[i] = self.process_html_content(content1[i])
         for i in range(len(content2)):
             content2[i] = self.process_html_content(content2[i])
-        """if not content1:
+        if not content1:
             content1 = re.findall(content_text_pattern2, rtv1_html_content)
         if not content2:
             content2 = re.findall(content_text_pattern2, rtv2_html_content)"""
@@ -76,7 +84,7 @@ class Regex:
         })
 
         json_data = json.dumps(extracted_info, ensure_ascii=False, indent=4)
-        print(json_data)
+        #print(json_data)
         return
     
     def overstock(self, ovs1_html_content, ovs2_html_content):
@@ -138,7 +146,15 @@ class Regex:
         return
     
     def custom(self, custom1_html_content, custom2_html_content):
-        return "regex"
+        title_pattern = r'<title>([^<]+)</title>'
+        title1 = re.search(title_pattern, custom1_html_content)
+        title2 = re.search(title_pattern, custom2_html_content)
+        print("Title1:", title1.group(1))
+        print("Title2:", title2.group(1))
+
+        #print("Custom1:", custom1_html_content)
+        #print("Custom2:", custom2_html_content)
+        return
     
     def process_html_content(self, html_content):
         processed_content = re.sub(r'<br\s*/?>', ' ', html_content)
