@@ -83,7 +83,7 @@ print("DOLZINA HTMLJEV: ", len(html_contents))
 def extract_using_regex():
     regex = Regex()
     regex.rtv(html_contents[0], html_contents[1])
-    regex.overstock(html_contents[2], html_contents[3])
+    #regex.overstock(html_contents[2], html_contents[3])
     #regex.custom(html_contents[4], html_contents[5])
     #print("Extracting using regex...")
     return []
