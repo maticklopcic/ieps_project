@@ -14,8 +14,8 @@ paths = [
     #Path('strani', 'rtvslo.si', 'Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'),
     #Path('strani', 'overstock.com', 'jewelry01.html'),
     #Path('strani', 'overstock.com', 'jewelry02.html')
-    "https://www.rottentomatoes.com/browse/movies_at_home/affiliates:peacock",
-    "https://www.rottentomatoes.com/browse/movies_at_home/affiliates:amazon_prime"
+    "https://www.rottentomatoes.com/browse/movies_at_home/affiliates:peacock~critics:certified_fresh",
+    "https://www.rottentomatoes.com/browse/movies_at_home/affiliates:amazon_prime~critics:certified_fresh"
 ]
 
 options = FirefoxOptions()
@@ -24,7 +24,7 @@ service = Service(GeckoDriverManager().install())
 driver = webdriver.Firefox(service=service, options=options)
 #html_contents = []
 """
-CUSTOM
+#CUSTOM
 rendered_file_path = os.path.join('strani', 'rendered_custom.txt')
 os.makedirs(os.path.dirname(rendered_file_path), exist_ok=True)
 
@@ -82,9 +82,9 @@ else:
 print("DOLZINA HTMLJEV: ", len(html_contents))
 def extract_using_regex():
     regex = Regex()
-    regex.rtv(html_contents[0], html_contents[1])
+    #regex.rtv(html_contents[0], html_contents[1])
     #regex.overstock(html_contents[2], html_contents[3])
-    #regex.custom(html_contents[4], html_contents[5])
+    regex.custom(html_contents[4], html_contents[5])
     #print("Extracting using regex...")
     return []
 

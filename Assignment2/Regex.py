@@ -149,8 +149,46 @@ class Regex:
         title_pattern = r'<title>([^<]+)</title>'
         title1 = re.search(title_pattern, custom1_html_content)
         title2 = re.search(title_pattern, custom2_html_content)
+        
+
+        data_pattern = re.compile(
+            r'<score-pairs-deprecated.*?audiencescore="(\d+)".*?criticsscore="(\d+)".*?</score-pairs-deprecated>\s*'
+            r'<span class="p--small" data-qa="discovery-media-list-item-title">\s*(.*?)\s*</span>\s*'
+            r'<span class="smaller" data-qa="discovery-media-list-item-start-date">\s*(.*?)\s*</span>'
+            , re.DOTALL
+        )
+        matches1 = data_pattern.findall(custom1_html_content)
+        matches2 = data_pattern.findall(custom2_html_content)
+        movies1 = []
+        for match in matches1:
+            audience_score, critic_score, title, streaming_date = match
+            movie_info = {
+                "title": title,
+                "streaming_date": streaming_date,
+                "audience_score": audience_score,
+                "critic_score": critic_score
+            }
+            movies1.append(movie_info)
+        json_output1 = json.dumps(movies1, indent=4, ensure_ascii=False)
         print("Title1:", title1.group(1))
+        print(json_output1)
+        
+        movies2 = []
+        for match in matches2:
+            audience_score, critic_score, title, streaming_date = match
+            movie_info = {
+                "title": title,
+                "streaming_date": streaming_date,
+                "audience_score": audience_score,
+                "critic_score": critic_score
+            }
+            movies2.append(movie_info)
+
+        # Convert list of dictionaries to JSON
+        json_output2 = json.dumps(movies2, indent=4)
         print("Title2:", title2.group(1))
+        print(json_output2)
+
 
         #print("Custom1:", custom1_html_content)
         #print("Custom2:", custom2_html_content)
