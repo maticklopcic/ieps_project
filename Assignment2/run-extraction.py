@@ -100,6 +100,9 @@ def extract_using_road_runner():
     print("Ekstrakcija podatkov tipa RTV:")
     road_runner.extract_data(html_contents[0], html_contents[1])
     print("\n")
+    print("Ekstrakcija podatkov tipa OVERSTOCK:")
+    road_runner.extract_data(html_contents[2], html_contents[3])
+    print("\n")
     #print("Extracting using Road Runner algorithm...")
     return []
 

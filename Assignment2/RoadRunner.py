@@ -35,7 +35,7 @@ class RoadRunner:
             element.decompose()
 
         comments = soup.findAll(string=lambda text: isinstance(text, Comment))
-        # Remove comments.
+
         [comment.extract() for comment in comments]
 
     def clean_soup(self, soup):
@@ -62,13 +62,14 @@ class RoadRunner:
     def tokenize(self, html):
         soup = BeautifulSoup(html, 'html.parser')
         tokens = []
+        
         for element in soup.recursiveChildGenerator():
             if isinstance(element, str):
                 if element.strip():
                     tokens.append(element.strip())
             else:
                 if element.name:
-                    # Capture the tag with its attributes
+                    #Capture the tag with its attributes
                     #attrs = ''.join([f' {k}="{v}"' for k, v in element.attrs.items()])
                     #tokens.append(f"<{element.name}{attrs}>")
                     tokens.append(f"<{element.name}>")
@@ -85,6 +86,7 @@ class RoadRunner:
                     s1.replace_with(self.generalize_strings(str(s1), str(s2)))
             elif s1.name == s2.name:
                 self.match_structures(s1, s2)
+    
     
     def road_runner(self, tokens1, tokens2):
         index1 = 0
@@ -108,12 +110,11 @@ class RoadRunner:
                     index1 += 1
                     index2 += 1
 
-        return ' '.join(wrapper)  # Joining all tokens into a single string with spaces
-
-
+        return ' '.join(wrapper)
+    
     def generalize_strings(self, str1, str2):
-        # Pattern to detect if the string contains mainly digits
        
         if str1 != str2:
             return ".*"
-        return str1  # Return the original string if they are the same
+        return str1
+    
