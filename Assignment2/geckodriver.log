@@ -1,0 +1,30 @@
+1713343219405	geckodriver	INFO	Listening on 127.0.0.1:41313
+1713343220661	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "59511" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileCVC9H6"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713343221411	Marionette	INFO	Marionette enabled
+1713343221574	Marionette	INFO	Listening on port 40197
+WebDriver BiDi listening on ws://127.0.0.1:59511
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+Read port: 40197
+1713343239406	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:59511/devtools/browser/3a437cbb-8188-4c05-9735-fc762392ca85
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713343252168	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
