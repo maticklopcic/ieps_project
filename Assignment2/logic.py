@@ -34,7 +34,7 @@ with open(rendered_file_path, 'w', encoding='utf-8') as file:
 driver.quit()
 """
 html_contents = []
-file_path = os.path.join('strani', 'rendered.txt')
+file_path = os.path.join('Assignment2/strani', 'rendered.txt')
 
 if os.path.exists(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -55,7 +55,7 @@ def extract_using_regex():
 
 def extract_using_xpath():
     xpath = Xpath()
-    xpath
+    xpath.overstock(html_contents[2], html_contents[3])
     print("Extracting using XPath...")
     return []
 
