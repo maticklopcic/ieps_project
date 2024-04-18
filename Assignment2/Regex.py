@@ -40,11 +40,11 @@ class Regex:
         
         content1 = re.sub(content_text_pattern1, '', rtv1_html_content, flags=re.S)
         cleaned_lines1 = [line.strip() for line in content1.split('\n') if line.strip()]
-        content1 = '\n'.join(cleaned_lines1)
+        content1 = ' '.join(cleaned_lines1)
         #print("CONTENT:", content1)
         content2 = re.sub(content_text_pattern1, '', rtv2_html_content, flags=re.S)
         cleaned_lines2 = [line.strip() for line in content2.split('\n') if line.strip()]
-        content2 = '\n'.join(cleaned_lines2)
+        content2 = ' '.join(cleaned_lines2)
         #print("CONTENT:", content2)
 
         """content1 = re.findall(content_text_pattern1, rtv1_html_content)
@@ -84,7 +84,7 @@ class Regex:
         })
 
         json_data = json.dumps(extracted_info, ensure_ascii=False, indent=4)
-        #print(json_data)
+        print(json_data)
         return
     
     def overstock(self, ovs1_html_content, ovs2_html_content):

@@ -17,13 +17,13 @@ paths = [
     "https://www.rottentomatoes.com/browse/movies_at_home/affiliates:peacock~critics:certified_fresh",
     "https://www.rottentomatoes.com/browse/movies_at_home/affiliates:amazon_prime~critics:certified_fresh"
 ]
-
+"""
 options = FirefoxOptions()
 options.add_argument("--headless")
 service = Service(GeckoDriverManager().install())
 driver = webdriver.Firefox(service=service, options=options)
 #html_contents = []
-"""
+
 #CUSTOM
 rendered_file_path = os.path.join('strani', 'rendered_custom.txt')
 os.makedirs(os.path.dirname(rendered_file_path), exist_ok=True)
@@ -37,8 +37,7 @@ with open(rendered_file_path, 'w', encoding='utf-8') as file:
         file.write(page_source + "\n\n--- End of HTML Content ---\n\n")
 
 driver.quit()
-"""
-"""
+
 RTV IN OVERSTOCK
 rendered_file_path = os.path.join('strani', 'rendered.txt')
 os.makedirs(os.path.dirname(rendered_file_path), exist_ok=True)
@@ -61,7 +60,7 @@ if os.path.exists(file_path):
 
     html_contents = [section for section in content.split("\n\n--- End of HTML Content ---\n\n") if section.strip()]
 
-    print("Number of HTML contents loaded:", len(html_contents))
+    #print("Number of HTML contents loaded:", len(html_contents))
 else:
     print("File not found:", file_path)
 
@@ -75,17 +74,16 @@ if os.path.exists(file_path2):
         if section.strip():
             html_contents.append(section.strip())
 
-    print("Number of HTML contents loaded:", len(html_contents))
+    #print("Number of HTML contents loaded:", len(html_contents))
 else:
     print("File not found:", file_path2)
 
-print("DOLZINA HTMLJEV: ", len(html_contents))
+#print("DOLZINA HTMLJEV: ", len(html_contents))
 def extract_using_regex():
     regex = Regex()
-    #regex.rtv(html_contents[0], html_contents[1])
-    #regex.overstock(html_contents[2], html_contents[3])
+    regex.rtv(html_contents[0], html_contents[1])
+    regex.overstock(html_contents[2], html_contents[3])
     regex.custom(html_contents[4], html_contents[5])
-    #print("Extracting using regex...")
     return []
 
 def extract_using_xpath():
