@@ -53,7 +53,7 @@ with open(rendered_file_path, 'w', encoding='utf-8') as file:
 driver.quit()
 """
 html_contents = []
-file_path = os.path.join('Assignment2', 'strani', 'rendered.txt')
+file_path = os.path.join('strani', 'rendered.txt')
 
 if os.path.exists(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -65,7 +65,7 @@ if os.path.exists(file_path):
 else:
     print("File not found:", file_path)
 
-file_path2 = os.path.join('Assignment2', 'strani', 'rendered_custom.txt')
+file_path2 = os.path.join('strani', 'rendered_custom.txt')
 
 if os.path.exists(file_path2):
     with open(file_path2, 'r', encoding='utf-8') as file:
@@ -102,6 +102,9 @@ def extract_using_road_runner():
     print("\n")
     print("Ekstrakcija podatkov tipa OVERSTOCK:")
     road_runner.extract_data(html_contents[2], html_contents[3])
+    print("\n")
+    print("Ekstrakcija podatkov tipa ROTTENTOMATOES:")
+    road_runner.extract_data(html_contents[4], html_contents[5])
     print("\n")
     #print("Extracting using Road Runner algorithm...")
     return []
