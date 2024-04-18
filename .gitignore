@@ -4,3 +4,4 @@ urls.txt
 html_hashes.txt
 *.exe
 *.pyc
+geckodriver.log
