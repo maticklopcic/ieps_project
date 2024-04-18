@@ -165,8 +165,8 @@ class Regex:
             movie_info = {
                 "title": title,
                 "streaming_date": streaming_date,
-                "audience_score": audience_score,
-                "critic_score": critic_score
+                "audience_score": audience_score + "%",
+                "critic_score": critic_score + "%"
             }
             movies1.append(movie_info)
         json_output1 = json.dumps(movies1, indent=4, ensure_ascii=False)
@@ -179,8 +179,8 @@ class Regex:
             movie_info = {
                 "title": title,
                 "streaming_date": streaming_date,
-                "audience_score": audience_score,
-                "critic_score": critic_score
+                "audience_score": audience_score + "%",
+                "critic_score": critic_score + "%"
             }
             movies2.append(movie_info)
 
