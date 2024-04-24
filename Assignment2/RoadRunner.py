@@ -2,7 +2,7 @@ import json
 from bs4 import BeautifulSoup, NavigableString, Comment, Tag
 class RoadRunner:
     def __init__(self):
-        self.ignore_tags = ["b", "script", "br", "em", "hr"]
+        self.ignore_tags = [ "script", "br", "em", "hr"]
         self.self_closing_tags = ["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]
 
     #def test_method(self):
@@ -21,13 +21,13 @@ class RoadRunner:
         }
         
         # LEPSI IZPIS
-        #print(self.pretty_format(wrapper))
-        #return wrapper
+        print(self.pretty_format(wrapper))
+        return wrapper
     
         # MAL MANJ LEPSI IZPIS
-        json_data = json.dumps(extracted_data, ensure_ascii=False, indent=4)
-        print(json_data)
-        return extracted_data
+        #json_data = json.dumps(extracted_data, ensure_ascii=False, indent=4)
+        #print(json_data)
+        #return extracted_data
     
     def pretty_format(self, wrapper, indent=0):
         # lepsi izpis HTML wrapperja
