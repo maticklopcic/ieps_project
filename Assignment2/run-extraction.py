@@ -25,7 +25,9 @@ driver = webdriver.Firefox(service=service, options=options)
 #html_contents = []
 
 #CUSTOM
-rendered_file_path = os.path.join('strani', 'rendered_custom.txt')
+#rendered_file_path = os.path.join('strani', 'rendered_custom.txt')
+rendered_file_path = os.path.join('Assignment2/strani', 'rendered_custom_test.txt')
+
 os.makedirs(os.path.dirname(rendered_file_path), exist_ok=True)
 
 
@@ -33,7 +35,6 @@ with open(rendered_file_path, 'w', encoding='utf-8') as file:
     for path in paths:
         driver.get(path)
         page_source = driver.page_source
-        print(page_source)
         file.write(page_source + "\n\n--- End of HTML Content ---\n\n")
 
 driver.quit()
@@ -87,9 +88,11 @@ def extract_using_regex():
     return []
 
 def extract_using_xpath():
-    xpath = Xpath()
-    xpath.overstock(html_contents[2], html_contents[3])
     print("Extracting using XPath...")
+    xpath = Xpath()
+    #xpath.rtvslo(html_contents[0], html_contents[1])
+    #xpath.overstock(html_contents[2], html_contents[3])
+    xpath.rotten_tomatoes(html_contents[4], html_contents[5])
     return []
 
 def extract_using_road_runner():

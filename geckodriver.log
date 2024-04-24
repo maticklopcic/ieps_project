@@ -322,3 +322,281 @@ console.error: (new TypeError("NetworkError: Network request failed", "resource:
 console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
 console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
 console.error: (new Error("Polling for changes failed: NetworkError: Network request failed.", "resource://services-settings/remote-settings.sys.mjs", 324))
+1713423303149	geckodriver	INFO	Listening on 127.0.0.1:41353
+1713423303680	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "45839" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileKXK5SL"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713423304308	Marionette	INFO	Marionette enabled
+1713423304411	Marionette	INFO	Listening on port 41575
+WebDriver BiDi listening on ws://127.0.0.1:45839
+Read port: 41575
+1713423304683	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:45839/devtools/browser/9154b23a-45ef-4a52-a2b9-50572a99fcc8
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713423335125	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713423339662	geckodriver	INFO	Listening on 127.0.0.1:49579
+1713423340176	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "48101" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilejhXRAo"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713423340775	Marionette	INFO	Marionette enabled
+1713423340874	Marionette	INFO	Listening on port 40517
+Read port: 40517
+WebDriver BiDi listening on ws://127.0.0.1:48101
+1713423340980	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:48101/devtools/browser/6bad15b6-7c90-4b26-864b-59b2fffec9d6
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713423371442	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713423395601	geckodriver	INFO	Listening on 127.0.0.1:48839
+1713423396130	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "37737" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileoG0mR5"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713423396799	Marionette	INFO	Marionette enabled
+1713423396900	Marionette	INFO	Listening on port 39251
+WebDriver BiDi listening on ws://127.0.0.1:37737
+Read port: 39251
+1713423397148	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:37737/devtools/browser/0631ba82-811f-4140-8d16-4a0b8e2f2054
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713423427677	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new Error("Polling for changes failed: NetworkError: Network request failed.", "resource://services-settings/remote-settings.sys.mjs", 324))
+1713423798784	geckodriver	INFO	Listening on 127.0.0.1:50503
+1713423799317	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "46365" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileqNVN9g"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713423800032	Marionette	INFO	Marionette enabled
+1713423800142	Marionette	INFO	Listening on port 40997
+WebDriver BiDi listening on ws://127.0.0.1:46365
+Read port: 40997
+1713423800528	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:46365/devtools/browser/fbfd8e1a-1564-4950-84ed-23c5d7afda18
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713423830869	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713433676192	geckodriver	INFO	Listening on 127.0.0.1:45599
+1713433676725	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "51925" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileK8Ly0h"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713433677359	Marionette	INFO	Marionette enabled
+1713433677482	Marionette	INFO	Listening on port 39405
+WebDriver BiDi listening on ws://127.0.0.1:51925
+Read port: 39405
+1713433677756	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:51925/devtools/browser/cd0f3c6b-d67e-4db6-9322-4851bb8df185
+MESA: error: Failed to query drm device.
+libEGL warning: egl: failed to create dri2 screen
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 313: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://www.rottentomatoes.com/assets/pizza-pie/javascripts/bundles/roma/search-algolia.8306f9404d3.js, line 1: TypeError: window.aa is not a function
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713433708265	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713433804095	geckodriver	INFO	Listening on 127.0.0.1:51495
+1713433804107	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "45491" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileSfPVrv"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713433804711	Marionette	INFO	Marionette enabled
+1713433804821	Marionette	INFO	Listening on port 43139
+WebDriver BiDi listening on ws://127.0.0.1:45491
+Read port: 43139
+1713433805129	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:45491/devtools/browser/0c6d35c9-0382-4544-94d5-3a2d532af3e2
+MESA: error: Failed to query drm device.
+libEGL warning: egl: failed to create dri2 screen
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript error: https://cdn.cookielaw.org/scripttemplates/202309.1.0/otBannerSdk.js, line 7: TypeError: r is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 313: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 313: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1713433814893	Marionette	INFO	Stopped listening on port 43139
+JavaScript warning: https://cdn.cookielaw.org/scripttemplates/202309.1.0/otTCF.js, line 1: Script terminated by timeout at:
+getJson@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otTCF.js:1:22018
+clone@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otTCF.js:1:25736
+deepClone@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otTCF.js:1:2322
+clone/<@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otTCF.js:1:2130
+clone@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otTCF.js:1:2107
+process@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otTCF.js:1:18233
+encode@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otTCF.js:1:30551
+o.prototype.resetTCModel@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otBannerSdk.js:7:97926
+o.prototype.populateVendorListTCF/</<@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otBannerSdk.js:7:97328
+M/e/<@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otBannerSdk.js:7:1920
+n@https://cdn.cookielaw.org/scripttemplates/202309.1.0/otBannerSdk.js:7:771
+
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+1713433944231	geckodriver	INFO	Listening on 127.0.0.1:43975
+1713433944765	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "52133" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileonLqjn"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713433945376	Marionette	INFO	Marionette enabled
+1713433945472	Marionette	INFO	Listening on port 46151
+WebDriver BiDi listening on ws://127.0.0.1:52133
+Read port: 46151
+1713433945752	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:52133/devtools/browser/7afa4a18-c2ef-4682-87b2-8012f965f0c0
+MESA: error: Failed to query drm device.
+libEGL warning: egl: failed to create dri2 screen
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript error: https://cdn.cookielaw.org/scripttemplates/202309.1.0/otBannerSdk.js, line 7: TypeError: _.bannerGroup is undefined
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+1713433953307	Marionette	INFO	Stopped listening on port 46151
+JavaScript warning: https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q, line 1: Script terminated by timeout at:
+Gb@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296062
+e@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296035
+GN<@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:90080
+Gl@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:76724
+Gb@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296157
+e@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296035
+GN<@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:79345
+Gl@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:76724
+Gb@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296157
+e@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296035
+GN<@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:79345
+Gl@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:76724
+Gb@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296157
+e@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296035
+GN<@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:82443
+Gb@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296146
+e@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:296035
+
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 313: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+1713433996848	geckodriver	INFO	Listening on 127.0.0.1:38499
+1713433996859	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "40389" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileLN4K8W"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713433997448	Marionette	INFO	Marionette enabled
+1713433997551	Marionette	INFO	Listening on port 42545
+Read port: 42545
+WebDriver BiDi listening on ws://127.0.0.1:40389
+1713433997677	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:40389/devtools/browser/0fe8f2d2-e56f-4b8b-89a9-6583fe87cfd3
+MESA: error: Failed to query drm device.
+libEGL warning: egl: failed to create dri2 screen
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 313: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://www.rottentomatoes.com/assets/pizza-pie/javascripts/bundles/roma/search-algolia.8306f9404d3.js, line 1: TypeError: window.aa is not a function
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713434028339	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 313: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1713434084552	geckodriver	INFO	Listening on 127.0.0.1:44953
+1713434084564	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "36675" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile9VNbdO"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713434085176	Marionette	INFO	Marionette enabled
+1713434085287	Marionette	INFO	Listening on port 35767
+WebDriver BiDi listening on ws://127.0.0.1:36675
+Read port: 35767
+1713434085563	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:36675/devtools/browser/3799e7ad-9db8-4821-9c16-0b6db2f28903
+MESA: error: Failed to query drm device.
+libEGL warning: egl: failed to create dri2 screen
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+1713434093792	Marionette	INFO	Stopped listening on port 35767
+JavaScript warning: https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q, line 1: Script terminated by timeout at:
+e@https://www.rottentomatoes.com/rt-common.js?seed=AMCdivCOAQAA1TnWPwV-QpcfUZFZ-oiVziPa_VaVN3-IyHZ_xnaYI_RrZTK2&HgdtNmCjYr--z=q:1:295801
+
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 313: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+1713434145741	geckodriver	INFO	Listening on 127.0.0.1:47771
+1713434146293	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "49283" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileCmGfqH"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713434146920	Marionette	INFO	Marionette enabled
+1713434147020	Marionette	INFO	Listening on port 35157
+WebDriver BiDi listening on ws://127.0.0.1:49283
+Read port: 35157
+1713434147293	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:49283/devtools/browser/ef21e5f7-9f12-4e4c-9e51-eb5151ee33bd
+MESA: error: Failed to query drm device.
+libEGL warning: egl: failed to create dri2 screen
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 313: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://www.rottentomatoes.com/assets/pizza-pie/javascripts/bundles/roma/search-algolia.8306f9404d3.js, line 1: TypeError: window.aa is not a function
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713434177795	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new Error("Polling for changes failed: NetworkError: Network request failed.", "resource://services-settings/remote-settings.sys.mjs", 324))
+1713434672633	geckodriver	INFO	Listening on 127.0.0.1:37233
+1713434673161	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "55531" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileyRxozr"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713434673752	Marionette	INFO	Marionette enabled
+1713434673847	Marionette	INFO	Listening on port 41323
+WebDriver BiDi listening on ws://127.0.0.1:55531
+Read port: 41323
+1713434673941	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55531/devtools/browser/4fe31ba4-b162-477f-89a7-5a7a6b3d6706
+MESA: error: Failed to query drm device.
+libEGL warning: egl: failed to create dri2 screen
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+JavaScript warning: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 9: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://assets.adobedtm.com/launch-EN549327edc13e414a9beb5d61bfd9aac6.min.js, line 6: TypeError: a is undefined
+1713434686820	Marionette	INFO	Stopped listening on port 41323
+JavaScript warning: https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q, line 1: Script terminated by timeout at:
+K@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:75223
+aR@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:75300
+V@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:294296
+aI<@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:102152
+aL@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:294607
+V@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:294496
+aI<@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:102152
+aL@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:294607
+V@https://www.rottentomatoes.com/rt-common.js?seed=AAAVpvCOAQAAtPfVGP9jgFIfS_MsnJDodLb3_YuxzDMqIFLl2c7tMoF3PK3l&HgdtNmCjYr--z=q:1:294496
+
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
+console.error: (new TypeError("NetworkError: Network request failed", "resource://services-settings/Utils.sys.mjs", 236))
