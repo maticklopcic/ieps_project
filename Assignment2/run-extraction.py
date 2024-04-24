@@ -95,15 +95,15 @@ def extract_using_xpath():
 def extract_using_road_runner():
     road_runner = RoadRunner()
     #road_runner.test_method()
-    print("Ekstrakcija podatkov tipa RTV:")
-    road_runner.extract_data(html_contents[0], html_contents[1])
-    print("\n")
+    #print("Ekstrakcija podatkov tipa RTV:")
+    #road_runner.extract_data(html_contents[0], html_contents[1])
+    #print("\n")
     print("Ekstrakcija podatkov tipa OVERSTOCK:")
     road_runner.extract_data(html_contents[2], html_contents[3])
     print("\n")
-    print("Ekstrakcija podatkov tipa ROTTENTOMATOES:")
-    road_runner.extract_data(html_contents[4], html_contents[5])
-    print("\n")
+    #print("Ekstrakcija podatkov tipa ROTTENTOMATOES:")
+    #road_runner.extract_data(html_contents[4], html_contents[5])
+    #print("\n")
     #print("Extracting using Road Runner algorithm...")
     return []
 
