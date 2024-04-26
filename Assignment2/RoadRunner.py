@@ -14,15 +14,21 @@ class RoadRunner:
         soup2 = self.prepare_soup(html2)
         wrapper = self.road_runner(soup1, soup2)
 
+        
         extracted_data = {
             #'html1': str(soup1),
             #'html2': str(soup2),
             'wrapper': wrapper
         }
         
+        # Write output to a text file instead of printing to the terminal
+        with open("output.txt", "w", encoding="utf-8") as file:
+            file.write(self.pretty_format(wrapper))
+
+        return extracted_data
         # LEPSI IZPIS
-        print(self.pretty_format(wrapper))
-        return wrapper
+        #print(self.pretty_format(wrapper))
+        #return wrapper
     
         # MAL MANJ LEPSI IZPIS
         #json_data = json.dumps(extracted_data, ensure_ascii=False, indent=4)
@@ -30,27 +36,51 @@ class RoadRunner:
         #return extracted_data
     
     def pretty_format(self, wrapper, indent=0):
-        # lepsi izpis HTML wrapperja
+        # Improved HTML formatting for readability
         lines = []
         tokens = wrapper.split()
         i = 0
+        indent_step = 4  # Set the step for each level of indentation
+        open_tags = []  # Track open tags to manage indentation
+        special_tags = ['<a>', '<b>', '<title>', '<span>', '<select>'] # List of tags to trigger new lines
+
         while i < len(tokens):
             if tokens[i].startswith('<') and not tokens[i].startswith('</'):
-                # Handle opening tag and potentially closing tag on same line
                 tag_content = [tokens[i]]  # Opening tag
                 i += 1
                 while i < len(tokens) and not tokens[i].startswith('<'):
+                    if tokens[i].startswith('</'):
+                        tag_content.append(tokens[i])  # Include the closing tag in content
+                        i += 1
+                        break
                     tag_content.append(tokens[i])  # Content between tags
                     i += 1
-                if i < len(tokens) and tokens[i].startswith('</'):
-                    tag_content.append(tokens[i])  # Closing tag
-                    i += 1
-                lines.append(' ' * indent + ' '.join(tag_content))
+                
+                # Check if current tag is a special tag
+                if tag_content[0] in special_tags:
+                    lines.append('')  # Add a newline before the tag if it's a special tag
+                    lines.append(' ' * indent + ' '.join(tag_content))
+                    lines.append('')  # Add a newline after the special tag
+                else:
+                    # Add content to the last line or start a new one if lines is empty
+                    if lines:
+                        lines[-1] += ' ' + ' '.join(tag_content)
+                    else:
+                        lines.append(' ' * indent + ' '.join(tag_content))
             else:
-                # This case handles free floating text nodes or misplaced tokens
-                lines.append(' ' * indent + tokens[i])
+                # Handle free floating text nodes or misplaced tokens
+                current_line = ' ' * indent + tokens[i]
+                if lines:
+                    lines[-1] += ' ' + current_line
+                else:
+                    lines.append(current_line)
                 i += 1
+
         return '\n'.join(lines)
+
+
+
+
     
     def prepare_soup(self, html_content):
         # soup object created + removed uwanted elements
