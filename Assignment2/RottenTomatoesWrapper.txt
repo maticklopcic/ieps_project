@@ -1,0 +1,1078 @@
+<[document]> <html> <head> <link>
+
+<title> #PCDATA
+ </title> <link> <link> <link> <link> <link> <link> <link> <link> <link> <link> </head> <body> <user-activity-manager> </user-activity-manager> <ad-unit-manager> </ad-unit-manager> <auth-initiate-manager> </auth-initiate-manager> <auth-profile-manager> </auth-profile-manager> <overlay-base> <overlay-flows> <button> <rt-icon> </rt-icon> </button> </overlay-flows> </overlay-base> <notification-alert> <rt-icon> </rt-icon>
+
+<span> Signed in
+ </span> </notification-alert> <div> </div> <div> </div> <div>
+
+<a> Skip to Main Content
+ </a> <div> <div> <ad-unit> <div> <div> </div> <div> </div> </div> </ad-unit> <ad-unit> <div> </div> </ad-unit> </div> </div> <rt-header-manager> </rt-header-manager> <rt-header>
+
+<a>
+ <img> <div> <ad-unit> <div> <div> </div> </div> </ad-unit> </div> </a> <search-algolia> <search-algolia-controls> <input> <button> <rt-icon> </rt-icon> </button>
+
+<a>
+ <rt-icon> </rt-icon> </a> <button> Cancel </button> </search-algolia-controls> <search-algolia-results> <search-algolia-results-category> <h2> Movies / TV </h2> <ul> </ul> </search-algolia-results-category> <search-algolia-results-category> <h2> Celebrity </h2> <ul> </ul> </search-algolia-results-category> <search-algolia-results-category> <h2> No Results Found </h2> </search-algolia-results-category>
+
+<a> View All
+ </a> </search-algolia-results> </search-algolia> <mobile-search-algolia> </mobile-search-algolia> <ul> <li>
+
+<a> What's the Tomatometer®?
+ </a> </li> <li>
+
+<a> Critics
+ </a> </li> <li> <ul> <li> <button> Login/signup </button> </li> </ul> </li> <li>
+
+<a>
+ <img> <p> </p> <rt-icon> </rt-icon> </a> <rt-header-user-info>
+
+<a>
+ <img> </a>
+
+<a>
+ </a>
+
+<a>
+ <rt-icon> </rt-icon>
+
+<span>
+ </span> Wants to See </a>
+
+<a>
+ <rt-icon> </rt-icon>
+
+<span>
+ </span> Ratings </a>
+
+<a> Profile
+ </a>
+
+<a> Account
+ </a>
+
+<a> Log Out
+ </a> </rt-header-user-info> </li> </ul> <rt-header-nav> <rt-header-nav-item>
+
+<a> Movies
+ </a> <rt-header-nav-item-dropdown> <rt-header-nav-item-dropdown-list> <p>
+
+<a> Movies in theaters
+ </a> </p> <ul> <li>
+
+<a> Opening this week
+ </a> </li> <li>
+
+<a> Top box office
+ </a> </li> <li>
+
+<a> Coming soon to theaters
+ </a> </li> <li>
+
+<a> Certified fresh movies
+ </a> </li> </ul> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p>
+
+<a> Movies at home
+ </a> </p> <ul> <li>
+
+<a> Peacock
+ </a> </li> <li>
+
+<a> Fandango at Home
+ </a> </li> <li>
+
+<a> Netflix streaming
+ </a> </li> <li>
+
+<a> Apple TV
+ </a> </li> <li>
+
+<a> Prime Video
+ </a> </li> <li>
+
+<a> Most popular streaming movies
+ </a> </li> <li>
+
+<a> Certified fresh movies
+ </a> </li> <li>
+
+<a> Browse all
+ </a> </li> </ul> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p> More </p> <ul> <li>
+
+<a> What to Watch
+ <rt-badge> New </rt-badge> </a> </li> <li>
+
+<a> Top movies
+ </a> </li> <li>
+
+<a> Trailers
+ </a> </li> </ul> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p> Certified fresh picks </p> <ul> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Civil War
+ </span>
+
+<span> Link to Civil War
+ </span> </div> </tile-dynamic> </a> </li> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Monkey Man
+ </span>
+
+<span> Link to Monkey Man
+ </span> </div> </tile-dynamic> </a> </li> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> The First Omen
+ </span>
+
+<span> Link to The First Omen
+ </span> </div> </tile-dynamic> </a> </li> </ul> </rt-header-nav-item-dropdown-list> </rt-header-nav-item-dropdown> </rt-header-nav-item> <rt-header-nav-item>
+
+<a> Tv shows
+ </a> <rt-header-nav-item-dropdown> <rt-header-nav-item-dropdown-list> <p> New TV Tonight </p> <ul> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> The Sympathizer: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Conan O'Brien Must Go: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Our Living World: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Under the Bridge: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> The Spiderwick Chronicles: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Orlando Bloom: To the Edge: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> The Circle: Season 6
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Dinner with the Parents: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Jane: Season 2
+ </span> </a> </li> </ul>
+
+<a> View All
+ </a> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p> Most Popular TV on RT </p> <ul> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Fallout: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Baby Reindeer: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> The Sympathizer: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Ripley: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> 3 Body Problem: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Shōgun: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Parasyte: The Grey: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Sugar: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> A Gentleman in Moscow: Season 1
+ </span> </a> </li> <li>
+
+<a>
+ <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Franklin: Season 1
+ </span> </a> </li> </ul>
+
+<a> View All
+ </a> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p> More </p> <ul> <li>
+
+<a> What to Watch
+ <rt-badge> New </rt-badge> </a> </li> <li>
+
+<a>
+
+
+<span> Best TV Shows
+ </span> </a> </li> <li>
+
+<a>
+
+
+<span> Most Popular TV
+ </span> </a> </li> <li>
+
+<a>
+
+
+<span> TV & Streaming News
+ </span> </a> </li> <li>
+
+<a>
+
+
+<span> Peacock
+ </span> </a> </li> <li>
+
+<a>
+
+
+<span> Fandango at Home
+ </span> </a> </li> <li>
+
+<a>
+
+
+<span> Netflix
+ </span> </a> </li> <li>
+
+<a>
+
+
+<span> Prime Video
+ </span> </a> </li> <li>
+
+<a>
+
+
+<span> Apple TV
+ </span> </a> </li> </ul> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p> Certified fresh pick </p> <ul> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> The Sympathizer: Season 1
+ </span>
+
+<span> Link to The Sympathizer: Season 1
+ </span> </div> </tile-dynamic> </a> </li> </ul> </rt-header-nav-item-dropdown-list> </rt-header-nav-item-dropdown> </rt-header-nav-item> <rt-header-nav-item>
+
+<a> Shop
+ <temporary-display> <rt-badge> New </rt-badge> </temporary-display> </a> </rt-header-nav-item> <rt-header-nav-item>
+
+<a> News
+ </a> <rt-header-nav-item-dropdown> <rt-header-nav-item-dropdown-list> <p> Columns </p> <ul> <li>
+
+<a> All-Time Lists
+ </a> </li> <li>
+
+<a> Binge Guide
+ </a> </li> <li>
+
+<a> Comics on TV
+ </a> </li> <li>
+
+<a> Countdown
+ </a> </li> <li>
+
+<a> Five Favorite Films
+ </a> </li> <li>
+
+<a> Video Interviews
+ </a> </li> <li>
+
+<a> Weekend Box Office
+ </a> </li> <li>
+
+<a> Weekly Ketchup
+ </a> </li> <li>
+
+<a> What to Watch
+ </a> </li> </ul> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p> Guides </p> <ul> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <p> 25 Most Popular TV Shows Right Now: What to Watch on Streaming </p>
+
+<span> Link to 25 Most Popular TV Shows Right Now: What to Watch on Streaming
+ </span> </div> </tile-dynamic> </a> </li> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <p> 30 Most Popular Movies Right Now: What to Watch In Theaters and Streaming </p>
+
+<span> Link to 30 Most Popular Movies Right Now: What to Watch In Theaters and Streaming
+ </span> </div> </tile-dynamic> </a> </li> </ul>
+
+<a> View All
+ </a> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p> Hubs </p> <ul> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <p> What to Watch: In Theaters and On Streaming </p>
+
+<span> Link to What to Watch: In Theaters and On Streaming
+ </span> </div> </tile-dynamic> </a> </li> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <p> Awards Tour </p>
+
+<span> Link to Awards Tour
+ </span> </div> </tile-dynamic> </a> </li> </ul>
+
+<a> View All
+ </a> </rt-header-nav-item-dropdown-list> <rt-header-nav-item-dropdown-list> <p> RT News </p> <ul> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <p> 20 Special Presentations and Guest Appearances to Check Out at the 2024 TCM Classic Film Festival </p>
+
+<span> Link to 20 Special Presentations and Guest Appearances to Check Out at the 2024 TCM Classic Film Festival
+ </span> </div> </tile-dynamic> </a> </li> <li>
+
+<a>
+ <tile-dynamic> <rt-img> </rt-img> <div> <p> Weekend Box Office Results: Earns Highest Opening Weekend for A24 </p>
+
+<span> Link to Weekend Box Office Results: Earns Highest Opening Weekend for A24
+ </span> </div> </tile-dynamic> </a> </li> </ul>
+
+<a> View All
+ </a> </rt-header-nav-item-dropdown-list> </rt-header-nav-item-dropdown> </rt-header-nav-item> <rt-header-nav-item>
+
+<a> Showtimes
+ </a> </rt-header-nav-item> </rt-header-nav> </rt-header> <section> <ad-unit> <div> <div> </div> </div> </ad-unit> <div> <ul> <li> Trending on RT </li> <li>
+
+<a> Civil War
+ </a> </li> <li>
+
+<a> The Ministry of Ungentlemanly Warfare
+ </a> </li> <li>
+
+<a> Fallout
+ </a> </li> <li>
+
+<a> Play Movie Trivia
+ </a> </li> </ul> <div> <social-media-icons> </social-media-icons> </div> </div> </section> <main> <bottom-nav>
+
+<a>
+ <bottom-nav-item> </bottom-nav-item> </a>
+
+<a>
+ <bottom-nav-item> </bottom-nav-item> </a>
+
+<a>
+ <bottom-nav-item> </bottom-nav-item> </a>
+
+<a>
+ <bottom-nav-item> </bottom-nav-item> </a>
+
+<a>
+ <bottom-nav-item> </bottom-nav-item> </a> </bottom-nav> <div> <div> <div> <discovery-title> <h1> #PCDATA
+
+<span> (2024)
+ </span> </h1> </discovery-title> <div> <button> At Home <rt-icon> </rt-icon> </button> <dropdown-menu> <h3> Movies </h3>
+
+<a>
+ <rt-icon> </rt-icon> </a>
+
+<a>
+ <dropdown-option> In Theaters </dropdown-option> </a>
+
+<a>
+ <dropdown-option> At Home </dropdown-option> </a>
+
+<a>
+ <dropdown-option> Coming Soon </dropdown-option> </a>
+
+<a>
+ <dropdown-option> TV Shows </dropdown-option> </a> </dropdown-menu> </div> <div> <tab-bar>
+
+<a>
+ <tab-bar-option> In Theaters </tab-bar-option> </a>
+
+<a>
+ <tab-bar-option> At Home </tab-bar-option> </a>
+
+<a>
+ <tab-bar-option> Coming Soon </tab-bar-option> </a>
+
+<a>
+ <tab-bar-option> TV Shows </tab-bar-option> </a> </tab-bar> </div> </div> <discovery-filters-manager> </discovery-filters-manager> <discovery-routes-manager> </discovery-routes-manager> <discovery-grids-manager> </discovery-grids-manager> <grid-page-ads-manager> </grid-page-ads-manager> <div> <div> <filter-chip>
+
+<span> Sort
+ </span> </filter-chip> <filter-chip>
+
+<span> Genre
+ </span> </filter-chip> <filter-chip>
+
+<span> Rating
+ </span> </filter-chip> <filter-chip>
+
+<span> Audience score
+ </span> </filter-chip> <filter-chip>
+
+<span> Tomatometer
+ <sup> ® </sup> </span> </filter-chip> <filter-chip> <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Certified Fresh
+ </span> </filter-chip> </div> <bubbles-overflow-container> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> <where-to-watch-bubble> </where-to-watch-bubble> </bubbles-overflow-container> <button> Reset Filters </button> <bottom-sheet-menu>
+
+<span> Sort
+ </span>
+
+<a>
+ <rt-icon> </rt-icon>
+
+<span> Close
+ </span> </a> <select-radio-group> <select-label>
+
+<span> Most popular
+ </span> <select-radio> </select-radio> </select-label> <select-label>
+
+<span> Newest
+ </span> <select-radio> </select-radio> </select-label> <select-label>
+
+<span> A → Z
+ </span> <select-radio> </select-radio> </select-label> <select-label>
+
+<span> Tomatometer
+ <sup> ® </sup> (highest) </span> <select-radio> </select-radio> </select-label> <select-label>
+
+<span> Tomatometer
+ <sup> ® </sup> (lowest) </span> <select-radio> </select-radio> </select-label> <select-label>
+
+<span> Audience score (highest)
+ </span> <select-radio> </select-radio> </select-label> <select-label>
+
+<span> Audience score (lowest)
+ </span> <select-radio> </select-radio> </select-label> </select-radio-group> </bottom-sheet-menu> <bottom-sheet-menu>
+
+<span> Genre
+ </span>
+
+<a> Clear all
+ </a>
+
+<a>
+ <rt-icon> </rt-icon>
+
+<span> Close
+ </span> </a> <select-checkbox-group> <select-label>
+
+<span> Action
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Adventure
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Animation
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Anime
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Biography
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Comedy
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Crime
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Documentary
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Drama
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Entertainment
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Faith & Spirituality
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Fantasy
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Game Show
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> LGBTQ+
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Health & Wellness
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> History
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Holiday
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Horror
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> House & Garden
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Kids & Family
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Music
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Musical
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Mystery & Thriller
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Nature
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> News
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Reality
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Romance
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Sci-Fi
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Short
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Soap
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Special Interest
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Sports
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Stand-Up
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Talk Show
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Travel
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Variety
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> War
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Western
+ </span> <select-checkbox> </select-checkbox> </select-label> </select-checkbox-group> <button> Apply </button> </bottom-sheet-menu> <bottom-sheet-menu>
+
+<span> Rating
+ </span>
+
+<a> Clear all
+ </a>
+
+<a>
+ <rt-icon> </rt-icon>
+
+<span> Close
+ </span> </a> <select-checkbox-group> <select-label>
+
+<span> G
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> PG
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> PG-13
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> R
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> NC-17
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Not rated
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label>
+
+<span> Unrated
+ </span> <select-checkbox> </select-checkbox> </select-label> </select-checkbox-group> <button> Apply </button> </bottom-sheet-menu> <bottom-sheet-menu>
+
+<span> Audience score
+ </span>
+
+<a> Clear all
+ </a>
+
+<a>
+ <rt-icon> </rt-icon>
+
+<span> Close
+ </span> </a> <select-checkbox-group> <select-label> <score-icon-audience-deprecated> </score-icon-audience-deprecated>
+
+<span> Fresh
+ </span>
+
+<span> At least 60% of reviews for a movie or TV show are positive.
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <score-icon-audience-deprecated> </score-icon-audience-deprecated>
+
+<span> Rotten
+ </span>
+
+<span> Less than 60% of reviews for a movie or TV show are positive.
+ </span> <select-checkbox> </select-checkbox> </select-label> </select-checkbox-group> <button> Apply </button> </bottom-sheet-menu> <bottom-sheet-menu>
+
+<span> Tomatometer
+ <sup> ® </sup> </span>
+
+<a> Clear all
+ </a>
+
+<a>
+ <rt-icon> </rt-icon>
+
+<span> Close
+ </span> </a> <select-checkbox-group> <select-label> <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Certified Fresh
+ </span>
+
+<span> A special distinction awarded to the best reviewed movies and TV Shows.
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Fresh
+ </span>
+
+<span> At least 60% of reviews for a movie or TV show are positive.
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <score-icon-critic-deprecated> </score-icon-critic-deprecated>
+
+<span> Rotten
+ </span>
+
+<span> Less than 60% of reviews for a movie or TV show are positive.
+ </span> <select-checkbox> </select-checkbox> </select-label> </select-checkbox-group> <button> Apply </button> </bottom-sheet-menu> <bottom-sheet-menu>
+
+<span> Where to watch
+ </span>
+
+<a> Clear all
+ </a>
+
+<a>
+ <rt-icon> </rt-icon>
+
+<span> Close
+ </span> </a> <select-checkbox-group> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Theaters
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Vudu
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Peacock
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Netflix
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Hulu
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Prime Video
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Disney+
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Max US
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Paramount Plus
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Apple TV+
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> AMC+
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Showtime
+ </span> <select-checkbox> </select-checkbox> </select-label> <select-label> <affiliate-icon> </affiliate-icon>
+
+<span> Apple TV US
+ </span> <select-checkbox> </select-checkbox> </select-label> </select-checkbox-group> <button> Apply </button> </bottom-sheet-menu> </div> <watchlist-button-manager> </watchlist-button-manager> <div> <div> <div>
+
+<span> No results
+ </span> <button> Reset Filters </button> </div> <div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> #PCDATA </div> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> #PCDATA </div> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div>
+
+<a> #PCDATA
+ </a> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <div> <div> <tile-dynamic> <rt-img> </rt-img> <button>
+
+<span> #PCDATA
+ </span> </button>
+
+<a>
+ <score-pairs-deprecated> </score-pairs-deprecated>
+
+<span> #PCDATA
+ </span>
+
+<span> #PCDATA
+ </span> </a> </tile-dynamic> </div> <watchlist-button> </watchlist-button> </div> <aside> <div> </div> </aside> <aside> </aside> <aside> <div> </div> </aside> </div> </div> </div> <div> <button> Load more </button> </div> </div> <overlay-base> <video-player-overlay> <div> <button> <rt-icon>
+
+<span> Close video
+ </span> </rt-icon> </button>
+
+<a> See Details
+ </a> </div> <div> </div>
+
+<a> See Details
+ </a> </video-player-overlay> </overlay-base> <div> </div> <video-player-overlay-manager> </video-player-overlay-manager> <jw-player-manager> </jw-player-manager> </div> <back-to-top> </back-to-top>
+
+<span>
+ </span> </main> <ad-unit> <div> <div> </div> </div> </ad-unit> <footer-manager> </footer-manager> <footer> <div> <div> <ul> <li>
+
+<a> Help
+ </a> </li> <li>
+
+<a> About Rotten Tomatoes
+ </a> </li> <li>
+
+<a> What's the Tomatometer
+ <sup> ® </sup> ? </a> </li> <li> </li> </ul> </div> <div> <ul> <li>
+
+<a> Critic Submission
+ </a> </li> <li>
+
+<a> Licensing
+ </a> </li> <li>
+
+<a> Advertise With Us
+ </a> </li> <li>
+
+<a> Careers
+ </a> </li> </ul> </div> <div> <p>
+
+<span>
+ </span> Join The Newsletter </p> <p> Get the freshest reviews, news, and more delivered right to your inbox! </p> <rt-button> Join The Newsletter </rt-button>
+
+<a> Join The Newsletter
+ </a> </div> <div> <p> Follow Us </p> <social-media-icons> </social-media-icons> </div> </div> <div> <div> <p> Copyright © Fandango. All rights reserved. </p> <rt-button> Join The Newsletter </rt-button>
+
+<a> Join The Newsletter
+ </a> <ul> <li>
+
+<a> Privacy Policy
+ </a> </li> <li>
+
+<a> Terms and Policies
+ </a> </li> <li> <img>
+
+<a> Cookie Settings
+ </a> </li> <li>
+
+<a> California Notice
+ </a> </li> <li>
+
+<a> Ad Choices
+ </a> </li> <li> </li> <li>
+
+<a> Accessibility
+ </a> </li> </ul> </div> </div> <div> <ul> <li>
+
+<span> V3.1
+ </span> </li> <li>
+
+<a> Privacy Policy
+ </a> </li> <li>
+
+<a> Terms and Policies
+ </a> </li> <li> <img>
+
+<a> Cookie Settings
+ </a> </li> <li>
+
+<a> California Notice
+ </a> </li> <li>
+
+<a> Ad Choices
+ </a> </li> <li>
+
+<a> Accessibility
+ </a> </li> </ul>
+
+<span> Copyright © Fandango. All rights reserved.
+ </span> </div> </footer> </div> <iframe> </iframe> </body> </html> </[document]>
