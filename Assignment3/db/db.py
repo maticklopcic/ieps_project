@@ -1,6 +1,8 @@
 import sqlite3
 import sys
 import os
+from bs4 import BeautifulSoup
+
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -117,17 +119,21 @@ conn.close()"""
 def main():
     conn, c = create_connection('inverted_index.db')
     create_tables(c)
-
-    # Define the path to the HTML file
-    file_path = 'data\\e-prostor.gov.si\\e-prostor.gov.si.2.html'
-
-    # Open the file and read its contents
-    with open(file_path, 'r', encoding='utf-8') as file:
-        html_content = file.read()
-
-    # Process and index the document
-    tokens = preprocess_text(html_content)
-    index_document(c, file_path, tokens)
+    directories = [
+        'data/e-prostor.gov.si/',
+        'data/e-uprava.gov.si/',
+        'data/evem.gov.si/',
+        'data/podatki.gov.si/'
+        ]
+    for directory in directories:
+        for root, _, files in os.walk(directory):
+            for file in files:
+                if file.endswith('.html'):
+                    file_path = os.path.join(root, file)
+                    with open(file_path, 'r', encoding='utf-8') as html_file:
+                        html_content = html_file.read()
+                        tokens = preprocess_text(html_content)
+                        index_document(c, file_path, tokens)
     #search_documents_containing_words(c, ['uporablja', 'piškotke'])
     conn.commit()
     conn.close()
