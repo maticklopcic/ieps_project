@@ -13,12 +13,10 @@ sys.path.append(parent_dir)
 from logic.logic import preprocess_text
 
 def create_connection(db_file):
-    """ Create and return a database connection and cursor to the SQLite database specified by db_file """
     conn = sqlite3.connect(db_file)
     return conn, conn.cursor()
 
 def create_tables(c):
-    """ Create the necessary database tables """
     c.execute('''
     CREATE TABLE IF NOT EXISTS IndexWord (
         word TEXT PRIMARY KEY
@@ -37,11 +35,9 @@ def create_tables(c):
     ''')
 
 def insert_index_word(c, word):
-    """ Insert a word into the IndexWord table """
     c.execute('INSERT OR IGNORE INTO IndexWord (word) VALUES (?)', (word,))
 
 def insert_posting(c, word, document_name, frequency, indexes):
-    """ Insert a posting into the Posting table with conflict resolution """
     index_string = ','.join(map(str, indexes))
     c.execute('''
         INSERT INTO Posting (word, documentName, frequency, indexes) 
@@ -51,7 +47,6 @@ def insert_posting(c, word, document_name, frequency, indexes):
 
 
 def index_document(c, document_name, tokens):
-    """ Process tokens and index them into the database """
     from collections import defaultdict
     index_map = defaultdict(list)
     for idx, token in enumerate(tokens):
@@ -62,20 +57,11 @@ def index_document(c, document_name, tokens):
         # Check if posting already exists
         c.execute('SELECT 1 FROM Posting WHERE word=? AND documentName=?', (word, document_name))
         if c.fetchone():
-            # If exists, you can decide to skip or update
-            continue  # Just skip in this example
+            continue
         insert_posting(c, word, document_name, len(indexes), indexes)
 
 
-def select_all_postings(c):
-    """ Print all entries in the Posting table """
-    print("Selecting all the data from the Posting table:")
-    for row in c.execute("SELECT * FROM Posting"):
-        print(f"\t{row}")
-
 def search_documents_containing_words(c, words):
-    """ Search for documents that contain specified words and print results """
-    print("Get all documents that contain specified words.")
     query = '''
         SELECT p.documentName AS docName, SUM(frequency) AS freq, GROUP_CONCAT(indexes) AS idxs
         FROM Posting p
@@ -90,7 +76,6 @@ def search_documents_containing_words(c, words):
         print(f"\tHits: {row[1]}\n\t\tDoc: '{row[0]}'\n\t\tIndexes: {row[2]}")
 
 def search(c, query):
-    """ Search the database based on a query and return results """
     query_tokens = preprocess_text(query)
     results = {}
     for token in query_tokens:
@@ -98,27 +83,9 @@ def search(c, query):
         results[token] = c.fetchall()
     return results
 
-"""# Example usage
-conn, c = create_connection('inverted_index.db')
-create_tables(c)
-
-# Indexing a document
-html_content = '<html><body>This is a sample document with text to index. This document contains important text.</body></html>'
-tokens = preprocess_text(html_content)
-index_document(c, 'sample_document.html', tokens)
-conn.commit()
-
-# Display all postings
-#select_all_postings(c)
-
-# Search and display documents containing specific words
-#search_documents_containing_words(c, ['Tuš', 'Mercator'])
-
-conn.close()"""
-
 def main():
     conn, c = create_connection('inverted_index.db')
-    create_tables(c)
+    #create_tables(c)
     directories = [
         'data/e-prostor.gov.si/',
         'data/e-uprava.gov.si/',
@@ -134,7 +101,20 @@ def main():
                         html_content = html_file.read()
                         tokens = preprocess_text(html_content)
                         index_document(c, file_path, tokens)
-    #search_documents_containing_words(c, ['uporablja', 'piškotke'])
+    #TODO search spremeni v lowercase
+    #search_documents_containing_words(c, ['predelovalne', 'dejavnosti'])
+    """file_path = os.path.join("data", "e-prostor.gov.si", "e-prostor.gov.si.1.html")
+    #print(file_path)
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            html_content = file.read()
+            #print(html_content)
+    except FileNotFoundError:
+        print("File not found. Please check the path.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    preprocess_text(html_content)"""
+
     conn.commit()
     conn.close()
 
