@@ -10,7 +10,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-from logic.logic import preprocess_text
+from logic.parsing import preprocess_text
 
 def create_connection(db_file):
     conn = sqlite3.connect(db_file)
