@@ -4,7 +4,8 @@ import json
 
 #TODO: vprasaj za " " v izpisu in \n
 #porocilo ali je prevec strani
-#kopiramo takst ali prilepimo sliko izhoda?
+#kopiramo tkst ali prilepimo sliko izhoda?
+#ali lahko oddamo txt file z output izpisom, namesto da dodajamo v porocilo
 
 class Xpath:
     def __init__(self) -> None:

@@ -90,8 +90,11 @@ def extract_using_regex():
 def extract_using_xpath():
     print("Extracting using XPath...")
     xpath = Xpath()
-    #xpath.rtvslo(html_contents[0], html_contents[1])
-    #xpath.overstock(html_contents[2], html_contents[3])
+    print("Extracting from rtvslo:\n")
+    xpath.rtvslo(html_contents[0], html_contents[1])
+    print("\nExtracting from overstock:\n")
+    xpath.overstock(html_contents[2], html_contents[3])
+    print("\nExtracting from rotten tomatoes:\n")
     xpath.rotten_tomatoes(html_contents[4], html_contents[5])
     return []
 
