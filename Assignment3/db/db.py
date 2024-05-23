@@ -53,8 +53,7 @@ def index_document(c, document_name, tokens):
         index_map[token].append(idx)
     
     for word, indexes in index_map.items():
-        insert_index_word(c, word)  # This already uses INSERT OR IGNORE
-        # Check if posting already exists
+        insert_index_word(c, word)
         c.execute('SELECT 1 FROM Posting WHERE word=? AND documentName=?', (word, document_name))
         if c.fetchone():
             continue
@@ -69,7 +68,7 @@ def search_documents_containing_words(c, words):
             p.word IN ({})
         GROUP BY p.documentName
         ORDER BY freq DESC;
-    '''.format(','.join('?' for _ in words))  # Safe parameter substitution
+    '''.format(','.join('?' for _ in words))
     cursor = c.execute(query, words)
 
     for row in cursor:
@@ -98,12 +97,13 @@ def main():
                 if file.endswith('.html'):
                     file_path = os.path.join(root, file)
                     with open(file_path, 'r', encoding='utf-8') as html_file:
+                        #TODO .text() instead of .read()
                         html_content = html_file.read()
                         tokens = preprocess_text(html_content)
                         index_document(c, file_path, tokens)
     #TODO search spremeni v lowercase
     #search_documents_containing_words(c, ['predelovalne', 'dejavnosti'])
-    """file_path = os.path.join("data", "e-prostor.gov.si", "e-prostor.gov.si.1.html")
+    file_path = os.path.join("data", "e-prostor.gov.si", "e-prostor.gov.si.1.html")
     #print(file_path)
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
@@ -113,7 +113,7 @@ def main():
         print("File not found. Please check the path.")
     except Exception as e:
         print(f"An error occurred: {e}")
-    preprocess_text(html_content)"""
+    preprocess_text(html_content)
 
     conn.commit()
     conn.close()
