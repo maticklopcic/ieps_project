@@ -1,0 +1,559 @@
+<[document]> <html> <head>
+
+<title> Overstock.com, save up to 80% every day!
+ </title> <link> <link> </head> <body> <input> <table> <tbody> <tr> <td> </td> <td> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> <td> <img> </td> <td>
+
+<a>
+ <img> </a> </td> </tr> </tbody> </table> <map> <area> <area> <area> <area> <area> </map> </td> </tr> <tr> <td>
+
+<a>
+ <img> </a>
+
+<a>
+ <img> </a>
+
+<a>
+ <img> </a>
+
+<a>
+ <img> </a>
+
+<a>
+ <img> </a>
+
+<a>
+ <img> </a>
+
+<a>
+ <img> </a> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> <form> </form> <tr> <td> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<span> Search:
+ </span>
+
+<select>
+ <option> All Stores </option> <option> Home & Garden </option> <option> Electronics & Computers </option> <option> Books, Movies, CDs, Games </option> <option> Jewelry, Watches & Gifts </option> <option> Sports, Travel & Toys </option> <option> Worldstock </option> <option> Apparel, Shoes & Access. </option> </select> </td> <td> </td> <td> <input> </td> <td> <input> </td> </tr> </tbody> </table> </td> <td> <img>
+
+<a>
+ <img> </a> </td> <td> <img> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> </tbody> </table> <table> <tbody> <tr> <td> <img> </td> <td> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td> </td> <td>
+
+<a> #PCDATA
+ </a> </td> </tr> <tr> <td> </td> <td>
+
+<a> #PCDATA
+ </a> </td> </tr> <tr> <td> </td> <td>
+
+<a> #PCDATA
+ </a> </td> </tr> <tr> <td> </td> <td>
+
+<a> #PCDATA
+ </a> </td> </tr> <tr> <td> </td> <td>
+
+<a> #PCDATA
+ </a> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table>
+
+<span>
+
+
+<b> Stores
+ </b> </span> <table> <tbody> <tr> <td>
+
+<a> Apparel, Shoes & Access.
+ </a> </td> </tr> <tr> <td>
+
+<a> Books, Movies, CDs, Games
+ </a> </td> </tr> <tr> <td>
+
+<a> Electronics & Computers
+ </a> </td> </tr> <tr> <td>
+
+<a> Home & Garden
+ </a> </td> </tr> <tr> <td>
+
+<a>
+
+
+<b> Jewelry, Watches & Gifts
+ </b> </a> </td> </tr> <tr> <td>
+
+<a> Sports, Travel & Toys
+ </a> </td> </tr> <tr> <td>
+
+<a> Worldstock
+ </a> </td> </tr> </tbody> </table>
+
+<span>
+
+
+<b> New Stock
+ </b> </span> <table> <tbody> <tr> <td>
+
+<a> Ralph Lauren $29.95
+ </a> </td> </tr> <tr> <td>
+
+<a> Ben Sherman 53% off
+ </a> </td> </tr> <tr> <td>
+
+<a> Pre-order Harry Potter DVD
+ </a> </td> </tr> <tr> <td>
+
+<a> HP 2GHz System $499
+ </a> </td> </tr> <tr> <td>
+
+<a> New Items within 7 Days
+ </a> </td> </tr> </tbody> </table>
+
+<span>
+
+
+<b> Customer Service
+ </b> </span> <table> <tbody> <tr> <td>
+
+<a> Shopping Cart & Checkout
+ </a> </td> </tr> <tr> <td>
+
+<a> Track Your Order
+ </a> </td> </tr> <tr> <td>
+
+<a> Your Account
+ </a> </td> </tr> <tr> <td>
+
+<a> Help & FAQ
+ </a> </td> </tr> <tr> <td>
+
+<a> Best Price Guarantee
+ </a> </td> </tr> </tbody> </table>
+
+<span>
+
+
+<b> About Us
+ </b> </span> <table> <tbody> <tr> <td>
+
+<a> About Us
+ </a> </td> </tr> <tr> <td>
+
+<a> Privacy & Security
+ </a> </td> </tr> <tr> <td>
+
+<a> Terms & Conditions
+ </a> </td> </tr> <tr> <td>
+
+<a> Become An Affiliate
+ </a> </td> </tr> <tr> <td>
+
+<a> Business Purchases
+ </a> </td> </tr> <tr> <td>
+
+<a> Have Products to Sell?
+ </a> </td> </tr> <tr> <td>
+
+<a> Investor Relations
+ </a> </td> </tr> </tbody> </table> <img> </td> <td> <img> </td> <td> <img> </td> <td>
+
+<b>
+
+
+<a> Jewelry, Watches & Gifts
+ </a> >
+
+<a> Jewelry
+ </a> >
+
+<a> #PCDATA
+ </a> > View All </b> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<span>
+
+
+<b> List Sorted By:
+ </b> </span> </td> <td>
+
+<b> Top Sellers
+ </b> |
+
+<a> Discount
+ </a> |
+
+<a> Newest First
+ </a> |
+
+<a> Price
+ </a> |
+
+<a> Quantity
+ </a> |
+
+<a> Markdowns
+ </a> </td> </tr> #PCDATA </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> </tr> <tr> <td>
+
+<a> More Info...
+ </a> </td> </tr> </tbody> </table> </td> <td>
+
+<a>
+
+
+<b> #PCDATA
+ </b> </a> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<b> List Price:
+ </b> </td> <td> <s> #PCDATA </s> </td> </tr> <tr> <td>
+
+<b> Price:
+ </b> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td>
+
+<b> You Save:
+ </b> </td> <td>
+
+<span> #PCDATA
+ </span> </td> </tr> </tbody> </table> </td> <td>
+
+<span> #PCDATA
+
+
+<a>
+
+
+<span>
+
+
+<b> Click here to purchase.
+ </b> </span> </a> </span> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> </tr> <tr> <td>
+
+<a> More Info...
+ </a> </td> </tr> </tbody> </table> </td> <td>
+
+<a>
+
+
+<b> #PCDATA
+ </b> </a> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<b> List Price:
+ </b> </td> <td> <s> #PCDATA </s> </td> </tr> <tr> <td>
+
+<b> Price:
+ </b> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td>
+
+<b> You Save:
+ </b> </td> <td>
+
+<span> #PCDATA
+ </span> </td> </tr> </tbody> </table> </td> <td>
+
+<span> #PCDATA
+
+
+<a>
+
+
+<span>
+
+
+<b> Click here to purchase.
+ </b> </span> </a> </span> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> </tr> <tr> <td>
+
+<a> More Info...
+ </a> </td> </tr> </tbody> </table> </td> <td>
+
+<a>
+
+
+<b> #PCDATA
+ </b> </a> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<b> List Price:
+ </b> </td> <td> <s> #PCDATA </s> </td> </tr> <tr> <td>
+
+<b> Price:
+ </b> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td>
+
+<b> You Save:
+ </b> </td> <td>
+
+<span> #PCDATA
+ </span> </td> </tr> </tbody> </table> </td> <td>
+
+<span> #PCDATA
+
+
+<a>
+
+
+<span>
+
+
+<b> Click here to purchase.
+ </b> </span> </a> </span> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> </tr> <tr> <td>
+
+<a> More Info...
+ </a> </td> </tr> </tbody> </table> </td> <td>
+
+<a>
+
+
+<b> #PCDATA
+ </b> </a> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<b> List Price:
+ </b> </td> <td> <s> #PCDATA </s> </td> </tr> <tr> <td>
+
+<b> Price:
+ </b> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td>
+
+<b> You Save:
+ </b> </td> <td>
+
+<span> #PCDATA
+ </span> </td> </tr> </tbody> </table> </td> <td>
+
+<span> #PCDATA
+
+
+<a>
+
+
+<span>
+
+
+<b> Click here to purchase.
+ </b> </span> </a> </span> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> </tr> <tr> <td>
+
+<a> More Info...
+ </a> </td> </tr> </tbody> </table> </td> <td>
+
+<a>
+
+
+<b> #PCDATA
+ </b> </a> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<b> List Price:
+ </b> </td> <td> <s> #PCDATA </s> </td> </tr> <tr> <td>
+
+<b> Price:
+ </b> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td>
+
+<b> You Save:
+ </b> </td> <td>
+
+<span> #PCDATA
+ </span> </td> </tr> </tbody> </table> </td> <td>
+
+<span> #PCDATA
+
+
+<a>
+
+
+<span>
+
+
+<b> Click here to purchase.
+ </b> </span> </a> </span> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> </tr> <tr> <td>
+
+<a> More Info...
+ </a> </td> </tr> </tbody> </table> </td> <td>
+
+<a>
+
+
+<b> #PCDATA
+ </b> </a> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<b> List Price:
+ </b> </td> <td> <s> #PCDATA </s> </td> </tr> <tr> <td>
+
+<b> Price:
+ </b> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td>
+
+<b> You Save:
+ </b> </td> <td>
+
+<span> #PCDATA
+ </span> </td> </tr> </tbody> </table> </td> <td>
+
+<span> #PCDATA
+
+
+<a>
+
+
+<span>
+
+
+<b> Click here to purchase.
+ </b> </span> </a> </span> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> </tr> <tr> <td>
+
+<a> More Info...
+ </a> </td> </tr> </tbody> </table> </td> <td>
+
+<a>
+
+
+<b> #PCDATA
+ </b> </a> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<b> List Price:
+ </b> </td> <td> <s> #PCDATA </s> </td> </tr> <tr> <td>
+
+<b> Price:
+ </b> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td>
+
+<b> You Save:
+ </b> </td> <td>
+
+<span> #PCDATA
+ </span> </td> </tr> </tbody> </table> </td> <td>
+
+<span> #PCDATA
+
+
+<a>
+
+
+<span>
+
+
+<b> Click here to purchase.
+ </b> </span> </a> </span> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> <tr> <td> <table> <tbody> <tr> <td>
+
+<a>
+ <img> </a> </td> </tr> <tr> <td>
+
+<a> More Info...
+ </a> </td> </tr> </tbody> </table> </td> <td>
+
+<a>
+
+
+<b> #PCDATA
+ </b> </a> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<b> List Price:
+ </b> </td> <td> <s> #PCDATA </s> </td> </tr> <tr> <td>
+
+<b> Price:
+ </b> </td> <td>
+
+<span>
+
+
+<b> #PCDATA
+ </b> </span> </td> </tr> <tr> <td>
+
+<b> You Save:
+ </b> </td> <td>
+
+<span> #PCDATA
+ </span> </td> </tr> </tbody> </table> </td> <td>
+
+<span> #PCDATA
+
+
+<a>
+
+
+<span>
+
+
+<b> Click here to purchase.
+ </b> </span> </a> </span> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <table> <tbody> <tr> <td> <table> <tbody> <tr> <td>
+
+<span>
+
+
+<b> List Sorted By:
+ </b> </span> </td> <td>
+
+<b> Top Sellers
+ </b> |
+
+<a> Discount
+ </a> |
+
+<a> Newest First
+ </a> |
+
+<a> Price
+ </a> |
+
+<a> Quantity
+ </a> |
+
+<a> Markdowns
+ </a> </td> </tr> #PCDATA </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> <tr> <td> <img> </td> <td> © 2003 Overstock.com </td> <td> <img> </td> <td>
+
+<span> * $2.95 flat rate shipping to the lower 48 states only. Some items excluded due to size and/or weight.
+ </span> <img> <img> </td> </tr> <tr> <td> <img> </td> </tr> </tbody> </table> <map> <area> <area> <area> </map> </body> </html> </[document]>
