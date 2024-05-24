@@ -1,0 +1,13 @@
+Searching for documents containing words: ['social', 'services']
+	Hits: 5
+		Doc: 'data/e-uprava.gov.si/e-uprava.gov.si.9.html'
+		Indexes: 57,213,221,58,214
+	Hits: 5
+		Doc: 'data/e-uprava.gov.si/e-uprava.gov.si.45.html'
+		Indexes: 57,213,221,58,214
+	Hits: 1
+		Doc: 'data/podatki.gov.si/podatki.gov.si.340.html'
+		Indexes: 21207
+	Hits: 1
+		Doc: 'data/evem.gov.si/evem.gov.si.661.html'
+		Indexes: 471

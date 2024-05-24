@@ -1,0 +1,10 @@
+Searching for documents containing words: ['znižano']
+	Hits: 2
+		Doc: 'data/e-uprava.gov.si/e-uprava.gov.si.59.html'
+		Indexes: 286,537
+	Hits: 1
+		Doc: 'data/e-uprava.gov.si/e-uprava.gov.si.15.html'
+		Indexes: 166
+	Hits: 1
+		Doc: 'data/e-uprava.gov.si/e-uprava.gov.si.56.html'
+		Indexes: 344
