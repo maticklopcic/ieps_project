@@ -44,23 +44,18 @@ stop_words_slovene = set(
          "četrtek", "četrti", "četrto", "čez", "čigav", "š", "šest", "šesta", "šesti", "šesto", "štiri", "ž", "že",
          "svoj", "jesti", "imeti","\u0161e", "iti", "kak", "www", "km", "eur", "pač", "del", "kljub", "šele", "prek",
          "preko", "znova", "morda","kateri","katero","katera", "ampak", "lahek", "lahka", "lahko", "morati", "torej"])
-# Download necessary NLTK resources
 #nltk.download('punkt')
 #nltk.download('stopwords')
 
 def preprocess_text(html_content):
-    # Parse HTML
     soup = BeautifulSoup(html_content, 'html.parser')
     text = soup.get_text(separator=' ')
     #print(text)
 
-    # Normalize to lowercase
     text = text.lower()
 
-    # Tokenize text
     tokens = word_tokenize(text)
 
-    # Remove stopwords
     #stop_words = set(stopwords.words('english'))
     filtered_tokens = [word for word in tokens if word not in stop_words_slovene and word.isalpha()]
     #print(filtered_tokens)
